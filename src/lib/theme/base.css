@@ -72,3 +72,10 @@ body {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/* La app ocupa al menos toda la ventana: el pie de página queda abajo aunque el contenido sea corto. */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
