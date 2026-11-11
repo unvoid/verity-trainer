@@ -7,7 +7,7 @@
 
 Herramienta para practicar los intercambios de símbolos de **Verity**, el cuarto encuentro de la raid *Filo de la Salvación* de Destiny 2.
 
-**Web:** https://verity-trainer-eight.vercel.app/
+**Web:** https://veritytrainer.vercel.app/
 
 ![Verity Trainer: callouts de la sala interior, estatuas de la sala de disección y símbolos de los caballeros](docs/images/screenshot.png)
 
@@ -54,7 +54,7 @@ Se activan o desactivan al compilar con variables de entorno (ver `.env.example`
 VITE_FEATURE_HINTS=true
 VITE_FEATURE_CHALLENGE_MODE=false
 VITE_FEATURE_SYMBOL_ROUNDS=false
-VITE_SITE_URL=https://verity-trainer-eight.vercel.app
+VITE_SITE_URL=https://veritytrainer.vercel.app
 VITE_REPO_URL=https://github.com/unvoid/verity-trainer
 ```
 
