@@ -25,8 +25,11 @@ src/
       scenarios.ts     # generación de escenarios válidos
     stores/
       game.ts          # estado de la partida
+      drag.ts          # arrastre en curso (símbolo, posición, estatua debajo)
       settings.ts      # ajustes persistidos en localStorage
-    components/        # Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox, GameStatus,
+    actions/
+      dragSymbol.ts    # arrastrar y soltar con Pointer Events
+    components/        # Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox, GameStatus, DragLayer,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShapeMorphLoader, LanguageSelector, UsageGuide
     i18n/
@@ -65,7 +68,7 @@ Dos formas de interactuar, **completas y equivalentes**:
 1. **Arrastrar y soltar** un símbolo hasta una estatua.
    - Con **Pointer Events** (ratón, dedo y lápiz con el mismo código), no con la API de drag and drop de HTML5, cuyo soporte en móvil es irregular.
    - `touch-action` en los elementos arrastrables para no chocar con el scroll.
-   - Alternativa si se complica: `svelte-dnd-action`.
+   - Implementado como action (`use:dragSymbol`) sin librerías: el arrastre empieza a partir de 6 px de movimiento (antes es un toque normal), los destinos se marcan con `data-drop-slot`, y Escape o `pointercancel` lo cancelan.
 2. **Tocar y tocar:** tocar un símbolo (queda resaltado en cobre) y luego una estatua. Más preciso en móvil y base del manejo con teclado.
 
 ## Accesibilidad

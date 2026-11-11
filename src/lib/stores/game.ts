@@ -1,9 +1,11 @@
 /**
  * Store de la partida: une el dominio con la interacción de la UI.
  *
- * Interacción "tocar y tocar": se coge un símbolo (`toggleHold`) y se deposita
- * en una estatua (`depositAt`). La lógica del juego vive en el dominio; aquí
- * solo se guarda el estado y se traduce cada acción en una llamada pura.
+ * Dos formas de depositar, equivalentes:
+ * - Tocar y tocar: se coge un símbolo (`toggleHold`) y se toca una estatua (`depositAt`).
+ * - Arrastrar y soltar: se suelta un símbolo sobre una estatua (`dropAt`).
+ * La lógica del juego vive en el dominio; aquí solo se guarda el estado y se
+ * traduce cada acción en una llamada pura.
  */
 import { writable, type Readable } from 'svelte/store'
 import { isSolved } from '../domain/rules'
@@ -39,6 +41,8 @@ export interface GameStore extends Readable<GameSession> {
   toggleHold(symbol: Symbol2D): void
   /** Deposita el símbolo que se lleva en una estatua. */
   depositAt(slot: Slot): void
+  /** Deposita un símbolo concreto en una estatua (arrastrar y soltar). */
+  dropAt(slot: Slot, symbol: Symbol2D): void
 }
 
 export interface GameStoreDependencies {
@@ -80,22 +84,32 @@ export function createGameStore(
       update((session) => {
         if (session.finishedAt !== null) return session
         if (!session.held) return { ...session, feedback: { kind: 'no-symbol-held', slot } }
-
-        const attempt: Deposit = { slot, symbol: session.held }
-        const result = deposit(session.state, attempt)
-        if (!result.ok) return { ...session, feedback: { kind: 'rejected', error: result.error, deposit: attempt } }
-
-        const { state } = result
-        const previous = session.state.selection
-        const feedback: Feedback =
-          result.swapped && previous
-            ? { kind: 'swapped', swap: { first: previous, second: attempt } }
-            : { kind: 'marked', deposit: attempt }
-        const solved = result.swapped && isSolved(state.callouts, state.statues, session.mode)
-
-        return { ...session, state, held: null, feedback, finishedAt: solved ? now() : null }
+        return applyDeposit(session, { slot, symbol: session.held })
       })
     },
+
+    dropAt(slot, symbol) {
+      update((session) => {
+        if (session.finishedAt !== null) return session
+        return applyDeposit(session, { slot, symbol })
+      })
+    },
+  }
+
+  /** Aplica un depósito. Si se acepta, el jugador se queda sin símbolo en la mano. */
+  function applyDeposit(session: GameSession, attempt: Deposit): GameSession {
+    const result = deposit(session.state, attempt)
+    if (!result.ok) return { ...session, feedback: { kind: 'rejected', error: result.error, deposit: attempt } }
+
+    const { state } = result
+    const previous = session.state.selection
+    const feedback: Feedback =
+      result.swapped && previous
+        ? { kind: 'swapped', swap: { first: previous, second: attempt } }
+        : { kind: 'marked', deposit: attempt }
+    const solved = result.swapped && isSolved(state.callouts, state.statues, session.mode)
+
+    return { ...session, state, held: null, feedback, finishedAt: solved ? now() : null }
   }
 }
 
