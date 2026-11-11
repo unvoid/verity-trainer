@@ -1,0 +1,79 @@
+/*
+ * Tokens del tema. Única fuente de colores, tipografía, espaciado y tiempos.
+ * Los componentes solo usan los tokens semánticos (--color-*, --space-*...),
+ * nunca la paleta base (--palette-*) ni valores sueltos.
+ *
+ * Paleta aproximada de la sala de Verity, pendiente de ajustar con capturas.
+ */
+
+:root {
+  /* Paleta base */
+  --palette-mist: #eef0f6;
+  --palette-lavender: #a3a8cc;
+  --palette-indigo: #2a2c55;
+  --palette-ink: #1e1f3a;
+  --palette-crimson: #9e2443;
+  --palette-copper: #c27a4e;
+
+  /* Colores semánticos (tema claro, por defecto) */
+  --color-bg: var(--palette-mist);
+  --color-surface: color-mix(in srgb, var(--palette-mist), white 50%);
+  --color-text: var(--palette-indigo);
+  --color-text-muted: color-mix(in srgb, var(--palette-indigo), var(--palette-lavender) 45%);
+  --color-border: var(--palette-lavender);
+  --color-silhouette: var(--palette-ink);
+  --color-statue: var(--palette-crimson);
+  --color-active: var(--palette-copper);
+  --color-ember: var(--palette-copper);
+  --color-focus: var(--palette-copper);
+
+  /* Tipografía: Inter (OFL), alojada con el proyecto vía @fontsource-variable/inter */
+  --font-family: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.75rem;
+  --font-weight-regular: 400;
+  --font-weight-bold: 600;
+  --line-height: 1.5;
+
+  /* Espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Formas y trazos (cintas finas de la sala) */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --stroke-thin: 1px;
+  --stroke-focus: 2px;
+
+  /* Tiempos */
+  --duration-fast: 120ms;
+  --duration-normal: 240ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  color-scheme: light;
+}
+
+/* Modo oscuro opcional, derivado de las sombras de la sala */
+:root[data-theme='dark'] {
+  --color-bg: var(--palette-ink);
+  --color-surface: var(--palette-indigo);
+  --color-text: var(--palette-mist);
+  --color-text-muted: var(--palette-lavender);
+  --color-border: color-mix(in srgb, var(--palette-lavender), var(--palette-indigo) 40%);
+  --color-silhouette: var(--palette-mist);
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+  }
+}
