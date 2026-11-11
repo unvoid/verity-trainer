@@ -127,7 +127,7 @@
   .title {
     margin: 0;
     font-family: var(--font-family-display);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
     letter-spacing: 0.08em;
     text-transform: uppercase;

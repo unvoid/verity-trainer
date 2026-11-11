@@ -40,7 +40,8 @@ src/
     components/        # Button, Switch, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
                        # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel, SectionTitle, GearIcon,
                        # SettingsPanel, StartPointEditor, SolverPanel,
-                       # ResultModal, ShardLoader, SplashScreen, SettingsDrawer, LanguageSelector, UsageGuide
+                       # ResultModal, ShardLoader, SplashScreen, Drawer, SettingsDrawer, HelpDrawer,
+                       # HelpIcon, LanguageSelector, UsageGuide
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       en.ts            # textos en inglés (idioma base de las claves)
@@ -109,10 +110,7 @@ Dos formas de interactuar, **completas y equivalentes**:
 
 ### Manual de uso
 
-Breve y en ambos idiomas, accesible desde la web (`UsageGuide`):
+Breve y en ambos idiomas, en un panel lateral abierto con el icono de ayuda de la cabecera (`HelpDrawer` → `UsageGuide`). Ajustes y manual comparten el mismo panel (`Drawer`).
 
-- Objetivo del encuentro y del simulador.
-- Cómo hacer un intercambio (arrastrando o tocando).
-- Condición de victoria en modo normal y en Challenge Mode.
-- Qué hace cada ajuste.
-- Cómo usar el editor de punto de partida y el solucionador.
+- El encuentro, las formas (cada forma 3D con sus dos símbolos, con los iconos de la web), cómo hacer un intercambio (tocando, arrastrando o con teclado), el objetivo y el punto de partida.
+- Los ajustes reutilizan las descripciones del panel de ajustes. Los que no están disponibles en la versión publicada (`features.ts`) se muestran con **"Próximamente"**; al activar uno, la nota desaparece sola.
