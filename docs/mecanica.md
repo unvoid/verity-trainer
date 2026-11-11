@@ -112,7 +112,7 @@ Los ajustes los activa el jugador y se guardan en `localStorage`. Cada uno depen
 
 "Image Callouts" del original no se incluye (ver [hoja-de-ruta.md](hoja-de-ruta.md#dudas-abiertas)).
 
-Al resolver se muestra un resumen con intercambios, mínimo y tiempo. Si se usaron más intercambios de los necesarios, se indica cuántos sobraron y se muestra la solución más corta paso a paso.
+Al resolver se muestra un resumen: "¡Ya podéis salir!" y una frase con intercambios, tiempo y si era el mínimo ("Lo has resuelto en 4 intercambios y 12 s. Se podía hacer en 2."). Si sobraron intercambios, se muestra la solución más corta paso a paso.
 
 ## Solucionador
 

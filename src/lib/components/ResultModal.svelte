@@ -1,5 +1,5 @@
 <!--
-  Resumen al resolver: intercambios, mínimo, tiempo y la solución más corta.
+  Resumen al resolver: una frase con intercambios, tiempo y mínimo, y la solución más corta.
   Usa <dialog> nativo (foco atrapado y Escape para cerrar).
 -->
 <script lang="ts">
@@ -31,6 +31,13 @@
   })
 
   const extra = $derived(swaps - minimum)
+
+  /** Duración legible: segundos, o minutos y segundos a partir de 60 s. */
+  const time = $derived(
+    seconds < 60
+      ? $t('time.seconds', { seconds })
+      : $t('time.minutes', { minutes: Math.floor(seconds / 60), seconds: seconds % 60 }),
+  )
 </script>
 
 <dialog bind:this={dialog} class="result" aria-labelledby="result-title" onclose={onclose}>
@@ -40,22 +47,9 @@
     <p class="mode">{$t('status.mode.challenge')}</p>
   {/if}
 
-  <dl class="stats">
-    <div>
-      <dt>{$t('result.swaps')}</dt>
-      <dd>{swaps}</dd>
-    </div>
-    <div>
-      <dt>{$t('result.minimum')}</dt>
-      <dd>{minimum}</dd>
-    </div>
-    <div>
-      <dt>{$t('result.time')}</dt>
-      <dd>{$t('result.seconds', { seconds })}</dd>
-    </div>
-  </dl>
-
-  <p class="verdict">{extra > 0 ? $tn('result.extra', extra) : $t('result.optimal')}</p>
+  <p class="summary">
+    {$tn(extra > 0 ? 'result.summary.extra' : 'result.summary.optimal', swaps, { time, minimum })}
+  </p>
 
   {#if extra > 0 && solution.length > 0}
     <h3>{$t('result.solution')}</h3>
@@ -112,6 +106,10 @@
     font-weight: var(--font-weight-bold);
   }
 
+  .summary {
+    margin-top: var(--space-6);
+  }
+
   .subtitle {
     margin-top: var(--space-2);
     font-size: var(--font-size-sm);
@@ -124,29 +122,9 @@
     color: var(--color-text-muted);
   }
 
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-3);
-    margin: var(--space-6) 0 var(--space-4);
-  }
 
-  .stats div {
-    padding: var(--space-3);
-    background: var(--color-surface);
-    border-radius: var(--radius-sm);
-  }
 
-  dt {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-  }
 
-  dd {
-    margin: 0;
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-  }
 
   .steps {
     margin: var(--space-2) 0 0;
