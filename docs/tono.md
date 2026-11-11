@@ -17,6 +17,7 @@ Cómo se escriben los textos de la interfaz, en español y en inglés. Los texto
 | Concepto | Español | Inglés | Nota |
 |---|---|---|---|
 | Símbolos interiores | callouts | callouts | Jerga de la comunidad en ambos idiomas |
+| Sala de las estatuas | Sala de disección | Dissection room | "Disección": como la comunidad llama al trabajo de fuera |
 | Enemigos que sueltan símbolos | caballeros | knights | |
 | Enemigos entre rondas | ogros | ogres | |
 | Formas 2D | Círculo, Cuadrado, Triángulo | Circle, Square, Triangle | |

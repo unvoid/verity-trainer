@@ -13,6 +13,7 @@
   import { SLOTS, type Slot, type Symbol2D as SymbolName } from '../domain/types'
   import { t } from '../i18n'
   import LifeBar from './LifeBar.svelte'
+  import SectionTitle from './SectionTitle.svelte'
   import Symbol2D from './Symbol2D.svelte'
 
   interface Props {
@@ -31,7 +32,7 @@
     ondefeatknight?: (slot: Slot) => void
   }
 
-  let { held, drops = null, disabled = false, size = 48, ontoggle, ondrop, ondefeatknight }: Props = $props()
+  let { held, drops = null, disabled = false, size = 56, ontoggle, ondrop, ondefeatknight }: Props = $props()
 
   function statusOf(slot: Slot) {
     return drops ? drops.slots[slot].status : 'dropped'
@@ -39,7 +40,7 @@
 </script>
 
 <section class="toolbox" aria-labelledby="toolbox-title">
-  <h2 id="toolbox-title">{$t('toolbox.title')}</h2>
+  <SectionTitle id="toolbox-title">{$t('toolbox.title')}</SectionTitle>
   <p class="hint">{$t(drops ? 'toolbox.hint.rounds' : 'toolbox.hint')}</p>
   <div class="drops">
     {#each SLOTS as slot (slot)}
@@ -49,14 +50,15 @@
       {#if status === 'dropped'}
         <button
           type="button"
-          class="drop"
+          class="drop tile"
           aria-pressed={held === symbol}
+          aria-label={$t('knight.drop', { symbol: symbolName, knight: $t(`knight.${slot}`) })}
           {disabled}
           onclick={() => ontoggle(symbol)}
           use:dragSymbol={{ symbol, disabled, ondrop }}
         >
           <Symbol2D {symbol} {size} />
-          <span>{$t('knight.drop', { symbol: symbolName, knight: $t(`knight.${slot}`) })}</span>
+          <span class="tile-label">{$t(`position.${slot}`)}</span>
           {#if drops}
             <LifeBar drop={drops.slots[slot]} />
           {/if}
@@ -64,19 +66,18 @@
       {:else if status === 'knight'}
         <button
           type="button"
-          class="drop knight"
+          class="drop tile knight"
           {disabled}
           aria-label={$t('knight.defeat.label', { knight: $t(`knight.${slot}`), symbol: $t(`symbol.ref.${symbol}`) })}
           onclick={() => ondefeatknight?.(slot)}
         >
           <span class="faded"><Symbol2D {symbol} {size} /></span>
-          <span>{$t(`knight.${slot}`)}</span>
-          <span class="action">{$t('knight.defeat')}</span>
+          <span class="tile-label action">{$t('knight.defeat')}</span>
         </button>
       {:else}
-        <div class="drop spent" aria-label="{symbolName}: {$t(`drop.${status}`)}" role="img">
+        <div class="drop tile spent" aria-label="{symbolName}: {$t(`drop.${status}`)}" role="img">
           <span class="faded"><Symbol2D {symbol} {size} /></span>
-          <span>{$t(`drop.${status}`)}</span>
+          <span class="tile-label">{$t(`drop.${status}`)}</span>
         </div>
       {/if}
     {/each}
@@ -84,14 +85,8 @@
 </section>
 
 <style>
-  h2 {
-    margin: 0;
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-bold);
-  }
-
   .hint {
-    margin: var(--space-1) 0 var(--space-3);
+    margin: calc(-1 * var(--space-2)) 0 var(--space-3);
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
   }
@@ -103,22 +98,18 @@
   }
 
   .drop {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    font: inherit;
-    font-size: var(--font-size-sm);
-    color: var(--color-text);
-    background: var(--color-surface);
-    border: var(--stroke-thin) solid var(--color-border);
-    border-radius: var(--radius-md);
     cursor: grab;
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
-    transition: border-color var(--duration-fast) var(--easing-standard);
+    transition:
+      outline-color var(--duration-fast) var(--easing-standard),
+      background-color var(--duration-fast) var(--easing-standard);
+  }
+
+  /* Al pasar por encima, el plano se oscurece un poco; nada se mueve. */
+  .drop:hover:not(:disabled) {
+    background: var(--color-surface-hover);
   }
 
   .drop:disabled {
@@ -126,31 +117,31 @@
     opacity: var(--control-disabled-opacity);
   }
 
+  /* Símbolo que llevas: contorno cobre (lo activo). */
   .drop[aria-pressed='true'] {
-    border-color: var(--color-active);
-    box-shadow: 0 0 0 var(--stroke-thin) var(--color-active);
+    outline: var(--stroke-focus) solid var(--color-active);
   }
 
-  /* Caballero por derrotar: contorno discontinuo, se toca (no se arrastra). */
+  /* Caballero por derrotar: símbolo atenuado y acción; se toca (no se arrastra). */
   .knight {
-    border-style: dashed;
     cursor: pointer;
     touch-action: auto;
   }
 
-  .knight:hover:not(:disabled) {
-    border-color: var(--control-border-hover);
+  .knight:hover:not(:disabled) .action {
+    text-decoration: underline;
   }
 
   .action {
     font-weight: var(--font-weight-bold);
+    color: var(--color-text);
   }
 
   /* Símbolo usado o caducado: hueco vacío. */
+  /* Usado o caducado: hueco vacío, sin plano. */
   .spent {
     color: var(--color-text-muted);
     background: transparent;
-    border-style: dashed;
     cursor: default;
   }
 

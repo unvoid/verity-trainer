@@ -4,6 +4,7 @@
 -->
 <script lang="ts">
   import type { Symbol2D } from '../domain/types'
+  import { SILHOUETTES, VISUAL_CENTER_Y } from '../visual/silhouettes'
 
   interface Props {
     symbol: Symbol2D
@@ -16,16 +17,6 @@
   let { symbol, size = 48, label }: Props = $props()
 
   const gradientId = $props.id()
-
-  /** Siluetas en un lienzo de 100×100. */
-  const SILHOUETTES: Record<Symbol2D, string> = {
-    circle: 'M50 8 a42 42 0 1 1 0 84 a42 42 0 1 1 0 -84 Z',
-    square: 'M12 12 H88 V88 H12 Z',
-    triangle: 'M50 8 L94 88 H6 Z',
-  }
-
-  /** Centro de la brasa: en el triángulo baja hacia su centro visual. */
-  const EMBER_CENTER_Y: Record<Symbol2D, number> = { circle: 50, square: 50, triangle: 62 }
 </script>
 
 <svg
@@ -38,7 +29,7 @@
   aria-hidden={label ? undefined : 'true'}
 >
   <defs>
-    <radialGradient id={gradientId} cx="50" cy={EMBER_CENTER_Y[symbol]} r="26" gradientUnits="userSpaceOnUse">
+    <radialGradient id={gradientId} cx="50" cy={VISUAL_CENTER_Y[symbol]} r="26" gradientUnits="userSpaceOnUse">
       <stop offset="0%" class="ember-core" />
       <stop offset="45%" class="ember-glow" />
       <stop offset="100%" class="ember-edge" />

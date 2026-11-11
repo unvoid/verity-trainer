@@ -5,7 +5,9 @@
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
   import OgrePanel from './lib/components/OgrePanel.svelte'
   import ResultModal from './lib/components/ResultModal.svelte'
-  import SettingsPanel from './lib/components/SettingsPanel.svelte'
+  import SectionTitle from './lib/components/SectionTitle.svelte'
+  import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
+  import SplashScreen from './lib/components/SplashScreen.svelte'
   import StartPointEditor from './lib/components/StartPointEditor.svelte'
   import Statue from './lib/components/Statue.svelte'
   import Toolbox from './lib/components/Toolbox.svelte'
@@ -18,6 +20,9 @@
   import { game } from './lib/stores/game'
   import { activeSettings, modeOf } from './lib/stores/settings'
   import { setup } from './lib/stores/setup'
+
+  /** Pantalla de entrada: se ve al menos una vez al abrir la web. */
+  let splash = $state(true)
 
   /** Preparación del punto de partida o partida en curso. */
   let phase = $state<'setup' | 'playing'>('setup')
@@ -90,19 +95,33 @@
   <title>{$t('app.title')}</title>
 </svelte:head>
 
-<header class="app-header">
-  <h1>{$t('app.title')}</h1>
-  <LanguageSelector />
+{#if splash}
+  <SplashScreen onfinish={() => (splash = false)} />
+{/if}
+
+<header class="app-header" inert={splash}>
+  <div class="header-inner">
+    <h1>{$t('app.title')}</h1>
+    <div class="header-actions">
+      <SettingsDrawer playing={phase === 'playing'} />
+      <LanguageSelector />
+    </div>
+  </div>
 </header>
 
-<main class="app-main">
+<main class="app-main" inert={splash}>
   {#if phase === 'setup'}
     <StartPointEditor onstart={startTraining} />
   {:else}
     <CalloutPanel callouts={$game.state.callouts} />
 
     <section aria-labelledby="statues-title">
-      <h2 id="statues-title" class="visually-hidden">{$t('statues.title')}</h2>
+      <SectionTitle id="statues-title">
+        {$t('statues.title')}
+        {#if $game.mode === 'challenge'}
+          <span class="title-note">({$t('status.mode.challenge')})</span>
+        {/if}
+      </SectionTitle>
       <div class="statues">
         {#each SLOTS as slot (slot)}
           <Statue
@@ -136,7 +155,6 @@
     <GameStatus
       swaps={$game.state.swaps}
       held={$game.held}
-      mode={$game.mode}
       feedback={$game.feedback}
       {remaining}
       onnewgame={backToSetup}
@@ -144,7 +162,6 @@
     />
   {/if}
 
-  <SettingsPanel playing={phase === 'playing'} />
 </main>
 
 <DragLayer />
@@ -164,27 +181,51 @@
 {/if}
 
 <style>
+  /* Cabecera a todo el ancho sobre un plano de tono; su contenido, alineado con el tablero. */
   .app-header {
+    background: var(--color-surface);
+  }
+
+  .header-inner {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    padding: var(--space-4) var(--space-6);
-    border-bottom: var(--stroke-thin) solid var(--color-border);
+    margin-inline: auto;
+    padding: var(--space-4);
+  }
+
+  /* Aclaración junto a un título de sección: texto normal, no en mayúsculas. */
+  .title-note {
+    margin-left: var(--space-1);
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-regular);
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--color-text-muted);
+  }
+
+  .header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   h1 {
     margin: 0;
-    font-size: var(--font-size-xl);
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-md);
     font-weight: var(--font-weight-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .app-main {
     display: flex;
     flex-direction: column;
     gap: var(--space-8);
-    max-width: 40rem;
+    max-width: var(--content-width);
     margin-inline: auto;
     padding: var(--space-6) var(--space-4);
   }
@@ -195,12 +236,4 @@
     gap: var(--space-3);
   }
 
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
 </style>

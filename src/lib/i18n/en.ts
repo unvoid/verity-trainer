@@ -8,6 +8,7 @@
  */
 export const en = {
   'app.title': 'Verity Trainer',
+  'loader.label': 'Loading…',
 
   'language.label': 'Language',
   'language.name.es': 'Español',
@@ -44,11 +45,11 @@ export const en = {
   // Game
   'callouts.title': 'Inside room',
   'callouts.item': '{position}: {symbol}',
-  'statues.title': 'Statues',
+  'statues.title': 'Dissection room',
   'statue.label': '{statue}: {shape}',
   'statue.marked': 'marked with {symbol}',
   'statue.accepts': 'accepts the symbol you hold',
-  'toolbox.title': 'Symbols',
+  'toolbox.title': 'Knight symbols',
   'toolbox.hint': 'Tap a symbol and then a statue, or drag it there.',
   'toolbox.hint.rounds': 'Defeat a knight to get its symbol. Symbols you don’t use expire.',
   'knight.defeat': 'Defeat',

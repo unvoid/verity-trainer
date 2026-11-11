@@ -3,6 +3,7 @@ import type { Messages } from './core'
 /** Textos en español. Mismas claves que `en.ts` (idioma base). Tono: docs/tono.md. */
 export const es: Messages = {
   'app.title': 'Simulador de Verity',
+  'loader.label': 'Cargando…',
 
   'language.label': 'Idioma',
   'language.name.es': 'Español',
@@ -39,11 +40,11 @@ export const es: Messages = {
   // Partida
   'callouts.title': 'Sala interior',
   'callouts.item': '{position}: {symbol}',
-  'statues.title': 'Estatuas',
+  'statues.title': 'Sala de disección',
   'statue.label': '{statue}: {shape}',
   'statue.marked': 'marcada con {symbol}',
   'statue.accepts': 'admite el símbolo que llevas',
-  'toolbox.title': 'Símbolos',
+  'toolbox.title': 'Símbolos de los caballeros',
   'toolbox.hint': 'Toca un símbolo y luego una estatua, o arrástralo hasta ella.',
   'toolbox.hint.rounds': 'Derrota a un caballero para conseguir su símbolo. Los símbolos que no uses caducan.',
   'knight.defeat': 'Derrotar',

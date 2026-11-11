@@ -1,5 +1,5 @@
 import { mount } from 'svelte'
-import '@fontsource-variable/inter'
+import '@fontsource-variable/montserrat'
 import './lib/theme/tokens.css'
 import './lib/theme/base.css'
 import App from './App.svelte'

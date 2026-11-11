@@ -10,9 +10,8 @@
 </script>
 
 <div class="language-selector">
-  <label for={id}>{$t('language.label')}</label>
   <span class="select">
-    <select {id} bind:value={$locale}>
+    <select {id} bind:value={$locale} aria-label={$t('language.label')}>
       {#each LOCALES as option (option)}
         <option value={option} lang={option}>{$t(`language.name.${option}`)}</option>
       {/each}
@@ -24,8 +23,7 @@
   .language-selector {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
   }
 
   .select {
@@ -49,18 +47,23 @@
 
   select {
     appearance: none;
-    min-height: calc(var(--control-height) * 0.8);
+    min-height: var(--control-height-sm);
     padding: 0 calc(var(--space-3) * 2 + 0.4em) 0 var(--space-3);
     font: inherit;
-    color: var(--control-text);
-    background: var(--control-bg);
-    border: var(--stroke-thin) solid var(--control-border);
+    color: var(--color-text);
+    background: transparent;
+    border: 0;
     border-radius: var(--control-radius);
     cursor: pointer;
-    transition: border-color var(--duration-fast) var(--easing-standard);
+    transition: background-color var(--duration-fast) var(--easing-standard);
+  }
+
+  /* La flecha hereda el color del selector. */
+  .select {
+    color: var(--color-text);
   }
 
   select:hover {
-    border-color: var(--control-border-hover);
+    background: var(--control-bg-hover);
   }
 </style>
