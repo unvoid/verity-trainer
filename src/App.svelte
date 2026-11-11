@@ -124,7 +124,7 @@
 
 <header class="app-header" inert={splash}>
   <div class="header-inner">
-    <h1>{$t('app.title')}</h1>
+    <h1><a class="home-link" href={import.meta.env.BASE_URL}>{$t('app.title')}</a></h1>
     <div class="header-actions">
       <HelpDrawer />
       <SettingsDrawer playing={phase === 'playing'} />
@@ -256,6 +256,12 @@
     font-weight: var(--font-weight-bold);
     letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  /* El título vuelve al inicio recargando la página; se ve igual que un título. */
+  .home-link {
+    color: inherit;
+    text-decoration: none;
   }
 
   .app-main {
