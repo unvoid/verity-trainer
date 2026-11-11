@@ -22,14 +22,17 @@ src/
       rules.ts         # validación del punto de partida, condición de victoria
       swap.ts          # depósito e intercambio
       solver.ts        # BFS y secuencia mínima
+      editor.ts        # edición del punto de partida: opciones válidas y autocompletado
       scenarios.ts     # generación de escenarios válidos
     stores/
       game.ts          # estado de la partida
       drag.ts          # arrastre en curso (símbolo, posición, estatua debajo)
+      setup.ts         # punto de partida en edición (propuesta aleatoria personalizable)
       settings.ts      # ajustes persistidos en localStorage
     actions/
       dragSymbol.ts    # arrastrar y soltar con Pointer Events
-    components/        # Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox, GameStatus, DragLayer,
+    components/        # Button, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox, GameStatus,
+                       # DragLayer, SlotPicker,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShapeMorphLoader, LanguageSelector, UsageGuide
     i18n/

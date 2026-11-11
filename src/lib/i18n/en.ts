@@ -52,6 +52,19 @@ export const en: Messages = {
   'feedback.marked': '{statue} marked with {symbol}.',
   'feedback.swapped': 'Swap: {firstSymbol} from {firstStatue} ↔ {secondSymbol} from {secondStatue}.',
 
+  'setup.title': 'Starting point',
+  'setup.intro': 'Random proposal. Change it to recreate a real run.',
+  'setup.callouts': 'Inside room callouts',
+  'setup.statues': 'Statue shapes',
+  'setup.group-hint': 'After changing one, pick another: the third fills in by itself.',
+  'setup.empty': 'Not chosen',
+  'setup.incomplete': 'Complete the callouts and statues to start.',
+  'setup.warning.starts-solved': 'Note: this statue starts without its callout symbol (already solved): {statues}. We are not sure this can happen in the game.',
+  'setup.warning.starts-solved.plural': 'Note: these statues start without their callout symbol (already solved): {statues}. We are not sure this can happen in the game.',
+
+  'action.start': 'Start training',
+  'action.propose': 'Another proposal',
+
   'action.new-game': 'New game',
   'action.restart': 'Restart',
 }

@@ -15,7 +15,7 @@
 | 3 | **Solucionador:** BFS, secuencia mínima, ambos modos. Con tests | Hecho |
 | 4 | **UI básica:** callouts, estatuas, caja de símbolos, intercambio tocando, condición de victoria | Hecho |
 | 5 | **Arrastrar y soltar** con Pointer Events | Hecho |
-| 6 | **Editor de punto de partida** con validación | |
+| 6 | **Editor de punto de partida** con validación | Hecho |
 | 7 | **Ajustes:** pistas, Challenge Mode, Realistic Symbol Drops, persistencia | |
 | 8 | **Estética:** formas SVG, paleta definitiva, loader, modo oscuro | |
 | 9 | **Manual de uso** ES/EN | |
