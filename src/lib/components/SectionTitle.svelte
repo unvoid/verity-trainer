@@ -10,13 +10,15 @@
     id?: string
     /** Nivel del encabezado. */
     level?: 2 | 3
+    /** Subapartado de otra sección: algo más pequeño. */
+    sub?: boolean
     children: Snippet
   }
 
-  let { id, level = 2, children }: Props = $props()
+  let { id, level = 2, sub = false, children }: Props = $props()
 </script>
 
-<svelte:element this={`h${level}`} {id} class="section-title">
+<svelte:element this={`h${level}`} {id} class="section-title" class:sub>
   {@render children()}
 </svelte:element>
 
@@ -29,5 +31,9 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text);
+  }
+
+  .sub {
+    font-size: var(--font-size-2xs);
   }
 </style>
