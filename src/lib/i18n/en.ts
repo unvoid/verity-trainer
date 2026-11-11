@@ -143,7 +143,7 @@ export const en = {
 
   // Result
   'result.title': 'Everyone can get out!',
-  'result.subtitle': 'All three statues are ready: your teammates can leave the inside room.',
+  'result.subtitle': 'All three statues are ready: the Guardians in the inside room can get out.',
   'result.summary.optimal.one': 'You solved it in {count} swap and {time}, the minimum possible.',
   'result.summary.optimal.other': 'You solved it in {count} swaps and {time}, the minimum possible.',
   'result.summary.extra.one': 'You solved it in {count} swap and {time}. It could be done in {minimum}.',
