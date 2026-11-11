@@ -97,3 +97,16 @@ Los ajustes se guardan en `localStorage`. Al resolver se muestra un resumen con 
 - Devuelve la secuencia mínima de intercambios: qué símbolo de qué estatua con cuál.
 - En Challenge Mode tiene en cuenta ambas soluciones (A y B) y elige la de menos pasos.
 - Se usa en las pistas, en el aviso final ("solo necesitabas X") y en la vista paso a paso.
+
+### Mínimos de intercambios
+
+Resultados del solucionador sobre los 36 escenarios que cumplen las tres reglas:
+
+| Estatuas al inicio | Modo normal | Challenge Mode | Escenarios |
+|---|---|---|---|
+| Las tres puras | 3 | 4 (A y B igual de cerca) | 6 |
+| Alguna mixta | 2 | 3 (A y B igual de cerca) | 18 |
+| Alguna mixta | 2 | 2 (solo por una de las dos soluciones) | 12 |
+
+- En modo normal coincide con la regla fija del original (3 si todas empiezan puras, 2 si no).
+- En Challenge Mode, en 6 escenarios la solución B es más corta que la A: las pistas del original, que solo muestran la A, piden un intercambio de más.

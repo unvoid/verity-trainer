@@ -12,7 +12,7 @@
 |---|---|---|
 | 1 | **Base:** Vite + Svelte + TS, Vitest, tema y tokens, idiomas ES/EN | Hecho |
 | 2 | **Dominio:** tipos, formas, reglas, intercambio, generación de escenarios. Con tests | Hecho |
-| 3 | **Solucionador:** BFS, secuencia mínima, ambos modos. Con tests | |
+| 3 | **Solucionador:** BFS, secuencia mínima, ambos modos. Con tests | Hecho |
 | 4 | **UI básica:** callouts, estatuas, caja de símbolos, intercambio tocando, condición de victoria | |
 | 5 | **Arrastrar y soltar** con Pointer Events | |
 | 6 | **Editor de punto de partida** con validación | |
