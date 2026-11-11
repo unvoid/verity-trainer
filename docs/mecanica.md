@@ -95,10 +95,13 @@ Los ajustes los activa el jugador y se guardan en `localStorage`. Cada uno depen
   - Las estatuas que admiten el símbolo que llevas se resaltan.
   - Cuántos intercambios faltan como mínimo desde el estado actual (lo calcula el solucionador, en ambos modos).
 - **Modo desafío** (Challenge Mode): ver la condición de victoria. Se elige antes de iniciar el entreno; durante la partida no se puede cambiar.
-- **Símbolos por rondas** (pendiente de implementar):
-  - Un símbolo soltado desaparece a los 10 s si no se usa.
-  - Cuando los tres se han usado o han desaparecido, aparecen ogros; al matarlos vuelven los caballeros.
+- **Símbolos por rondas** (nuestro nombre para el *Realistic Symbol Drops* del original). Se elige antes de iniciar el entreno:
+  - Al empezar hay un caballero en cada posición. Al derrotarlo suelta su símbolo.
+  - Un símbolo soltado caduca a los 10 s si no se usa. Mientras lo llevas no caduca; si lo sueltas sin usarlo, vuelve a contar desde cero.
+  - Depositar un símbolo lo gasta (un depósito rechazado no lo gasta).
+  - Cuando los tres se han usado o han caducado, aparecen dos ogros. Al derrotar a ambos, los caballeros vuelven a los 3 s.
   - Sin este ajuste, los símbolos están siempre disponibles.
+  - Caballeros y ogros se representan sin imágenes: texto, contornos y el símbolo atenuado.
 
 "Image Callouts" del original no se incluye (ver [hoja-de-ruta.md](hoja-de-ruta.md#dudas-abiertas)).
 

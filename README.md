@@ -50,7 +50,7 @@ Algunas funcionalidades se pueden activar o desactivar al compilar, con variable
 ```sh
 VITE_FEATURE_HINTS=true
 VITE_FEATURE_CHALLENGE_MODE=false
-VITE_FEATURE_SYMBOL_ROUNDS=false
+VITE_FEATURE_SYMBOL_ROUNDS=true
 ```
 
 Una funcionalidad desactivada no aparece en la web. Más detalle en [docs/arquitectura.md](docs/arquitectura.md#funcionalidades-y-ajustes).

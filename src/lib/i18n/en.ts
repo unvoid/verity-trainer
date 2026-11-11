@@ -50,6 +50,17 @@ export const en = {
   'statue.accepts': 'accepts the symbol you hold',
   'toolbox.title': 'Symbols',
   'toolbox.hint': 'Tap a symbol and then a statue, or drag it there.',
+  'toolbox.hint.rounds': 'Defeat a knight to get its symbol. Symbols you don’t use expire.',
+  'knight.defeat': 'Defeat',
+  'knight.defeat.label': '{knight}: defeat it to drop the {symbol}',
+  'drop.used': 'Used',
+  'drop.expired': 'Expired',
+  'ogres.title': 'Ogres',
+  'ogres.hint': 'Defeat both ogres to bring the knights back.',
+  'ogre.left': 'Left ogre',
+  'ogre.right': 'Right ogre',
+  'ogre.defeated': 'Defeated',
+  'rounds.respawn': 'The knights return in {seconds} s.',
   'knight.drop': '{symbol} ({knight})',
   'status.swaps': 'Swaps: {count}',
   'status.holding': 'Holding: {symbol}',
@@ -61,6 +72,12 @@ export const en = {
   'feedback.statue-already-selected': 'You already marked {statue}. Use another one.',
   'feedback.marked': 'You marked {statue} with the {symbol}.',
   'feedback.swapped': 'Swapped the {firstSymbol} from {firstStatue} with the {secondSymbol} from {secondStatue}.',
+  'feedback.symbol-unavailable': 'The {symbol} is not available right now.',
+  'feedback.knight-defeated': 'The knight dropped the {symbol}.',
+  'feedback.expired.one': 'The {symbols} expired.',
+  'feedback.expired.other': 'Expired: {symbols}.',
+  'feedback.ogres-appeared': 'Two ogres have appeared.',
+  'feedback.knights-returned': 'The knights are back.',
 
   // Hints
   'hint.symbols': 'Statue symbols',
@@ -90,9 +107,10 @@ export const en = {
   'settings.challenge-mode': 'Challenge Mode',
   'settings.challenge-mode.description':
     'Besides avoiding its callout symbol, each statue must end as a pure shape: sphere, cube or pyramid.',
-  'settings.challenge-mode.locked': 'Change it before starting a training.',
+  'settings.locked': 'Change it before starting a training.',
   'settings.symbol-rounds': 'Symbol rounds',
-  'settings.symbol-rounds.description': "Symbols come in rounds and expire if you don't use them in time.",
+  'settings.symbol-rounds.description':
+    'Symbols drop when you defeat the knights and expire after 10 s if unused. Once they run out, ogres appear; defeating them brings the knights back.',
 
   // Result
   'result.title': 'Solved!',

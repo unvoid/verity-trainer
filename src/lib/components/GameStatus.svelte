@@ -4,7 +4,7 @@
 -->
 <script lang="ts">
   import type { Mode, Symbol2D } from '../domain/types'
-  import { t, tn } from '../i18n'
+  import { locale, t, tn } from '../i18n'
   import type { Feedback } from '../stores/game'
   import Button from './Button.svelte'
 
@@ -43,6 +43,17 @@
           secondSymbol: $t(`symbol.ref.${feedback.swap.second.symbol}`),
           secondStatue: $t(`statue.ref.${feedback.swap.second.slot}`),
         })
+      case 'symbol-unavailable':
+      case 'knight-defeated':
+        return $t(`feedback.${feedback.kind}`, { symbol: $t(`symbol.ref.${feedback.symbol}`) })
+      case 'expired': {
+        const names = feedback.symbols.map((symbol) => $t(`symbol.ref.${symbol}`))
+        const symbols = new Intl.ListFormat($locale, { type: 'conjunction' }).format(names)
+        return $tn('feedback.expired', names.length, { symbols })
+      }
+      case 'ogres-appeared':
+      case 'knights-returned':
+        return $t(`feedback.${feedback.kind}`)
     }
   })
 </script>

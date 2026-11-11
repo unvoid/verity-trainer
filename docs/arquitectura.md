@@ -23,17 +23,19 @@ src/
       swap.ts          # depósito e intercambio
       solver.ts        # BFS y secuencia mínima
       editor.ts        # edición del punto de partida: opciones válidas y autocompletado
+      drops.ts         # símbolos por rondas: caballeros, caducidad, ogros
       scenarios.ts     # generación de escenarios válidos
     stores/
       game.ts          # estado de la partida
       drag.ts          # arrastre en curso (símbolo, posición, estatua debajo)
       setup.ts         # punto de partida en edición (propuesta aleatoria personalizable)
       settings.ts      # ajustes del jugador, persistidos en localStorage
+      clock.ts         # hora actual para cuentas atrás (solo corre con suscriptores)
     actions/
       dragSymbol.ts    # arrastrar y soltar con Pointer Events
     features.ts        # funcionalidades disponibles en la versión (interruptores de compilación)
     components/        # Button, Switch, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
-                       # GameStatus, DragLayer, SlotPicker,
+                       # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShapeMorphLoader, LanguageSelector, UsageGuide
     i18n/
@@ -68,15 +70,14 @@ Dos niveles distintos:
 - El código de una funcionalidad desactivada sigue en el build (solo se oculta y se ignora). Es suficiente para no exponerla; si algún día importa el tamaño, se puede hacer que el minificador la elimine.
 - Funcionalidades: `hints` (pistas), `challengeMode` (modo desafío), `symbolRounds` (símbolos por rondas; desactivada por defecto hasta implementarla).
 
-## Puntos de extensión
+## Símbolos por rondas
 
-### Rondas de símbolos
+Implementado en `domain/drops.ts` (funciones puras con la hora inyectada) y en el store de la partida:
 
-Hoy los símbolos están siempre disponibles, como en el original. Si se quiere un modo por rondas (símbolos que se gastan, caballeros y ogros que hay que matar; ver [mecanica.md](mecanica.md#elementos)), el diseño ya lo permite sin rehacer nada:
-
-- **Caja de símbolos:** `Toolbox` acepta `available`, la disponibilidad por caballero.
-- **Store de la partida:** todo depósito pasa por `depositAt`; ahí se marcaría el símbolo como gastado.
-- **Lógica de rondas:** iría en el dominio (p. ej. `domain/drops.ts`) como funciones puras: matar caballero, gastar símbolo, nueva ronda. Los tiempos (desaparición a los 10 s, reaparición) se inyectarían igual que `now`.
+- El store guarda el estado de las rondas (`drops`) solo si la partida se inicia con el ajuste activo.
+- `tick()` avanza el tiempo; la app lo llama cada 200 ms mientras hay una partida con rondas en curso. Si no pasa nada, el store no cambia.
+- Las cuentas atrás visibles usan `stores/clock.ts`, que solo corre mientras hay componentes que lo usan.
+- Los tiempos (10 s de caducidad, 3 s de vuelta) son `DEFAULT_TIMINGS` y se pueden inyectar.
 
 ## Interacción
 

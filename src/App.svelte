@@ -3,6 +3,7 @@
   import DragLayer from './lib/components/DragLayer.svelte'
   import GameStatus from './lib/components/GameStatus.svelte'
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
+  import OgrePanel from './lib/components/OgrePanel.svelte'
   import ResultModal from './lib/components/ResultModal.svelte'
   import SettingsPanel from './lib/components/SettingsPanel.svelte'
   import StartPointEditor from './lib/components/StartPointEditor.svelte'
@@ -12,6 +13,7 @@
   import { depositError } from './lib/domain/swap'
   import { SLOTS, type Scenario, type Slot } from './lib/domain/types'
   import { t } from './lib/i18n'
+  import { CLOCK_INTERVAL_MS } from './lib/stores/clock'
   import { drag } from './lib/stores/drag'
   import { game } from './lib/stores/game'
   import { activeSettings, modeOf } from './lib/stores/settings'
@@ -21,7 +23,7 @@
   let phase = $state<'setup' | 'playing'>('setup')
 
   function startTraining(scenario: Scenario) {
-    game.newGame(scenario, modeOf($activeSettings))
+    game.newGame(scenario, { mode: modeOf($activeSettings), rounds: $activeSettings.symbolRounds })
     phase = 'playing'
   }
 
@@ -32,6 +34,14 @@
 
   const finished = $derived($game.finishedAt !== null)
   const hints = $derived($activeSettings.hints)
+
+  /** Rondas: el tiempo avanza solo mientras hay una partida en curso con rondas. */
+  const roundsRunning = $derived(phase === 'playing' && $game.drops !== null && !finished)
+  $effect(() => {
+    if (!roundsRunning) return
+    const id = setInterval(game.tick, CLOCK_INTERVAL_MS)
+    return () => clearInterval(id)
+  })
 
   /** Pista: intercambios mínimos que faltan desde el estado actual. */
   const remaining = $derived(
@@ -110,7 +120,18 @@
       </div>
     </section>
 
-    <Toolbox held={$game.held} disabled={finished} ontoggle={game.toggleHold} ondrop={game.dropAt} />
+    <Toolbox
+      held={$game.held}
+      drops={$game.drops}
+      disabled={finished}
+      ontoggle={game.toggleHold}
+      ondrop={game.dropAt}
+      ondefeatknight={game.defeatKnight}
+    />
+
+    {#if $game.drops}
+      <OgrePanel drops={$game.drops} disabled={finished} ondefeat={game.defeatOgre} />
+    {/if}
 
     <GameStatus
       swaps={$game.state.swaps}

@@ -9,7 +9,7 @@
   import Switch from './Switch.svelte'
 
   interface Props {
-    /** Hay un entreno en curso: el modo no se puede cambiar. */
+    /** Hay un entreno en curso: el modo y las rondas no se pueden cambiar. */
     playing?: boolean
   }
 
@@ -37,7 +37,7 @@
         id="setting-challenge-mode"
         label={$t('settings.challenge-mode')}
         description={$t('settings.challenge-mode.description')}
-        note={playing ? $t('settings.challenge-mode.locked') : undefined}
+        note={playing ? $t('settings.locked') : undefined}
         checked={$settings.challengeMode}
         disabled={playing}
         onchange={(value) => settings.set('challengeMode', value)}
@@ -49,7 +49,9 @@
         id="setting-symbol-rounds"
         label={$t('settings.symbol-rounds')}
         description={$t('settings.symbol-rounds.description')}
+        note={playing ? $t('settings.locked') : undefined}
         checked={$settings.symbolRounds}
+        disabled={playing}
         onchange={(value) => settings.set('symbolRounds', value)}
       />
     {/if}
