@@ -7,7 +7,7 @@
 
 A practice tool for the symbol swaps of **Verity**, the fourth encounter of the *Salvation's Edge* raid in Destiny 2.
 
-**Live:** https://verity-trainer-eight.vercel.app/
+**Live:** https://veritytrainer.vercel.app/
 
 ![Verity Trainer: inside room callouts, dissection room statues and knight symbols](docs/images/screenshot.png)
 
@@ -54,7 +54,7 @@ Features can be enabled or disabled at build time through environment variables 
 VITE_FEATURE_HINTS=true
 VITE_FEATURE_CHALLENGE_MODE=false
 VITE_FEATURE_SYMBOL_ROUNDS=false
-VITE_SITE_URL=https://verity-trainer-eight.vercel.app
+VITE_SITE_URL=https://veritytrainer.vercel.app
 VITE_REPO_URL=https://github.com/unvoid/verity-trainer
 ```
 
