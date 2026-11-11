@@ -6,9 +6,9 @@
   box-sizing: border-box;
 }
 
+/* El html se queda en el tamaño del navegador: `rem` (espaciados, controles…) no depende del texto. */
 html {
   font-family: var(--font-family);
-  font-size: var(--font-size-md);
   line-height: var(--line-height);
   min-height: 100%;
   color: var(--color-text);
@@ -19,6 +19,7 @@ html {
 body {
   margin: 0;
   min-height: 100dvh;
+  font-size: var(--font-size-md);
 }
 
 :focus-visible {
@@ -60,4 +61,14 @@ body {
 .tile-label {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
+}
+
+/* Solo para lectores de pantalla: no ocupa sitio ni se ve. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

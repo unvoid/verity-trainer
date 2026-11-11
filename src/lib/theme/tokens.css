@@ -43,6 +43,8 @@
   --color-ember: var(--palette-copper);
   --color-focus: var(--palette-copper-deep);
   --color-backdrop: color-mix(in srgb, var(--palette-ink), transparent 50%);
+  /* Sombra suave de lo que flota sobre la página (avisos). */
+  --shadow-floating: 0 4px 16px color-mix(in srgb, var(--palette-ink) 12%, transparent);
 
   /* Sólidos 3D (estatuas): granate mate, volumen con 3 tonos planos */
   --color-solid-mid: var(--palette-maroon);
@@ -56,7 +58,7 @@
   --font-family-display: 'Montserrat Variable', var(--font-family);
   --font-size-xs: 0.8125rem;
   --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
+  --font-size-md: 0.925rem;
   --font-size-lg: 1.25rem;
   --font-size-xl: 1.75rem;
   --font-weight-regular: 400;

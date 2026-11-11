@@ -69,6 +69,15 @@ Botones, selectores y opciones comparten los tokens `--control-*` de `tokens.css
 
 Los controles nuevos usan el componente `Button` o estos tokens; nunca estilos propios sueltos.
 
+## Estado y avisos (nada se mueve)
+
+La interfaz no se desplaza al jugar. Se separan dos tipos de información:
+
+- **Estado** (intercambios, símbolo que llevas, intercambios mínimos pendientes con pistas): en una zona fija bajo los símbolos de los caballeros. Las líneas reservan su hueco aunque estén vacías.
+- **Eventos** (marcar, intercambiar, rechazos, avisos del editor): como **toast**, abajo y centrado en el ancho del contenido. Uno a la vez (el siguiente sustituye al anterior), sin botón de cerrar, con fundido suave. Desaparecen solos: 2,5 s los informativos y 4 s los errores, que llevan una franja granate a la izquierda. Se anuncian a lectores de pantalla.
+- En el editor, el motivo de que "Iniciar entreno" esté desactivado queda además en la descripción accesible del botón.
+- Con símbolos por rondas, el panel de ogros es un hueco fijo y las tiles de los caballeros reservan el sitio de la barra de caducidad.
+
 ## Favicon
 
 Triángulo negro estático (`public/favicon.svg`): el primer símbolo que aparece en la raid, con la misma silueta que los símbolos y el loader. Con las pestañas del navegador en modo oscuro, pasa a claro. Sin animación: los favicons SVG animados solo se ven en Firefox, y animarlos con JavaScript costaría CPU y daría saltos en pestañas en segundo plano.
