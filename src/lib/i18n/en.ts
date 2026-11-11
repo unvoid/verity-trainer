@@ -11,6 +11,7 @@ export const en = {
   'loader.label': 'Loading…',
 
   'language.label': 'Language',
+  'header.repo': 'Source code on GitHub',
   'language.name.es': 'Español',
   'language.name.en': 'English',
 

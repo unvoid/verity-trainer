@@ -5,6 +5,7 @@
   import GameStatus from './lib/components/GameStatus.svelte'
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
   import OgrePanel from './lib/components/OgrePanel.svelte'
+  import RepoLink from './lib/components/RepoLink.svelte'
   import ResultModal from './lib/components/ResultModal.svelte'
   import SectionTitle from './lib/components/SectionTitle.svelte'
   import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
@@ -127,6 +128,7 @@
     <div class="header-actions">
       <HelpDrawer />
       <SettingsDrawer playing={phase === 'playing'} />
+      <RepoLink />
       <LanguageSelector />
     </div>
   </div>
