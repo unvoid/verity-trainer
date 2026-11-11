@@ -96,6 +96,28 @@ export const es: Messages = {
   'setup.warning.starts-solved.other':
     'Aviso: {statues} empiezan sin el símbolo de su callout, así que ya están resueltas. No sabemos si esto puede pasar en el juego.',
 
+  // Manual de uso
+  'guide.title': 'Cómo se juega',
+  'guide.encounter.title': 'El encuentro',
+  'guide.encounter.body':
+    'En Verity, el equipo de fuera intercambia símbolos entre las estatuas hasta que ninguna contiene el símbolo de su callout de la sala interior. Aquí puedes practicarlo con puntos de partida aleatorios o recreando tu propia partida.',
+  'guide.shapes.title': 'Formas',
+  'guide.shapes.body': 'Cada estatua tiene una forma 3D hecha de dos símbolos.',
+  'guide.shapes.item': '{shape}: {first} + {second}',
+  'guide.swap.title': 'Hacer un intercambio',
+  'guide.swap.step1': 'Coge un símbolo de los caballeros: tócalo o arrástralo.',
+  'guide.swap.step2': 'Deposítalo en una estatua cuya forma lo contenga. Esa estatua queda marcada.',
+  'guide.swap.step3': 'Deposita otro símbolo en otra estatua: las dos intercambian esos símbolos.',
+  'guide.swap.keyboard': 'Con teclado: Tab para moverte y Enter o Espacio para coger y depositar.',
+  'guide.goal.title': 'Objetivo',
+  'guide.goal.body':
+    'Ninguna estatua puede contener el símbolo de su callout. Al resolverlo verás el mínimo de intercambios y, si usaste más, la solución más corta.',
+  'guide.start.title': 'Punto de partida',
+  'guide.start.body':
+    'Cada entreno parte de una propuesta aleatoria. Para recrear tu partida, cambia los callouts y las formas de las estatuas: al cambiar uno, elige otro y el tercero se completa solo.',
+  'guide.settings.title': 'Ajustes',
+  'guide.coming-soon': 'Próximamente',
+
   // Ajustes
   'settings.title': 'Ajustes',
   'settings.hints': 'Pistas',

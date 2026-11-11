@@ -1,6 +1,7 @@
 <script lang="ts">
   import CalloutPanel from './lib/components/CalloutPanel.svelte'
   import DragLayer from './lib/components/DragLayer.svelte'
+  import HelpDrawer from './lib/components/HelpDrawer.svelte'
   import GameStatus from './lib/components/GameStatus.svelte'
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
   import OgrePanel from './lib/components/OgrePanel.svelte'
@@ -105,6 +106,7 @@
   <div class="header-inner">
     <h1>{$t('app.title')}</h1>
     <div class="header-actions">
+      <HelpDrawer />
       <SettingsDrawer playing={phase === 'playing'} />
       <LanguageSelector />
     </div>

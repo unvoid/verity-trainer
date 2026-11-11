@@ -101,6 +101,28 @@ export const en = {
   'setup.warning.starts-solved.other':
     'Note: {statues} start without their callout symbol, so they are already solved. We are not sure this can happen in the game.',
 
+  // Usage guide
+  'guide.title': 'How to play',
+  'guide.encounter.title': 'The encounter',
+  'guide.encounter.body':
+    'In Verity, the outside team swaps symbols between the statues until none of them holds the symbol of its callout in the inside room. Here you can practice it with random starting points or recreate your own run.',
+  'guide.shapes.title': 'Shapes',
+  'guide.shapes.body': 'Each statue holds a 3D shape made of two symbols.',
+  'guide.shapes.item': '{shape}: {first} + {second}',
+  'guide.swap.title': 'Making a swap',
+  'guide.swap.step1': 'Pick up a knight symbol: tap it or drag it.',
+  'guide.swap.step2': 'Deposit it on a statue whose shape contains it. That statue is now marked.',
+  'guide.swap.step3': 'Deposit another symbol on a different statue: both statues swap those symbols.',
+  'guide.swap.keyboard': 'With the keyboard: Tab to move, Enter or Space to pick up and deposit.',
+  'guide.goal.title': 'Goal',
+  'guide.goal.body':
+    'No statue may hold the symbol of its callout. When you solve it you will see the minimum number of swaps and, if you used more, the shortest solution.',
+  'guide.start.title': 'Starting point',
+  'guide.start.body':
+    'Each training starts from a random proposal. To recreate your run, change the callouts and the statue shapes: after changing one, pick another and the third fills in by itself.',
+  'guide.settings.title': 'Settings',
+  'guide.coming-soon': 'Coming soon',
+
   // Settings
   'settings.title': 'Settings',
   'settings.hints': 'Hints',
