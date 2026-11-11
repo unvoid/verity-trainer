@@ -55,9 +55,10 @@ VITE_FEATURE_HINTS=true
 VITE_FEATURE_CHALLENGE_MODE=false
 VITE_FEATURE_SYMBOL_ROUNDS=false
 VITE_SITE_URL=https://verity-trainer-eight.vercel.app
+VITE_REPO_URL=https://github.com/unvoid/verity-trainer
 ```
 
-Una funcionalidad desactivada no aparece en la interfaz y se muestra como "Próximamente" en el manual de uso.
+Una funcionalidad desactivada no aparece en la interfaz y se muestra como "Próximamente" en el manual de uso. `VITE_REPO_URL` muestra un enlace a GitHub en la cabecera; déjala vacía para ocultarlo.
 
 ## Tecnología
 

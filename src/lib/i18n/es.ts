@@ -6,6 +6,7 @@ export const es: Messages = {
   'loader.label': 'Cargando…',
 
   'language.label': 'Idioma',
+  'header.repo': 'Código en GitHub',
   'language.name.es': 'Español',
   'language.name.en': 'English',
 
