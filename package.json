@@ -1,6 +1,7 @@
 {
   "name": "verity-trainer",
   "private": true,
+  "license": "MIT",
   "version": "0.0.0",
   "description": "Simulador del encuentro Verity (Salvation's Edge, Destiny 2) con editor de punto de partida y solucionador.",
   "type": "module",
