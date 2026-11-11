@@ -1,6 +1,6 @@
 # Verity Trainer
 
-[![CI](https://github.com/Herokid/verity-trainer/actions/workflows/ci.yml/badge.svg)](https://github.com/Herokid/verity-trainer/actions/workflows/ci.yml)
+[![CI](https://github.com/unvoid/verity-trainer/actions/workflows/ci.yml/badge.svg)](https://github.com/unvoid/verity-trainer/actions/workflows/ci.yml)
 [![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
 
 [English](README.md) · **Español**
@@ -27,7 +27,7 @@ Herramienta para practicar los intercambios de símbolos de **Verity**, el cuart
 Requisitos: **Node.js 26** o superior y **npm 11** o superior (ver `.node-version`).
 
 ```sh
-git clone https://github.com/Herokid/verity-trainer.git
+git clone https://github.com/unvoid/verity-trainer.git
 cd verity-trainer
 npm install
 npm run dev

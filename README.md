@@ -1,6 +1,6 @@
 # Verity Trainer
 
-[![CI](https://github.com/Herokid/verity-trainer/actions/workflows/ci.yml/badge.svg)](https://github.com/Herokid/verity-trainer/actions/workflows/ci.yml)
+[![CI](https://github.com/unvoid/verity-trainer/actions/workflows/ci.yml/badge.svg)](https://github.com/unvoid/verity-trainer/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **English** · [Español](README.es.md)
@@ -27,7 +27,7 @@ A practice tool for the symbol swaps of **Verity**, the fourth encounter of the 
 Requirements: **Node.js 26** or later and **npm 11** or later (see `.node-version`).
 
 ```sh
-git clone https://github.com/Herokid/verity-trainer.git
+git clone https://github.com/unvoid/verity-trainer.git
 cd verity-trainer
 npm install
 npm run dev
