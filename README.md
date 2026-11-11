@@ -1,107 +1,102 @@
 # Verity Trainer
 
-Simulador web del encuentro **Verity** (raid *Salvation's Edge*, Destiny 2: The Final Shape) para practicar los intercambios de símbolos en las estatuas.
+[![CI](https://github.com/Herokid/verity-trainer/actions/workflows/ci.yml/badge.svg)](https://github.com/Herokid/verity-trainer/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-- Escenarios aleatorios.
-- Editor de **punto de partida** para recrear una situación real.
-- **Solucionador** que muestra la secuencia mínima de intercambios.
+**English** · [Español](README.es.md)
 
-Disponible en español e inglés.
+A practice tool for the symbol swaps of **Verity**, the fourth encounter of the *Salvation's Edge* raid in Destiny 2.
 
-**Web:** https://verity-trainer-eight.vercel.app/
+**Live:** https://verity-trainer-eight.vercel.app/
 
-> Proyecto en desarrollo.
+![Verity Trainer: inside room callouts, dissection room statues and knight symbols](docs/images/screenshot.png)
 
-## Requisitos
+## Features
 
-| Herramienta | Versión |
-|---|---|
-| Node.js | 26 o superior |
-| npm | 11 o superior (incluido con Node 26) |
+- **Random starting points** that follow the encounter rules.
+- **Recreate your run:** set the inside room callouts and the statue shapes you are seeing in game.
+- **Tap or drag** symbols onto statues; fully usable with the keyboard.
+- **Shortest solution:** a breadth-first search computes the minimum number of swaps and shows the optimal sequence when you finish.
+- **Hints:** each statue's symbols, clashes with its callout, valid targets and the remaining minimum.
+- **Usage guide** built into the app.
+- **English and Spanish.**
+- Challenge Mode and timed symbol rounds are implemented behind feature flags.
 
-Las versiones mínimas están en `engines` de `package.json`, y el `.npmrc` del proyecto activa `engine-strict`: con una versión anterior de Node, `npm install` falla en lugar de instalar.
+## Getting started
 
-El archivo `.node-version` indica la versión de Node del proyecto. Lo leen la mayoría de gestores de versiones:
-
-```sh
-# n
-n auto              # instala y activa la versión de .node-version
-# o, sin cambiar la versión global:
-n exec auto npm install
-
-# fnm / nvm
-fnm use             # nvm: nvm use 26
-```
-
-### Registro de npm
-
-El `.npmrc` del proyecto fija el registro público (`https://registry.npmjs.org/`). Si tu `~/.npmrc` apunta a un registro privado (por ejemplo, de empresa), este proyecto lo ignora y no le envía tus credenciales.
-
-## Instalación
+Requirements: **Node.js 26** or later and **npm 11** or later (see `.node-version`).
 
 ```sh
-git clone <url-del-repositorio>
+git clone https://github.com/Herokid/verity-trainer.git
 cd verity-trainer
 npm install
+npm run dev
 ```
 
-## Funcionalidades por versión
+The project's `.npmrc` pins the public npm registry and enables `engine-strict`, so installing with an older Node version fails early.
 
-Algunas funcionalidades se pueden activar o desactivar al compilar, con variables de entorno. Copia `.env.example` como `.env.production` (o `.env.local`) y ajusta los valores:
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Build for production into `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run check` | Type-check Svelte and TypeScript |
+| `npm test` | Run the test suite once |
+| `npm run test:watch` | Run tests in watch mode |
+
+## Feature flags
+
+Features can be enabled or disabled at build time through environment variables (see `.env.example`):
 
 ```sh
 VITE_FEATURE_HINTS=true
 VITE_FEATURE_CHALLENGE_MODE=false
-VITE_FEATURE_SYMBOL_ROUNDS=true
+VITE_FEATURE_SYMBOL_ROUNDS=false
+VITE_SITE_URL=https://verity-trainer-eight.vercel.app
 ```
 
-El repositorio incluye un `.env` con la configuración actual: pistas activadas; modo desafío y símbolos por rondas desactivados. Para recuperar una funcionalidad, cambia su valor a `true`.
+A disabled feature is hidden from the interface and listed as "coming soon" in the usage guide.
 
-Una funcionalidad desactivada no aparece en la web. Más detalle en [docs/arquitectura.md](docs/arquitectura.md#funcionalidades-y-ajustes).
+## Tech stack
 
-## Scripts
+- [Svelte 5](https://svelte.dev/) + TypeScript, built with [Vite](https://vite.dev/)
+- [Vitest](https://vitest.dev/) for the domain logic, stores and i18n
+- Shapes drawn as SVG; no 3D or UI libraries
+- [Montserrat](https://fonts.google.com/specimen/Montserrat) (SIL Open Font License), self-hosted through `@fontsource-variable/montserrat`
+- Static site: deploy the contents of `dist/` to any static host
 
-| Comando | Qué hace |
-|---|---|
-| `npm run dev` | Servidor de desarrollo con recarga en caliente |
-| `npm run build` | Build de producción en `dist/` |
-| `npm run preview` | Sirve el build de `dist/` en local |
-| `npm run check` | Comprobación de tipos (Svelte + TypeScript) |
-| `npm test` | Tests con Vitest (una pasada) |
-| `npm run test:watch` | Tests en modo observación |
-
-## Stack
-
-- [Vite](https://vite.dev/) + [Svelte 5](https://svelte.dev/) + TypeScript
-- [Vitest](https://vitest.dev/) para la lógica de dominio
-- Formas en SVG, sin librerías 3D
-- Tipografía del sistema para el texto y [Montserrat](https://fonts.google.com/specimen/Montserrat) (SIL Open Font License) para títulos, alojada con el proyecto mediante `@fontsource-variable/montserrat`
-- Web estática: se despliega el contenido de `dist/` en cualquier hosting estático
-
-## Estructura
+## Project structure
 
 ```
 src/
   lib/
-    domain/       # Reglas del encuentro en TypeScript puro (sin Svelte)
-    stores/       # Estado de la partida y ajustes
-    components/   # Componentes Svelte
-    i18n/         # Textos ES/EN y función t()
-    theme/        # Tokens de color, tipografía y espaciado
-  App.svelte
-tests/            # Tests de Vitest
+    domain/       # Encounter rules, swaps, solver and scenarios (pure TypeScript)
+    stores/       # Game, setup, settings, drag and toast state
+    components/   # Svelte components
+    i18n/         # English and Spanish texts
+    theme/        # Design tokens and base styles
+    visual/       # Shared SVG geometry (symbols, loader)
+tests/            # Vitest suites
+docs/             # Design and mechanics documentation (Spanish)
 ```
 
-## Documentación
+## Documentation
 
-- [Mecánica del encuentro](docs/mecanica.md): vocabulario, reglas, ajustes y solucionador.
-- [Arquitectura](docs/arquitectura.md): principios, estructura, interacción e idiomas.
-- [Estética](docs/estetica.md): paleta, tipografía y reglas visuales.
-- [Tono y vocabulario](docs/tono.md): cómo se escriben los textos de la web.
-- [Hoja de ruta](docs/hoja-de-ruta.md): hitos y dudas abiertas.
+Detailed documentation lives in [`docs/`](docs/) and is written in Spanish:
 
-## Créditos
+- [Encounter mechanics](docs/mecanica.md)
+- [Architecture](docs/arquitectura.md)
+- [Visual design](docs/estetica.md)
+- [Tone and vocabulary](docs/tono.md)
 
-- Inspirado en **[Verity Simulator](https://verity.cabotmc.dev/)** de EggAllocationService ([repositorio](https://github.com/EggAllocationService/verity-sim)). Este proyecto reimplementa la mecánica desde cero; no reutiliza su código.
-- La "Shape Reference Guide" de la comunidad, creada por Nec, se ha usado como referencia.
-- Destiny 2 es una marca de Bungie, Inc. Este es un proyecto de fans sin relación con Bungie; no usa imágenes ni recursos oficiales.
+## Credits
+
+- Inspired by **[Verity Simulator](https://verity.cabotmc.dev/)** by EggAllocationService ([repository](https://github.com/EggAllocationService/verity-sim)). This project is an independent implementation and does not reuse its code.
+- The community "Shape Reference Guide" by Nec was used as a reference.
+- Destiny 2 is a trademark of Bungie, Inc. This is an unofficial fan project, not affiliated with or endorsed by Bungie, and it uses no official assets.
+
+## License
+
+[MIT](LICENSE)
