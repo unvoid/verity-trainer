@@ -1,6 +1,24 @@
 <script lang="ts">
+  import CalloutPanel from './lib/components/CalloutPanel.svelte'
+  import GameStatus from './lib/components/GameStatus.svelte'
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
+  import Statue from './lib/components/Statue.svelte'
+  import Toolbox from './lib/components/Toolbox.svelte'
+  import { minimumSwaps } from './lib/domain/solver'
+  import { SLOTS } from './lib/domain/types'
   import { t } from './lib/i18n'
+  import { game } from './lib/stores/game'
+
+  const finished = $derived($game.finishedAt !== null)
+
+  const result = $derived.by(() => {
+    const { finishedAt, scenario, mode, state } = $game
+    if (finishedAt === null) return null
+    return {
+      minimum: minimumSwaps(scenario, mode) ?? 0,
+      seconds: Math.round((finishedAt - state.startedAt) / 1000),
+    }
+  })
 </script>
 
 <svelte:head>
@@ -13,7 +31,33 @@
 </header>
 
 <main class="app-main">
-  <p>{$t('app.tagline')}</p>
+  <CalloutPanel callouts={$game.state.callouts} />
+
+  <section aria-labelledby="statues-title">
+    <h2 id="statues-title" class="visually-hidden">{$t('statues.title')}</h2>
+    <div class="statues">
+      {#each SLOTS as slot (slot)}
+        <Statue
+          {slot}
+          shape={$game.state.statues[slot]}
+          marked={$game.state.selection?.slot === slot ? $game.state.selection.symbol : null}
+          disabled={finished}
+          onactivate={game.depositAt}
+        />
+      {/each}
+    </div>
+  </section>
+
+  <Toolbox held={$game.held} disabled={finished} ontoggle={game.toggleHold} />
+
+  <GameStatus
+    swaps={$game.state.swaps}
+    held={$game.held}
+    feedback={$game.feedback}
+    {result}
+    onnewgame={() => game.newGame()}
+    onrestart={game.restart}
+  />
 </main>
 
 <style>
@@ -34,7 +78,26 @@
   }
 
   .app-main {
-    padding: var(--space-6);
-    color: var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    max-width: 40rem;
+    margin-inline: auto;
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .statues {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 </style>

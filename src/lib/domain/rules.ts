@@ -15,6 +15,13 @@ import {
   type Symbol2D,
 } from './types'
 
+/** Símbolo que suelta cada caballero al morir, según su posición. */
+export const KNIGHT_DROPS: Readonly<Record<Slot, Symbol2D>> = {
+  left: 'circle',
+  mid: 'triangle',
+  right: 'square',
+}
+
 /** Cuántas veces aparece cada símbolo sumando las tres estatuas. */
 export function countStatueSymbols(statues: Statues): Record<Symbol2D, number> {
   const counts = { circle: 0, square: 0, triangle: 0 }

@@ -26,6 +26,12 @@
   --color-active: var(--palette-copper);
   --color-ember: var(--palette-copper);
   --color-focus: var(--palette-copper);
+  --color-on-statue: var(--palette-mist);
+
+  /* Sólidos 3D: oscuros y mate, volumen con 3 tonos planos */
+  --color-solid-dark: var(--palette-ink);
+  --color-solid-mid: color-mix(in srgb, var(--palette-ink), var(--palette-indigo) 60%);
+  --color-solid-light: color-mix(in srgb, var(--palette-indigo), var(--palette-lavender) 35%);
 
   /* Tipografía: Inter (OFL), alojada con el proyecto vía @fontsource-variable/inter */
   --font-family: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;

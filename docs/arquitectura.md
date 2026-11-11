@@ -26,7 +26,7 @@ src/
     stores/
       game.ts          # estado de la partida
       settings.ts      # ajustes persistidos en localStorage
-    components/        # Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
+    components/        # Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox, GameStatus,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShapeMorphLoader, LanguageSelector, UsageGuide
     i18n/
@@ -47,6 +47,16 @@ tests/                 # Vitest, misma estructura que src/lib
 - Web estática; despliegue en cualquier hosting estático (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
 - Formas en **SVG**, sin librerías 3D.
 - Astro descartado por ahora: es una única pantalla muy interactiva. Si en el futuro forma parte de una plataforma mayor, los componentes Svelte se integran en Astro como islas.
+
+## Puntos de extensión
+
+### Rondas de símbolos
+
+Hoy los símbolos están siempre disponibles, como en el original. Si se quiere un modo por rondas (símbolos que se gastan, caballeros y ogros que hay que matar; ver [mecanica.md](mecanica.md#elementos)), el diseño ya lo permite sin rehacer nada:
+
+- **Caja de símbolos:** `Toolbox` acepta `available`, la disponibilidad por caballero.
+- **Store de la partida:** todo depósito pasa por `depositAt`; ahí se marcaría el símbolo como gastado.
+- **Lógica de rondas:** iría en el dominio (p. ej. `domain/drops.ts`) como funciones puras: matar caballero, gastar símbolo, nueva ronda. Los tiempos (desaparición a los 10 s, reaparición) se inyectarían igual que `now`.
 
 ## Interacción
 

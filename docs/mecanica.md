@@ -37,7 +37,8 @@ Los símbolos 2D son las siluetas (proyecciones ortogonales) del sólido. El jue
 
 - **Callouts interiores:** los tres símbolos distintos, en un orden (6 permutaciones).
 - **Estatuas:** tres, cada una con una forma 3D.
-- **Caballeros:** tres enemigos. Al matarlos sueltan un símbolo: izquierdo → Círculo, central → Triángulo, derecho → Cuadrado.
+- **Caballeros:** tres enemigos. Al matarlos sueltan un símbolo: izquierdo → Círculo, central → Triángulo, derecho → Cuadrado (`KNIGHT_DROPS`). El original fija este reparto en su código; no está confirmado que el juego lo haga igual, aunque no afecta a las reglas ni al solucionador.
+- **Rondas de símbolos** (pendiente de confirmar): los símbolos salen por rondas. Al matar a los tres caballeros salen tres símbolos, y no vuelven a salir hasta matar a más caballeros. Un intercambio gasta dos, así que queda uno suelto: puede servir para empezar el siguiente intercambio (si no desaparece antes), pero el segundo símbolo tiene que salir de otra ronda. Para que vuelvan a salir caballeros hay que matar antes a un ogro. El simulador lo modela con el ajuste *Realistic Symbol Drops*.
 
 ## Intercambio
 
