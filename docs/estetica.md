@@ -41,6 +41,19 @@ Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens se
 - **Cobre solo para lo activo:** estatua seleccionada, estado en curso, foco.
 - Trazos finos que recuerden a las cintas de la sala.
 
+## Controles
+
+Botones, selectores y opciones comparten los tokens `--control-*` de `tokens.css`:
+
+- **Botón principal** (una acción principal por pantalla): relleno índigo, texto claro.
+- **Botón secundario:** fondo de superficie y contorno lavanda; al pasar por encima, el contorno se oscurece.
+- **Desactivado:** opacidad reducida y cursor `not-allowed`.
+- **Foco:** contorno cobre (`:focus-visible`), común a todos los controles.
+- **Selectores:** sin apariencia nativa, flecha dibujada en CSS con el color del texto.
+- **Avisos:** superficie con contorno lavanda y franja izquierda índigo; no usan cobre, que es solo para lo activo.
+
+Los controles nuevos usan el componente `Button` o estos tokens; nunca estilos propios sueltos.
+
 ## ShapeMorphLoader
 
 Indicador de carga que transforma Círculo → Cuadrado → Triángulo.

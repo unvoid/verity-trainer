@@ -57,6 +57,18 @@
   --stroke-thin: 1px;
   --stroke-focus: 2px;
 
+  /* Controles de formulario (botones, selectores) */
+  --control-height: 2.5rem;
+  --control-padding-x: var(--space-4);
+  --control-radius: var(--radius-sm);
+  --control-border: var(--color-border);
+  --control-border-hover: var(--color-text-muted);
+  --control-bg: var(--color-surface);
+  --control-text: var(--color-text);
+  --control-primary-bg: var(--color-text);
+  --control-primary-text: var(--color-bg);
+  --control-disabled-opacity: 0.4;
+
   /* Tiempos */
   --duration-fast: 120ms;
   --duration-normal: 240ms;

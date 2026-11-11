@@ -55,6 +55,19 @@ export const es = {
   'feedback.marked': '{statue} marcada con {symbol}.',
   'feedback.swapped': 'Intercambio: {firstSymbol} de {firstStatue} ↔ {secondSymbol} de {secondStatue}.',
 
+  'setup.title': 'Punto de partida',
+  'setup.intro': 'Propuesta aleatoria. Cámbiala si quieres recrear una partida real.',
+  'setup.callouts': 'Callouts de la sala interior',
+  'setup.statues': 'Formas de las estatuas',
+  'setup.group-hint': 'Al cambiar uno, elige otro: el tercero se completa solo.',
+  'setup.empty': 'Sin elegir',
+  'setup.incomplete': 'Completa los callouts y las estatuas para empezar.',
+  'setup.warning.starts-solved': 'Aviso: esta estatua empieza sin el símbolo de su callout (ya resuelta): {statues}. No sabemos si eso puede pasar en el juego.',
+  'setup.warning.starts-solved.plural': 'Aviso: estas estatuas empiezan sin el símbolo de su callout (ya resueltas): {statues}. No sabemos si eso puede pasar en el juego.',
+
+  'action.start': 'Iniciar entreno',
+  'action.propose': 'Otra propuesta',
+
   'action.new-game': 'Nueva partida',
   'action.restart': 'Reiniciar',
 } satisfies Record<string, string>

@@ -75,6 +75,15 @@ Se aceptan ambas. El original solo muestra la A en las pistas.
 
 La regla 3 está pendiente de confirmar: puede ser del juego o una decisión del autor original.
 
+### Editor
+
+Al empezar se propone un punto de partida aleatorio, que se puede personalizar antes de pulsar **Iniciar entreno**:
+
+- Callouts y estatuas se editan como dos grupos de tres. Cambiar una posición de un grupo completo vacía las otras dos, porque con las reglas 1 y 2 cambiar una sola nunca da un grupo válido.
+- Al elegir la segunda posición, la tercera se completa sola: en los callouts es el símbolo que falta; en las estatuas, la forma de los dos símbolos que faltan para tener dos de cada uno.
+- Solo se ofrecen opciones que admiten una tercera válida, así que las reglas 1 y 2 no se pueden incumplir. La regla 3 se muestra como aviso.
+- "Iniciar entreno" está desactivado mientras algún grupo esté incompleto.
+
 Los escenarios aleatorios se generan enumerando todas las combinaciones y filtrando por estas reglas (36 con la regla 3), sin tabla precalculada.
 
 ## Ajustes

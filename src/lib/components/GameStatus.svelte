@@ -6,6 +6,7 @@
   import type { Symbol2D } from '../domain/types'
   import { t } from '../i18n'
   import type { Feedback } from '../stores/game'
+  import Button from './Button.svelte'
 
   interface Props {
     swaps: number
@@ -61,8 +62,8 @@
   {/if}
 
   <div class="actions">
-    <button type="button" onclick={onrestart}>{$t('action.restart')}</button>
-    <button type="button" class="primary" onclick={onnewgame}>{$t('action.new-game')}</button>
+    <Button onclick={onrestart}>{$t('action.restart')}</Button>
+    <Button variant="primary" onclick={onnewgame}>{$t('action.new-game')}</Button>
   </div>
 </section>
 
@@ -104,21 +105,5 @@
     display: flex;
     justify-content: flex-end;
     gap: var(--space-2);
-  }
-
-  button {
-    padding: var(--space-2) var(--space-4);
-    font: inherit;
-    color: var(--color-text);
-    background: var(--color-surface);
-    border: var(--stroke-thin) solid var(--color-border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-  }
-
-  button.primary {
-    color: var(--color-bg);
-    background: var(--color-text);
-    border-color: var(--color-text);
   }
 </style>
