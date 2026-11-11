@@ -37,11 +37,14 @@
   <legend>{legend}</legend>
 
   <div class="current" class:empty={value === null}>
-    {#if value !== null}
-      {@render icon(value, size)}
-    {:else}
-      <span class="placeholder" style:width="{size}px" style:height="{size}px" aria-hidden="true">?</span>
-    {/if}
+    <!-- Hueco de tamaño fijo: elegido o vacío ocupan lo mismo (nada se desplaza). -->
+    <span class="current-icon" style:width="{size}px" style:height="{size}px">
+      {#if value !== null}
+        {@render icon(value, size)}
+      {:else}
+        <span class="placeholder" aria-hidden="true">?</span>
+      {/if}
+    </span>
     <span class="current-label">{selectedLabel}</span>
   </div>
 
@@ -98,9 +101,13 @@
     gap: var(--space-1);
   }
 
+  /* Altura fija: con o sin elección, la línea mide lo mismo (nada se desplaza). */
   .current-label {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
+    display: block;
+    height: calc(var(--line-height) * 1em);
+    line-height: var(--line-height);
   }
 
   .current.empty .current-label {
@@ -108,7 +115,15 @@
     color: var(--color-text-muted);
   }
 
+  .current-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+  }
+
   .placeholder {
+    width: 100%;
+    height: 100%;
     display: grid;
     place-items: center;
     font-size: var(--font-size-lg);

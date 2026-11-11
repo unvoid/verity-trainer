@@ -73,11 +73,13 @@
         >
           <span class="faded"><Symbol2D {symbol} {size} /></span>
           <span class="tile-label action">{$t('knight.defeat')}</span>
+          <span class="life-slot" aria-hidden="true"></span>
         </button>
       {:else}
         <div class="drop tile spent" aria-label="{symbolName}: {$t(`drop.${status}`)}" role="img">
           <span class="faded"><Symbol2D {symbol} {size} /></span>
           <span class="tile-label">{$t(`drop.${status}`)}</span>
+          <span class="life-slot" aria-hidden="true"></span>
         </div>
       {/if}
     {/each}
@@ -143,6 +145,12 @@
     color: var(--color-text-muted);
     background: transparent;
     cursor: default;
+  }
+
+  /* Hueco de la barra de caducidad en las tiles sin símbolo: la fila no cambia de altura. */
+  .life-slot {
+    display: block;
+    height: var(--stroke-focus);
   }
 
   .faded {

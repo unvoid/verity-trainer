@@ -1,12 +1,16 @@
 <!--
   Punto de partida: muestra una propuesta aleatoria que se puede personalizar.
   "Iniciar entreno" solo está activo con todo elegido y válido.
+  Los avisos (ya resuelto, regla 3) se muestran como toast al aparecer o cambiar:
+  no ocupan sitio y nada se desplaza. El motivo de un botón desactivado queda en
+  su descripción accesible.
 -->
 <script lang="ts">
   import { calloutOptions, statueOptions } from '../domain/editor'
   import { SHAPES, SLOTS, SYMBOLS, type Scenario, type Shape3D as ShapeName, type Symbol2D as SymbolName } from '../domain/types'
   import { locale, t, tn } from '../i18n'
   import { setup, setupState } from '../stores/setup'
+  import { toast } from '../stores/toast'
   import Button from './Button.svelte'
   import SectionTitle from './SectionTitle.svelte'
   import Shape3D from './Shape3D.svelte'
@@ -28,6 +32,17 @@
   })
 
   const alreadySolved = $derived($setupState.validation?.issues.some((i) => i.code === 'already-solved') ?? false)
+
+  /** Motivo por el que no se puede iniciar (descripción accesible del botón). */
+  const blockedReason = $derived($t(alreadySolved ? 'setup.error.already-solved' : 'setup.incomplete'))
+
+  // Avisos como toast, solo cuando aparecen o cambian (no en cada render).
+  let lastNotice: string | null = null
+  $effect(() => {
+    const notice = alreadySolved ? $t('setup.error.already-solved') : warning
+    if (notice && notice !== lastNotice) toast.show(notice, alreadySolved ? 'error' : 'info')
+    lastNotice = notice
+  })
 
   function start() {
     if ($setupState.ready && $setupState.scenario) onstart($setupState.scenario)
@@ -95,10 +110,6 @@
 
   <p class="muted hint-text">{$t('setup.group-hint')}</p>
 
-  {#if warning}
-    <p class="warning" role="status">{warning}</p>
-  {/if}
-
   <div class="actions">
     <Button onclick={setup.propose}>{$t('action.propose')}</Button>
     <Button
@@ -111,9 +122,7 @@
     </Button>
   </div>
   {#if !$setupState.ready}
-    <p id="setup-incomplete" class="muted" role="status">
-      {$t(alreadySolved ? 'setup.error.already-solved' : 'setup.incomplete')}
-    </p>
+    <p id="setup-incomplete" class="visually-hidden">{blockedReason}</p>
   {/if}
 </section>
 
@@ -139,12 +148,6 @@
     gap: var(--space-4);
   }
 
-  .warning {
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--font-size-sm);
-    background: var(--color-surface);
-    border-radius: var(--radius-md);
-  }
 
   .actions {
     display: flex;

@@ -22,22 +22,31 @@
   )
 </script>
 
-{#if drops.ogres}
-  <section class="ogres" aria-labelledby="ogres-title">
-    <SectionTitle id="ogres-title" level={3}>{$t('ogres.title')}</SectionTitle>
+<!--
+  Hueco fijo: el panel existe siempre en el modo por rondas (invisible cuando no
+  hay ogros ni cuenta atrás), así su aparición no desplaza la interfaz.
+-->
+<section
+  class="ogres"
+  class:idle={!drops.ogres && respawnSeconds === null}
+  aria-labelledby="ogres-title"
+  aria-hidden={!drops.ogres && respawnSeconds === null ? 'true' : undefined}
+>
+  <SectionTitle id="ogres-title" level={3}>{$t('ogres.title')}</SectionTitle>
+  {#if respawnSeconds !== null}
+    <p class="hint" role="status">{$t('rounds.respawn', { seconds: respawnSeconds })}</p>
+  {:else}
     <p class="hint">{$t('ogres.hint')}</p>
-    <div class="row">
-      {#each OGRE_SIDES as side (side)}
-        {@const alive = drops.ogres[side]}
-        <Button disabled={disabled || !alive} onclick={() => ondefeat(side)}>
-          {$t(`ogre.${side}`)} · {alive ? $t('knight.defeat') : $t('ogre.defeated')}
-        </Button>
-      {/each}
-    </div>
-  </section>
-{:else if respawnSeconds !== null}
-  <p class="respawn" role="status">{$t('rounds.respawn', { seconds: respawnSeconds })}</p>
-{/if}
+  {/if}
+  <div class="row" class:idle={!drops.ogres}>
+    {#each OGRE_SIDES as side (side)}
+      {@const alive = drops.ogres?.[side] ?? false}
+      <Button disabled={disabled || !alive} onclick={() => ondefeat(side)}>
+        {$t(`ogre.${side}`)} · {alive ? $t('knight.defeat') : $t('ogre.defeated')}
+      </Button>
+    {/each}
+  </div>
+</section>
 
 <style>
   .ogres {
@@ -53,8 +62,12 @@
     margin: 0;
   }
 
-  .hint,
-  .respawn {
+  /* Invisible pero ocupando su sitio. */
+  .idle {
+    visibility: hidden;
+  }
+
+  .hint {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
   }

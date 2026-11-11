@@ -31,6 +31,7 @@ src/
       setup.ts         # punto de partida en edición (propuesta aleatoria personalizable)
       settings.ts      # ajustes del jugador, persistidos en localStorage
       clock.ts         # hora actual para cuentas atrás (solo corre con suscriptores)
+      toast.ts         # avisos efímeros: uno a la vez, desaparecen solos
     actions/
       dragSymbol.ts    # arrastrar y soltar con Pointer Events
     features.ts        # funcionalidades disponibles en la versión (interruptores de compilación)
@@ -41,9 +42,10 @@ src/
                        # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel, SectionTitle, GearIcon,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShardLoader, SplashScreen, Drawer, SettingsDrawer, HelpDrawer,
-                       # HelpIcon, LanguageSelector, UsageGuide
+                       # HelpIcon, ToastMessage, LanguageSelector, UsageGuide
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
+      feedback.ts      # redacción de los avisos de la partida (para el toast)
       en.ts            # textos en inglés (idioma base de las claves)
       es.ts            # textos en español
       index.ts         # store del idioma y función t()

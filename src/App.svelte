@@ -15,7 +15,11 @@
   import { minimumSwaps, solve } from './lib/domain/solver'
   import { depositError } from './lib/domain/swap'
   import { SLOTS, type Scenario, type Slot } from './lib/domain/types'
-  import { t } from './lib/i18n'
+  import ToastMessage from './lib/components/ToastMessage.svelte'
+  import { locale, t, tn } from './lib/i18n'
+  import { feedbackMessage } from './lib/i18n/feedback'
+  import { toast } from './lib/stores/toast'
+  import type { Feedback } from './lib/stores/game'
   import { CLOCK_INTERVAL_MS } from './lib/stores/clock'
   import { drag } from './lib/stores/drag'
   import { game } from './lib/stores/game'
@@ -53,8 +57,22 @@
 
   /** Pista: intercambios mínimos que faltan desde el estado actual. */
   const remaining = $derived(
-    hints && !finished ? minimumSwaps({ callouts: $game.state.callouts, statues: $game.state.statues }, $game.mode) : null,
+    !hints
+      ? null
+      : finished
+        ? 0
+        : minimumSwaps({ callouts: $game.state.callouts, statues: $game.state.statues }, $game.mode),
   )
+
+  /** Cada nuevo resultado de una acción se muestra como toast (evento, no estado). */
+  let lastFeedback: Feedback | null = null
+  $effect(() => {
+    const feedback = $game.feedback
+    if (!feedback || feedback === lastFeedback) return
+    lastFeedback = feedback
+    const message = feedbackMessage(feedback, $t, $tn, $locale)
+    toast.show(message.text, message.tone)
+  })
 
   /** Pista: estatuas que admiten el símbolo que lleva el jugador. */
   function accepts(slot: Slot): boolean {
@@ -159,7 +177,6 @@
     <GameStatus
       swaps={$game.state.swaps}
       held={$game.held}
-      feedback={$game.feedback}
       {remaining}
       onnewgame={backToSetup}
       onrestart={game.restart}
@@ -169,6 +186,7 @@
 </main>
 
 <DragLayer />
+<ToastMessage />
 
 {#if result}
   <ResultModal
