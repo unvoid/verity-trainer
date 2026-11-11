@@ -8,6 +8,8 @@ Simulador web del encuentro **Verity** (raid *Salvation's Edge*, Destiny 2: The 
 
 Disponible en español e inglés.
 
+**Web:** https://verity-trainer-eight.vercel.app/
+
 > Proyecto en desarrollo.
 
 ## Requisitos
