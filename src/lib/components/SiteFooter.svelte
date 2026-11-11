@@ -1,4 +1,4 @@
-<!-- Pie de página: crédito al simulador original y nota de proyecto de fans. -->
+<!-- Pie de página: crédito al simulador original. -->
 <script lang="ts">
   import { t } from '../i18n'
 
@@ -17,7 +17,6 @@
   <p>
     {parts[0]}<a href={inspirationUrl} target="_blank" rel="noopener noreferrer">{$t('footer.inspired.link')}</a>{parts[1] ?? ''}
   </p>
-  <p>{$t('footer.fan')}</p>
 </footer>
 
 <style>
