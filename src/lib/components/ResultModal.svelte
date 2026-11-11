@@ -35,6 +35,7 @@
 
 <dialog bind:this={dialog} class="result" aria-labelledby="result-title" onclose={onclose}>
   <h2 id="result-title">{$t('result.title')}</h2>
+  <p class="subtitle">{$t('result.subtitle')}</p>
   {#if mode === 'challenge'}
     <p class="mode">{$t('status.mode.challenge')}</p>
   {/if}
@@ -109,6 +110,12 @@
     margin-top: var(--space-6);
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-bold);
+  }
+
+  .subtitle {
+    margin-top: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
   }
 
   .mode {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { countStatueSymbols, isSolved, isStatueSolved, validateScenario } from '../../src/lib/domain/rules'
+import { canExit, countStatueSymbols, isSolved, isStatueSolved, validateScenario } from '../../src/lib/domain/rules'
 import type { Callouts, Statues } from '../../src/lib/domain/types'
 
 const callouts: Callouts = { left: 'circle', mid: 'triangle', right: 'square' }
@@ -123,5 +123,28 @@ describe('validateScenario with a play mode', () => {
 
   it('does not check solved state without a mode', () => {
     expect(validateScenario({ callouts, statues: solvedNormal }).valid).toBe(true)
+  })
+})
+
+describe('canExit', () => {
+  const callouts: Callouts = { left: 'circle', mid: 'triangle', right: 'square' }
+
+  it('normal mode: the statue no longer holds its callout symbol', () => {
+    const statues: Statues = { left: 'prism', mid: 'cone', right: 'cylinder' }
+    expect(canExit(callouts, statues, 'left', 'normal')).toBe(true) // prisma sin círculo
+    expect(canExit(callouts, statues, 'mid', 'normal')).toBe(false) // cono con triángulo
+  })
+
+  it('challenge mode: it must also be a pure shape', () => {
+    expect(canExit(callouts, { left: 'prism', mid: 'cone', right: 'cylinder' }, 'left', 'challenge')).toBe(false)
+    expect(canExit(callouts, { left: 'cube', mid: 'sphere', right: 'tetrahedron' }, 'left', 'challenge')).toBe(true)
+  })
+
+  it('everyone can exit exactly when the scenario is solved', () => {
+    const statues: Statues = { left: 'cube', mid: 'sphere', right: 'tetrahedron' }
+    for (const mode of ['normal', 'challenge'] as const) {
+      const all = (['left', 'mid', 'right'] as const).every((slot) => canExit(callouts, statues, slot, mode))
+      expect(all).toBe(isSolved(callouts, statues, mode))
+    }
   })
 })

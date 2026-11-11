@@ -43,6 +43,9 @@
   --color-ember: var(--palette-copper);
   --color-focus: var(--palette-copper-deep);
   --color-backdrop: color-mix(in srgb, var(--palette-ink), transparent 50%);
+  /* Brillo cálido y difuso: el compañero de esa posición ya puede salir. */
+  --glow-ready: 0 0 0 1px color-mix(in srgb, var(--palette-copper) 40%, transparent),
+    0 0 18px 2px color-mix(in srgb, var(--palette-copper) 38%, transparent);
   /* Sombra suave de lo que flota sobre la página (avisos). */
   --shadow-floating: 0 4px 16px color-mix(in srgb, var(--palette-ink) 12%, transparent);
 

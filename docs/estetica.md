@@ -43,7 +43,7 @@ Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens se
 - **Símbolos 2D:** forma rellena casi negra con degradado radial cobre en el centro (brasa).
 - **Formas 3D (estatuas):** granate `#863B3B` (color de referencia de la comunidad) con 2–3 tonos planos derivados para dar volumen. Sin texturas ni librerías 3D.
 - **Estatuas:** solo la forma 3D, sin tarjeta ni nombres visibles (los nombres van en la etiqueta accesible). Estado con contornos cobre: marcada (continuo), admite tu símbolo con pistas (fino) y destino de arrastre (discontinuo).
-- **Cobre solo para lo activo:** estatua seleccionada, estado en curso, foco.
+- **Cobre solo para lo activo:** estatua seleccionada, estado en curso, foco. Dos formas: **contorno nítido** para lo seleccionado y **halo cálido difuso** (`--glow-ready`) en la tile del callout cuyo compañero ya puede salir.
 - Trazos finos que recuerden a las cintas de la sala.
 - **Simpleza de inspiración japonesa:** espacio vacío, contención, nada de adorno.
 - **Una sola forma de separar zonas: planos de tono, nunca líneas.** Planos en lavanda pálido (`--color-surface`), algo más oscuros y fríos que el fondo hueso, como papel sobre papel. Lo usan la cabecera, las tiles del tablero, los selectores del editor, el panel de ogros, los avisos y los botones secundarios. Los planos son velos translúcidos de pizarra (6 %, 11 % al pasar por encima), así que la diferencia con el fondo es igual de sutil en todo el degradado. Las superficies flotantes (panel de ajustes, resumen) son opacas (`--color-surface-raised`).

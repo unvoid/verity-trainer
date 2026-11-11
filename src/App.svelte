@@ -136,7 +136,7 @@
   {#if phase === 'setup'}
     <StartPointEditor onstart={startTraining} />
   {:else}
-    <CalloutPanel callouts={$game.state.callouts} />
+    <CalloutPanel callouts={$game.state.callouts} statues={$game.state.statues} mode={$game.mode} />
 
     <section aria-labelledby="statues-title">
       <SectionTitle id="statues-title">
