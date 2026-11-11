@@ -68,7 +68,10 @@ Indicador de carga inspirado en cómo cambian las siluetas de la pared en el jue
   3. Se rompe: los trozos se separan unos píxeles, giran un poco y se sesgan (`skewX`); la forma entera gira y se encoge al 50 % mientras se desvanece.
 - **Giro de la forma:** entra girada (−35°) y se endereza; sale girando (30°).
 - **Técnica:** SVG con `clipPath` por forma y trozos con `transform` + `opacity` en CSS. Sin JavaScript en la animación; geometría precalculada.
-- **Sin costuras:** los trozos se solapan unas décimas por el corte (0,6 unidades en las mitades, ±1,5° en los quesitos). Como son opacos, el solape no se ve y evita la línea fina de antialias al encajar.
+- **Sin costuras ni saltos al recomponerse:**
+  - Los trozos se solapan unas décimas por el corte (0,6 unidades en las mitades; ±1,5° y el vértice retrasado 1,5 unidades en los quesitos, para cubrir también el centro). Como son opacos, el solape no se ve.
+  - La pieza entera usa el mismo `clipPath` que los trozos, para que los bordes se suavicen igual.
+  - Giro, escala y encaje terminan un poco antes (9 % del ciclo) que el cambio a la pieza entera (11 %): los últimos fotogramas ya están en reposo y el cambio no se nota.
 - **Sin destello:** los trozos entran opacos casi de inmediato y solo se desvanecen al final de la rotura.
 - **Parámetros:** tamaño, duración del ciclo, separación, giro y sesgo de los trozos.
 - Con `prefers-reduced-motion`: una forma estática.
