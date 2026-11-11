@@ -3,45 +3,64 @@
  * Los componentes solo usan los tokens semánticos (--color-*, --space-*...),
  * nunca la paleta base (--palette-*) ni valores sueltos.
  *
- * Paleta aproximada de la sala de Verity, pendiente de ajustar con capturas.
+ * Paleta extraída de una captura real de la sala de Verity (11/11/2026):
+ * ambiente frío, brumoso y apagado; grises azulados con tinte lavanda.
+ * Lo único cálido es el granate de las estatuas y el cobre de lo activo.
  */
 
 :root {
-  /* Paleta base */
-  --palette-mist: #eef0f6;
-  --palette-lavender: #a3a8cc;
-  --palette-indigo: #2a2c55;
-  --palette-ink: #1e1f3a;
-  --palette-crimson: #9e2443;
-  --palette-copper: #c27a4e;
+  /* Paleta base (colores dominantes de la escena) */
+  --palette-haze-light: #dfe2e8; /* luces altas: fondo arriba */
+  --palette-haze: #cdd1db; /* luces: fondo abajo */
+  --palette-mid: #969cb0; /* medios */
+  --palette-mid-deep: #5e647b; /* pista de interruptor apagado (≥ 3:1 sobre fondo y planos) */
+  --palette-slate-soft: #3f4353; /* sombras profundas: texto secundario (≥ 4.5:1 en fondo y planos) */
+  --palette-slate: #262a39; /* texto */
+  --palette-ink: #1f2230; /* siluetas casi negras */
+  --palette-maroon: #863b3b; /* formas 3D de las estatuas (referencia de la comunidad) */
+  --palette-copper: #c27a4e; /* brasa de los símbolos */
+  --palette-copper-deep: #9a5530; /* contornos de estado y foco (≥ 3:1 sobre fondo y planos) */
 
   /* Colores semánticos (tema claro, por defecto) */
-  --color-bg: var(--palette-mist);
-  --color-surface: color-mix(in srgb, var(--palette-mist), white 50%);
-  --color-text: var(--palette-indigo);
-  --color-text-muted: color-mix(in srgb, var(--palette-indigo), var(--palette-lavender) 45%);
-  --color-border: var(--palette-lavender);
+  --color-bg: var(--palette-haze);
+  /* Planos de tono: la única forma de separar zonas (sin líneas). Son velos
+     translúcidos de pizarra: la diferencia con el fondo es igual de sutil en
+     todo el degradado, como capas de bruma. */
+  --color-surface: color-mix(in srgb, var(--palette-slate) 6%, transparent);
+  --color-surface-hover: color-mix(in srgb, var(--palette-slate) 11%, transparent);
+  /* Superficies flotantes (panel de ajustes, resumen): opacas. */
+  --color-surface-raised: var(--palette-haze-light);
+  --color-track: var(--palette-mid-deep);
+  --color-knob: var(--palette-haze-light);
+
+  /* Fondo de la página: bruma, más luminosa arriba. */
+  --gradient-bg: linear-gradient(180deg, var(--palette-haze-light) 0%, var(--palette-haze) 70%);
+  --color-text: var(--palette-slate);
+  --color-text-muted: var(--palette-slate-soft);
   --color-silhouette: var(--palette-ink);
-  --color-statue: var(--palette-crimson);
-  --color-active: var(--palette-copper);
+  --color-statue: var(--palette-maroon);
+  --color-active: var(--palette-copper-deep);
   --color-ember: var(--palette-copper);
-  --color-focus: var(--palette-copper);
-  --color-on-statue: var(--palette-mist);
+  --color-focus: var(--palette-copper-deep);
   --color-backdrop: color-mix(in srgb, var(--palette-ink), transparent 50%);
 
-  /* Sólidos 3D: oscuros y mate, volumen con 3 tonos planos */
-  --color-solid-dark: var(--palette-ink);
-  --color-solid-mid: color-mix(in srgb, var(--palette-ink), var(--palette-indigo) 60%);
-  --color-solid-light: color-mix(in srgb, var(--palette-indigo), var(--palette-lavender) 35%);
+  /* Sólidos 3D (estatuas): granate mate, volumen con 3 tonos planos */
+  --color-solid-mid: var(--palette-maroon);
+  --color-solid-dark: color-mix(in srgb, var(--palette-maroon), var(--palette-ink) 45%);
+  --color-solid-light: color-mix(in srgb, var(--palette-maroon), var(--palette-haze-light) 28%);
 
-  /* Tipografía: Inter (OFL), alojada con el proyecto vía @fontsource-variable/inter */
-  --font-family: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Tipografía: texto con la fuente del sistema (como bungie.net); títulos con
+     Montserrat (OFL), alojada con el proyecto vía @fontsource-variable/montserrat. */
+  --font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family-display: 'Montserrat Variable', var(--font-family);
+  --font-size-xs: 0.8125rem;
   --font-size-sm: 0.875rem;
   --font-size-md: 1rem;
   --font-size-lg: 1.25rem;
   --font-size-xl: 1.75rem;
   --font-weight-regular: 400;
-  --font-weight-bold: 600;
+  --font-weight-bold: 500;
   --line-height: 1.5;
 
   /* Espaciado */
@@ -52,6 +71,9 @@
   --space-6: 1.5rem;
   --space-8: 2rem;
 
+  /* Maquetación: ancho del contenido (cabecera y tablero comparten márgenes) */
+  --content-width: 40rem;
+
   /* Formas y trazos (cintas finas de la sala) */
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -60,11 +82,11 @@
 
   /* Controles de formulario (botones, selectores) */
   --control-height: 2.5rem;
+  --control-height-sm: 2rem;
   --control-padding-x: var(--space-4);
   --control-radius: var(--radius-sm);
-  --control-border: var(--color-border);
-  --control-border-hover: var(--color-text-muted);
   --control-bg: var(--color-surface);
+  --control-bg-hover: var(--color-surface-hover);
   --control-text: var(--color-text);
   --control-primary-bg: var(--color-text);
   --control-primary-text: var(--color-bg);
@@ -82,11 +104,14 @@
 /* Modo oscuro opcional, derivado de las sombras de la sala */
 :root[data-theme='dark'] {
   --color-bg: var(--palette-ink);
-  --color-surface: var(--palette-indigo);
-  --color-text: var(--palette-mist);
-  --color-text-muted: var(--palette-lavender);
-  --color-border: color-mix(in srgb, var(--palette-lavender), var(--palette-indigo) 40%);
-  --color-silhouette: var(--palette-mist);
+  --color-surface: color-mix(in srgb, var(--palette-haze-light) 6%, transparent);
+  --color-surface-hover: color-mix(in srgb, var(--palette-haze-light) 11%, transparent);
+  --color-surface-raised: var(--palette-slate);
+  --color-track: var(--palette-slate-soft);
+  --gradient-bg: linear-gradient(180deg, var(--palette-slate) 0%, var(--palette-ink) 60%);
+  --color-text: var(--palette-haze-light);
+  --color-text-muted: var(--palette-mid);
+  --color-silhouette: var(--palette-haze-light);
 
   color-scheme: dark;
 }

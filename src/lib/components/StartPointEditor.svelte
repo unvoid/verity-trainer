@@ -8,6 +8,7 @@
   import { locale, t, tn } from '../i18n'
   import { setup, setupState } from '../stores/setup'
   import Button from './Button.svelte'
+  import SectionTitle from './SectionTitle.svelte'
   import Shape3D from './Shape3D.svelte'
   import SlotPicker from './SlotPicker.svelte'
   import Symbol2D from './Symbol2D.svelte'
@@ -41,12 +42,12 @@
 
 <section class="editor" aria-labelledby="setup-title">
   <header>
-    <h2 id="setup-title">{$t('setup.title')}</h2>
+    <SectionTitle id="setup-title">{$t('setup.title')}</SectionTitle>
     <p class="muted">{$t('setup.intro')}</p>
   </header>
 
   <div class="group">
-    <h3>{$t('setup.callouts')}</h3>
+    <SectionTitle level={3}>{$t('setup.callouts')}</SectionTitle>
     <div class="slots">
       {#each SLOTS as slot (slot)}
         {@const allowed = calloutOptions($setup.callouts, slot)}
@@ -69,7 +70,7 @@
   </div>
 
   <div class="group">
-    <h3>{$t('setup.statues')}</h3>
+    <SectionTitle level={3}>{$t('setup.statues')}</SectionTitle>
     <div class="slots">
       {#each SLOTS as slot (slot)}
         {@const allowed = statueOptions($setup.statues, slot)}
@@ -90,7 +91,7 @@
     </div>
   </div>
 
-  <p class="muted">{$t('setup.group-hint')}</p>
+  <p class="muted hint-text">{$t('setup.group-hint')}</p>
 
   {#if warning}
     <p class="warning" role="status">{warning}</p>
@@ -108,7 +109,7 @@
     </Button>
   </div>
   {#if !$setupState.ready}
-    <p id="setup-incomplete" class="muted end">{$t('setup.incomplete')}</p>
+    <p id="setup-incomplete" class="muted">{$t('setup.incomplete')}</p>
   {/if}
 </section>
 
@@ -117,21 +118,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
-  }
-
-  h2,
-  h3 {
-    margin: 0;
-    font-weight: var(--font-weight-bold);
-  }
-
-  h2 {
-    font-size: var(--font-size-lg);
-  }
-
-  h3 {
-    margin-bottom: var(--space-3);
-    font-size: var(--font-size-md);
   }
 
   p {
@@ -143,23 +129,17 @@
     color: var(--color-text-muted);
   }
 
-  .end {
-    text-align: end;
-  }
-
   .slots {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-2);
+    gap: var(--space-4);
   }
 
   .warning {
     padding: var(--space-3) var(--space-4);
     font-size: var(--font-size-sm);
     background: var(--color-surface);
-    border: var(--stroke-thin) solid var(--color-border);
-    border-left: calc(var(--stroke-focus) * 2) solid var(--color-text-muted);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
   }
 
   .actions {

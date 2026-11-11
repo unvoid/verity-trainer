@@ -62,14 +62,12 @@
   .settings {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
-    padding-top: var(--space-6);
-    border-top: var(--stroke-thin) solid var(--color-border);
+    gap: var(--space-6);
   }
 
   h2 {
     margin: 0;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
   }
 </style>

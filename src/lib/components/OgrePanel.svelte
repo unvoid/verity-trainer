@@ -7,6 +7,7 @@
   import { t } from '../i18n'
   import { clock } from '../stores/clock'
   import Button from './Button.svelte'
+  import SectionTitle from './SectionTitle.svelte'
 
   interface Props {
     drops: DropsState
@@ -23,7 +24,7 @@
 
 {#if drops.ogres}
   <section class="ogres" aria-labelledby="ogres-title">
-    <h3 id="ogres-title">{$t('ogres.title')}</h3>
+    <SectionTitle id="ogres-title" level={3}>{$t('ogres.title')}</SectionTitle>
     <p class="hint">{$t('ogres.hint')}</p>
     <div class="row">
       {#each OGRE_SIDES as side (side)}
@@ -43,19 +44,13 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-    padding: var(--space-3) var(--space-4);
-    border: var(--stroke-thin) dashed var(--color-border);
+    padding: var(--space-4);
+    background: var(--color-surface);
     border-radius: var(--radius-md);
   }
 
-  h3,
   p {
     margin: 0;
-  }
-
-  h3 {
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-bold);
   }
 
   .hint,

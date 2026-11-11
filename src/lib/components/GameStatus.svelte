@@ -1,9 +1,9 @@
 <!--
-  Estado de la partida: contador, símbolo en mano, modo, pista de intercambios
+  Estado de la partida: contador, símbolo en mano, pista de intercambios
   pendientes y último resultado (anunciado a lectores de pantalla).
 -->
 <script lang="ts">
-  import type { Mode, Symbol2D } from '../domain/types'
+  import type { Symbol2D } from '../domain/types'
   import { locale, t, tn } from '../i18n'
   import type { Feedback } from '../stores/game'
   import Button from './Button.svelte'
@@ -11,7 +11,6 @@
   interface Props {
     swaps: number
     held: Symbol2D | null
-    mode: Mode
     feedback: Feedback | null
     /** Intercambios mínimos pendientes (pista), o `null` si no se muestran. */
     remaining: number | null
@@ -19,7 +18,7 @@
     onrestart: () => void
   }
 
-  let { swaps, held, mode, feedback, remaining, onnewgame, onrestart }: Props = $props()
+  let { swaps, held, feedback, remaining, onnewgame, onrestart }: Props = $props()
 
   const feedbackText = $derived.by(() => {
     if (!feedback) return ''
@@ -61,9 +60,6 @@
 <section class="status">
   <p class="counters">
     <span>{$t('status.swaps', { count: swaps })}</span>
-    {#if mode === 'challenge'}
-      <span class="badge">{$t('status.mode.challenge')}</span>
-    {/if}
     <span>{held ? $t('status.holding', { symbol: $t(`symbol.${held}`) }) : $t('status.empty-hands')}</span>
   </p>
 
@@ -99,12 +95,6 @@
     font-size: var(--font-size-sm);
   }
 
-  .badge {
-    padding: 0 var(--space-2);
-    font-weight: var(--font-weight-bold);
-    border: var(--stroke-thin) solid var(--color-border);
-    border-radius: var(--radius-sm);
-  }
 
   .hint {
     font-size: var(--font-size-sm);

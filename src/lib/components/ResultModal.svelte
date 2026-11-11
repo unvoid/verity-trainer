@@ -85,9 +85,8 @@
     max-height: calc(100dvh - 2 * var(--space-4));
     padding: var(--space-6);
     color: var(--color-text);
-    background: var(--color-bg);
-    border: var(--stroke-thin) solid var(--color-border);
-    border-top: calc(var(--stroke-focus) * 2) solid var(--color-active);
+    background: var(--color-surface-raised);
+    border: 0;
     border-radius: var(--radius-md);
   }
 
@@ -127,9 +126,7 @@
 
   .stats div {
     padding: var(--space-3);
-    text-align: center;
     background: var(--color-surface);
-    border: var(--stroke-thin) solid var(--color-border);
     border-radius: var(--radius-sm);
   }
 

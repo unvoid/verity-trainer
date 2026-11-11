@@ -53,6 +53,8 @@ VITE_FEATURE_CHALLENGE_MODE=false
 VITE_FEATURE_SYMBOL_ROUNDS=true
 ```
 
+El repositorio incluye un `.env` con la configuración actual: pistas activadas; modo desafío y símbolos por rondas desactivados. Para recuperar una funcionalidad, cambia su valor a `true`.
+
 Una funcionalidad desactivada no aparece en la web. Más detalle en [docs/arquitectura.md](docs/arquitectura.md#funcionalidades-y-ajustes).
 
 ## Scripts
@@ -71,7 +73,7 @@ Una funcionalidad desactivada no aparece en la web. Más detalle en [docs/arquit
 - [Vite](https://vite.dev/) + [Svelte 5](https://svelte.dev/) + TypeScript
 - [Vitest](https://vitest.dev/) para la lógica de dominio
 - Formas en SVG, sin librerías 3D
-- Tipografía [Inter](https://rsms.me/inter/) (SIL Open Font License), alojada con el proyecto mediante `@fontsource-variable/inter`
+- Tipografía del sistema para el texto y [Montserrat](https://fonts.google.com/specimen/Montserrat) (SIL Open Font License) para títulos, alojada con el proyecto mediante `@fontsource-variable/montserrat`
 - Web estática: se despliega el contenido de `dist/` en cualquier hosting estático
 
 ## Estructura

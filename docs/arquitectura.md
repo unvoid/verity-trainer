@@ -34,10 +34,13 @@ src/
     actions/
       dragSymbol.ts    # arrastrar y soltar con Pointer Events
     features.ts        # funcionalidades disponibles en la versión (interruptores de compilación)
+    visual/
+      silhouettes.ts   # siluetas de los símbolos 2D (compartidas)
+      shards.ts        # geometría del loader de fragmentos
     components/        # Button, Switch, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
-                       # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel,
+                       # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel, SectionTitle, GearIcon,
                        # SettingsPanel, StartPointEditor, SolverPanel,
-                       # ResultModal, ShardLoader, LanguageSelector, UsageGuide
+                       # ResultModal, ShardLoader, SplashScreen, SettingsDrawer, LanguageSelector, UsageGuide
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       en.ts            # textos en inglés (idioma base de las claves)

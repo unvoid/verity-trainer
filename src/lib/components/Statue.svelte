@@ -1,5 +1,6 @@
 <!--
-  Estatua exterior: botón con la forma 3D sobre una base carmesí.
+  Estatua exterior: tile con la forma 3D granate y su posición debajo,
+  como en las demás zonas (el nombre completo va en la etiqueta accesible).
   Al activarla se deposita el símbolo que lleva el jugador.
   Es destino de arrastre (`data-drop-slot`).
   Con pistas: muestra sus dos símbolos, marcando los que chocan con su callout,
@@ -40,7 +41,7 @@
     dropHover = false,
     hints = false,
     accepts = false,
-    size = 96,
+    size = 80,
     onactivate,
   }: Props = $props()
 
@@ -60,7 +61,7 @@
 
 <button
   type="button"
-  class="statue"
+  class="statue tile"
   class:marked={marked !== null}
   class:drop-hover={dropHover}
   class:accepts={hints && accepts}
@@ -69,7 +70,6 @@
   {disabled}
   onclick={() => onactivate(slot)}
 >
-  <span class="name">{name}</span>
   <span class="figure">
     <Shape3D {shape} {size} />
     {#if marked}
@@ -87,56 +87,38 @@
       {/each}
     </span>
   {/if}
-  <span class="base">{shapeName}</span>
+  <span class="tile-label" aria-hidden="true">{$t(`position.${slot}`)}</span>
 </button>
 
 <style>
   .statue {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-2);
     width: 100%;
-    padding: var(--space-3) var(--space-3) 0;
-    font: inherit;
-    color: var(--color-text);
-    background: var(--color-surface);
-    border: var(--stroke-thin) solid var(--color-statue);
-    border-radius: var(--radius-md);
-    overflow: hidden;
     cursor: pointer;
     transition:
-      box-shadow var(--duration-fast) var(--easing-standard),
-      transform var(--duration-fast) var(--easing-standard);
+      outline-color var(--duration-fast) var(--easing-standard),
+      background-color var(--duration-fast) var(--easing-standard);
   }
 
+  /* Al pasar por encima, el plano se oscurece un poco; nada se mueve. */
   .statue:hover:not(:disabled) {
-    transform: translateY(-2px);
+    background: var(--color-surface-hover);
   }
 
   .statue:disabled {
     cursor: default;
   }
 
+  /* Estados con contornos cobre (lo activo): marcada, admite tu símbolo, destino de arrastre. */
   .statue.marked {
-    box-shadow: 0 0 0 var(--stroke-focus) var(--color-active);
+    outline: var(--stroke-focus) solid var(--color-active);
   }
 
-  /* Admite el símbolo que llevas (pista): contorno fino separado del borde. */
   .statue.accepts:not(.marked) {
     outline: var(--stroke-thin) solid var(--color-active);
-    outline-offset: var(--stroke-focus);
   }
 
   .statue.drop-hover {
     outline: var(--stroke-focus) dashed var(--color-active);
-    outline-offset: var(--stroke-focus);
-  }
-
-  .name {
-    font-size: var(--font-size-sm);
-    text-align: center;
-    color: var(--color-text-muted);
   }
 
   .figure {
@@ -146,10 +128,13 @@
     width: 100%;
   }
 
+  /* Símbolo marcado: proporcional a la estatua, en la esquina, para no tapar la forma. */
   .mark {
     position: absolute;
     top: 0;
     right: 0;
+    width: 26%;
+    transform: translate(25%, -25%);
   }
 
   .hint {
@@ -163,18 +148,9 @@
     border-radius: 50%;
   }
 
-  /* Símbolo que choca con el callout: aro carmesí, el color de la estatua. */
+  /* Símbolo que choca con el callout: aro granate, el color de la estatua. */
   .hint-symbol.clash {
     border-color: var(--color-statue);
     box-shadow: inset 0 0 0 var(--stroke-thin) var(--color-statue);
-  }
-
-  .base {
-    align-self: stretch;
-    margin-inline: calc(-1 * var(--space-3));
-    padding: var(--space-2);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-on-statue);
-    background: var(--color-statue);
   }
 </style>

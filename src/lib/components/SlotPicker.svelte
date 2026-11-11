@@ -72,12 +72,12 @@
     min-width: 0;
     margin: 0;
     padding: var(--space-3) var(--space-2);
-    border: var(--stroke-thin) solid var(--color-border);
-    border-radius: var(--radius-md);
     background: var(--color-surface);
+    border: 0;
+    border-radius: var(--radius-md);
   }
 
-  /* Dentro del recuadro: si ocupa dos líneas no corta el borde. */
+  /* Flotante y a todo el ancho: se comporta como un título normal dentro del grupo. */
   legend {
     float: left;
     width: 100%;
@@ -113,7 +113,7 @@
     place-items: center;
     font-size: var(--font-size-lg);
     color: var(--color-text-muted);
-    border: var(--stroke-thin) dashed var(--color-border);
+    background: var(--color-bg);
     border-radius: var(--radius-md);
   }
 

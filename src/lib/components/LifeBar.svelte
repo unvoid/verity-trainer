@@ -25,7 +25,7 @@
     width: 100%;
     height: var(--stroke-focus);
     overflow: hidden;
-    background: var(--color-border);
+    background: var(--color-surface-hover);
     border-radius: var(--stroke-focus);
   }
 

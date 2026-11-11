@@ -87,13 +87,11 @@
     height: var(--track-height);
     margin: 0;
     margin-top: 1px;
-    background: var(--control-bg);
-    border: var(--stroke-thin) solid var(--control-border);
+    background: var(--color-track);
+    border: 0;
     border-radius: var(--track-height);
     cursor: pointer;
-    transition:
-      background-color var(--duration-fast) var(--easing-standard),
-      border-color var(--duration-fast) var(--easing-standard);
+    transition: background-color var(--duration-fast) var(--easing-standard);
   }
 
   input::before {
@@ -103,20 +101,15 @@
     left: 2px;
     width: var(--knob-size);
     height: var(--knob-size);
-    background: var(--control-border);
+    background: var(--color-knob);
     border-radius: 50%;
     transition:
       transform var(--duration-fast) var(--easing-standard),
       background-color var(--duration-fast) var(--easing-standard);
   }
 
-  input:hover:not(:disabled) {
-    border-color: var(--control-border-hover);
-  }
-
   input:checked {
     background: var(--control-primary-bg);
-    border-color: var(--control-primary-bg);
   }
 
   input:checked::before {
