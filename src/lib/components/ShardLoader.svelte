@@ -1,7 +1,13 @@
 <!--
-  Loader de fragmentos: Cuadrado → Triángulo → Círculo. Cada forma se recompone
-  desde sus trozos, se queda entera y se rompe mientras entra la siguiente.
-  Sombras negras, sin brasa. Especificación y técnica: docs/estetica.md ("Loader").
+  Loader de fragmentos. Cada forma se recompone desde sus trozos, se queda entera
+  y se rompe mientras entra la siguiente. Sombras negras, sin brasa.
+  Especificación y técnica: docs/estetica.md ("Loader").
+
+  Modos:
+  - Bucle (por defecto): las formas de `sequence` se suceden sin fin.
+  - Una vez (`once`): la primera empieza entera, se pasa por la segunda y la
+    animación termina con la última entera. `playing` permite arrancarla después
+    (p. ej. tras un fundido de entrada). Tiempos: visual/loaderTimeline.ts.
 
   Línea de tiempo de cada forma (fracción del ciclo; las tres desfasadas 1/3):
     0–9 %    se recompone (gira y encaja); 9–11 % en reposo
@@ -9,6 +15,8 @@
     33–45 %  se rompe: trozos separados, girados y sesgados; la forma gira y se encoge
 -->
 <script lang="ts">
+  import type { Symbol2D } from '../domain/types'
+  import { FINAL_START, FIRST_START, MIDDLE_START } from '../visual/loaderTimeline'
   import { shardShapes } from '../visual/shards'
 
   interface Props {
@@ -20,16 +28,50 @@
     separation?: number
     /** Texto accesible. Sin él, el loader es decorativo. */
     label?: string
+    /** Orden de las formas (tres). */
+    sequence?: readonly [Symbol2D, Symbol2D, Symbol2D]
+    /** Recorre la secuencia una vez y se queda en la última forma. */
+    once?: boolean
+    /** Si es `false`, la animación queda parada (con `once`, en la primera forma entera). */
+    playing?: boolean
   }
 
-  let { size = 96, cycle = 4800, separation = 6, label }: Props = $props()
+  let {
+    size = 96,
+    cycle = 4800,
+    separation = 6,
+    label,
+    sequence = ['square', 'triangle', 'circle'],
+    once = false,
+    playing = true,
+  }: Props = $props()
 
   const uid = $props.id()
-  const shapes = $derived(shardShapes(separation))
+  const shapes = $derived.by(() => {
+    const all = shardShapes(separation)
+    return sequence.map((symbol) => all.find((shape) => shape.symbol === symbol)!)
+  })
+
+  /**
+   * Orden de pintado: en "una vez", la forma que se rompe va encima de la que
+   * entra (la primera de la secuencia, la última en pintarse).
+   */
+  const painted = $derived(
+    once ? shapes.map((shape, index) => ({ shape, index })).reverse() : shapes.map((shape, index) => ({ shape, index })),
+  )
+
+  /** Retraso de la animación de cada forma. */
+  function delayOf(index: number): string {
+    if (!once) return `calc(var(--cycle) / 3 * ${index})`
+    const fraction = [FIRST_START, MIDDLE_START, FINAL_START][index] ?? 0
+    return `calc(var(--cycle) * ${fraction})`
+  }
 </script>
 
 <svg
   class="loader"
+  class:once
+  class:paused={!playing}
   width={size}
   height={size}
   viewBox="0 0 100 100"
@@ -44,8 +86,13 @@
     {/each}
   </defs>
 
-  {#each shapes as shape, index (shape.symbol)}
-    <g class="shape" style:--order={index}>
+  {#each painted as { shape, index } (shape.symbol)}
+    <g
+      class="shape"
+      class:lead={index === 0}
+      class:final={once && index === shapes.length - 1}
+      style:--delay={delayOf(index)}
+    >
       {#each shape.shards as shard, i (i)}
         <g
           class="shard"
@@ -76,14 +123,47 @@
     fill: var(--color-silhouette);
   }
 
-  /* Cada forma empieza 1/3 de ciclo después de la anterior; antes, invisible. */
+  /* Cada forma empieza con su retraso (--delay); antes, invisible. */
   .shape,
   .shard,
   .whole {
     animation-duration: var(--cycle);
     animation-iteration-count: infinite;
-    animation-delay: calc(var(--cycle) / 3 * var(--order));
+    animation-delay: var(--delay);
     animation-fill-mode: backwards;
+  }
+
+  /* Una vez: cada forma anima una sola vez y conserva su último estado. */
+  .once .shape,
+  .once .shard,
+  .once .whole {
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+  }
+
+  /* La última forma se recompone y se queda entera (sin romperse). */
+  .once .final,
+  .once .final .shard,
+  .once .final .whole {
+    animation-duration: calc(var(--cycle) * 0.33);
+  }
+
+  .once .final {
+    animation-name: shape-final;
+  }
+
+  .once .final .shard {
+    animation-name: shard-final;
+  }
+
+  .once .final .whole {
+    animation-name: whole-final;
+  }
+
+  .paused .shape,
+  .paused .shard,
+  .paused .whole {
+    animation-play-state: paused;
   }
 
   .shape,
@@ -170,7 +250,50 @@
     }
   }
 
-  /* Sin animación: solo el cuadrado, entero y quieto. */
+  /* Última forma del modo "una vez": misma línea de tiempo comprimida a 0–33 % del ciclo. */
+  @keyframes shape-final {
+    0% {
+      transform: rotate(-35deg) scale(1.08);
+    }
+    27.27%,
+    100% {
+      transform: none;
+    }
+  }
+
+  @keyframes shard-final {
+    0% {
+      transform: translate(calc(var(--dx) * -1), calc(var(--dy) * -1)) rotate(calc(var(--rot) * -1))
+        skewX(calc(var(--skew) * -1));
+      opacity: 0;
+    }
+    9.09% {
+      opacity: 1;
+    }
+    27.27%,
+    33.33% {
+      transform: none;
+      opacity: 1;
+    }
+    33.36%,
+    100% {
+      transform: none;
+      opacity: 0;
+    }
+  }
+
+  @keyframes whole-final {
+    0%,
+    33.33% {
+      opacity: 0;
+    }
+    33.36%,
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Sin animación: solo la primera forma, entera y quieta. */
   @media (prefers-reduced-motion: reduce) {
     .shape,
     .shard,
@@ -182,7 +305,7 @@
       opacity: 0;
     }
 
-    .shape:not(:first-of-type) {
+    .shape:not(.lead) {
       display: none;
     }
   }

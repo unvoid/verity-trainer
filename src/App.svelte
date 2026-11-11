@@ -23,6 +23,8 @@
 
   /** Pantalla de entrada: se ve al menos una vez al abrir la web. */
   let splash = $state(true)
+  /** El contenido aparece (fundido y escala) cuando la pantalla de entrada se retira. */
+  let revealed = $state(false)
 
   /** Preparación del punto de partida o partida en curso. */
   let phase = $state<'setup' | 'playing'>('setup')
@@ -96,7 +98,7 @@
 </svelte:head>
 
 {#if splash}
-  <SplashScreen onfinish={() => (splash = false)} />
+  <SplashScreen onreveal={() => (revealed = true)} onfinish={() => (splash = false)} />
 {/if}
 
 <header class="app-header" inert={splash}>
@@ -109,7 +111,7 @@
   </div>
 </header>
 
-<main class="app-main" inert={splash}>
+<main class="app-main" class:revealed inert={splash}>
   {#if phase === 'setup'}
     <StartPointEditor onstart={startTraining} />
   {:else}
@@ -228,6 +230,18 @@
     max-width: var(--content-width);
     margin-inline: auto;
     padding: var(--space-6) var(--space-4);
+    /* Oculto y algo más pequeño hasta que se retira la pantalla de entrada. */
+    opacity: 0;
+    transform: scale(0.97);
+    transform-origin: 50% 0;
+    transition:
+      opacity var(--duration-reveal) var(--easing-standard),
+      transform var(--duration-reveal) var(--easing-standard);
+  }
+
+  .app-main.revealed {
+    opacity: 1;
+    transform: none;
   }
 
   .statues {

@@ -6,6 +6,7 @@
   import { FEATURES } from '../features'
   import { t } from '../i18n'
   import { settings } from '../stores/settings'
+  import SectionTitle from './SectionTitle.svelte'
   import Switch from './Switch.svelte'
 
   interface Props {
@@ -20,7 +21,7 @@
 
 {#if anyAvailable}
   <section class="settings" aria-labelledby="settings-title">
-    <h2 id="settings-title">{$t('settings.title')}</h2>
+    <SectionTitle id="settings-title">{$t('settings.title')}</SectionTitle>
 
     {#if FEATURES.hints}
       <Switch
@@ -63,11 +64,5 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
-  }
-
-  h2 {
-    margin: 0;
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
   }
 </style>
