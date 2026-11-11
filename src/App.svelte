@@ -264,7 +264,9 @@
       transform var(--duration-reveal) var(--easing-standard);
   }
 
+  /* Pegado al final de la página (ver #app en base.css). */
   .app-footer {
+    margin-top: auto;
     opacity: 0;
     transition: opacity var(--duration-reveal) var(--easing-standard);
   }
