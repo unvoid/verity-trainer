@@ -96,7 +96,7 @@
   }
 
   h2 {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
   }
 
