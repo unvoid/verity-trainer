@@ -24,7 +24,8 @@
 <style>
   .region {
     position: fixed;
-    inset: auto 0 var(--space-6) 0;
+    /* Por encima del pie de página, para no taparlo. */
+    inset: auto 0 calc(var(--space-8) * 2) 0;
     z-index: 15;
     display: flex;
     justify-content: center;
