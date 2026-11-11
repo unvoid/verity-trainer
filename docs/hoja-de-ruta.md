@@ -16,7 +16,8 @@
 | 4 | **UI básica:** callouts, estatuas, caja de símbolos, intercambio tocando, condición de victoria | Hecho |
 | 5 | **Arrastrar y soltar** con Pointer Events | Hecho |
 | 6 | **Editor de punto de partida** con validación | Hecho |
-| 7 | **Ajustes:** pistas, Challenge Mode, Realistic Symbol Drops, persistencia | |
+| 7a | **Ajustes:** pistas, modo desafío, persistencia, resumen al resolver, interruptores de funcionalidades | Hecho |
+| 7b | **Símbolos por rondas** (nuestro nombre para el *Realistic Symbol Drops* del original): como en el original, con caducidad a los 10 s, ogros y caballeros que reaparecen | |
 | 8 | **Estética:** formas SVG, paleta definitiva, loader, modo oscuro | |
 | 9 | **Manual de uso** ES/EN | |
 | 10 | **Pulido y despliegue:** accesibilidad, créditos en la web, publicación | |

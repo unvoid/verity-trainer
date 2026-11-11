@@ -27,6 +27,7 @@
   --color-ember: var(--palette-copper);
   --color-focus: var(--palette-copper);
   --color-on-statue: var(--palette-mist);
+  --color-backdrop: color-mix(in srgb, var(--palette-ink), transparent 50%);
 
   /* Sólidos 3D: oscuros y mate, volumen con 3 tonos planos */
   --color-solid-dark: var(--palette-ink);

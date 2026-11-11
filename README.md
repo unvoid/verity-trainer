@@ -43,6 +43,18 @@ cd verity-trainer
 npm install
 ```
 
+## Funcionalidades por versión
+
+Algunas funcionalidades se pueden activar o desactivar al compilar, con variables de entorno. Copia `.env.example` como `.env.production` (o `.env.local`) y ajusta los valores:
+
+```sh
+VITE_FEATURE_HINTS=true
+VITE_FEATURE_CHALLENGE_MODE=false
+VITE_FEATURE_SYMBOL_ROUNDS=false
+```
+
+Una funcionalidad desactivada no aparece en la web. Más detalle en [docs/arquitectura.md](docs/arquitectura.md#funcionalidades-y-ajustes).
+
 ## Scripts
 
 | Comando | Qué hace |
@@ -81,6 +93,7 @@ tests/            # Tests de Vitest
 - [Mecánica del encuentro](docs/mecanica.md): vocabulario, reglas, ajustes y solucionador.
 - [Arquitectura](docs/arquitectura.md): principios, estructura, interacción e idiomas.
 - [Estética](docs/estetica.md): paleta, tipografía y reglas visuales.
+- [Tono y vocabulario](docs/tono.md): cómo se escriben los textos de la web.
 - [Hoja de ruta](docs/hoja-de-ruta.md): hitos y dudas abiertas.
 
 ## Créditos

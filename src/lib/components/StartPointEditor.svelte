@@ -5,7 +5,7 @@
 <script lang="ts">
   import { calloutOptions, statueOptions } from '../domain/editor'
   import { SHAPES, SLOTS, SYMBOLS, type Scenario, type Shape3D as ShapeName, type Symbol2D as SymbolName } from '../domain/types'
-  import { locale, t } from '../i18n'
+  import { locale, t, tn } from '../i18n'
   import { setup, setupState } from '../stores/setup'
   import Button from './Button.svelte'
   import Shape3D from './Shape3D.svelte'
@@ -21,9 +21,9 @@
   const warning = $derived.by(() => {
     const issue = $setupState.validation?.issues.find((i) => i.code === 'statue-starts-solved')
     if (!issue) return null
-    const names = issue.slots.map((slot) => $t(`statue.name.${slot}`))
+    const names = issue.slots.map((slot) => $t(`statue.ref.${slot}`))
     const statues = new Intl.ListFormat($locale, { type: 'conjunction' }).format(names)
-    return $t(names.length === 1 ? 'setup.warning.starts-solved' : 'setup.warning.starts-solved.plural', { statues })
+    return $tn('setup.warning.starts-solved', names.length, { statues })
   })
 
   function start() {
