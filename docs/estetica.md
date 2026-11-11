@@ -54,14 +54,22 @@ Botones, selectores y opciones comparten los tokens `--control-*` de `tokens.css
 
 Los controles nuevos usan el componente `Button` o estos tokens; nunca estilos propios sueltos.
 
-## ShapeMorphLoader
+## Loader (fragmentos)
 
-Indicador de carga que transforma Círculo → Cuadrado → Triángulo.
+Indicador de carga inspirado en cómo cambian las siluetas de la pared en el juego: las formas no se transforman de manera continua, se rompen y se recomponen. Ciclo Cuadrado → Triángulo → Círculo.
 
-- Bucle de ida y vuelta (`animation-direction: alternate`), con una pausa en cada forma.
-- Hecho con `clip-path: polygon()`. Las tres formas son polígonos con el **mismo número de puntos**, todos empezando arriba y en sentido horario, para que la transición no se retuerza.
-- Los puntos se reparten por el perímetro de cada forma e incluyen siempre sus vértices.
-- Núcleo cobre con degradado radial; en el triángulo baja ligeramente hacia su centro visual.
-- Parámetros: número de puntos, duración del ciclo, pausa, tamaño, colores.
-- Con `prefers-reduced-motion`: forma estática.
-- Prototipo validado: 48 puntos, ciclo de 3,6 s, pausa del 12 % en cada forma.
+- **Estilo:** sombras negras (`--color-silhouette`), sin brasa. En el juego las siluetas de la pared son sombras.
+- **Cortes rectos:**
+  - Cuadrado y triángulo: dos mitades por un corte horizontal.
+  - Círculo: tres quesitos iguales desde el centro.
+- **Cada forma (~1,6 s):**
+  1. Se recompone desde sus trozos sueltos mientras la anterior se rompe (las dos se superponen).
+  2. Se queda entera ~1 s. Mientras está entera se dibuja una sola pieza; el cambio de trozos a pieza es instantáneo y ocurre cuando los trozos ya han encajado del todo.
+  3. Se rompe: los trozos se separan unos píxeles, giran un poco y se sesgan (`skewX`); la forma entera gira y se encoge al 50 % mientras se desvanece.
+- **Giro de la forma:** entra girada (−35°) y se endereza; sale girando (30°).
+- **Técnica:** SVG con `clipPath` por forma y trozos con `transform` + `opacity` en CSS. Sin JavaScript en la animación; geometría precalculada.
+- **Sin costuras:** los trozos se solapan unas décimas por el corte (0,6 unidades en las mitades, ±1,5° en los quesitos). Como son opacos, el solape no se ve y evita la línea fina de antialias al encajar.
+- **Sin destello:** los trozos entran opacos casi de inmediato y solo se desvanecen al final de la rotura.
+- **Parámetros:** tamaño, duración del ciclo, separación, giro y sesgo de los trozos.
+- Con `prefers-reduced-motion`: una forma estática.
+- Prototipo validado el 11/11/2026.

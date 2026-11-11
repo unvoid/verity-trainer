@@ -37,7 +37,7 @@ src/
     components/        # Button, Switch, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
                        # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel,
                        # SettingsPanel, StartPointEditor, SolverPanel,
-                       # ResultModal, ShapeMorphLoader, LanguageSelector, UsageGuide
+                       # ResultModal, ShardLoader, LanguageSelector, UsageGuide
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       en.ts            # textos en inglés (idioma base de las claves)
