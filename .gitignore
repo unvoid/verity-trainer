@@ -19,3 +19,6 @@ npm-debug.log*
 .idea
 .DS_Store
 *.sw?
+
+# Notas de trabajo locales (no se publican)
+docs/hoja-de-ruta.md
