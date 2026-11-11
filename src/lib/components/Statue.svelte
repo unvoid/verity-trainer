@@ -1,6 +1,7 @@
 <!--
   Estatua exterior: botón con la forma 3D sobre una base carmesí.
   Al activarla se deposita el símbolo que lleva el jugador.
+  Es destino de arrastre (`data-drop-slot`).
 -->
 <script lang="ts">
   import type { Shape3D as Shape, Slot, Symbol2D as SymbolName } from '../domain/types'
@@ -14,12 +15,15 @@
     /** Símbolo con el que está marcada por el primer depósito, o `null`. */
     marked?: SymbolName | null
     disabled?: boolean
+    /** Hay un símbolo arrastrado sobre ella. */
+    dropHover?: boolean
     /** Tamaño de la forma en px. */
     size?: number
     onactivate: (slot: Slot) => void
   }
 
-  let { slot, shape, marked = null, disabled = false, size = 96, onactivate }: Props = $props()
+  let { slot, shape, marked = null, disabled = false, dropHover = false, size = 96, onactivate }: Props =
+    $props()
 
   const name = $derived($t(`statue.name.${slot}`))
   const shapeName = $derived($t(`shape.${shape}`))
@@ -33,6 +37,8 @@
   type="button"
   class="statue"
   class:marked={marked !== null}
+  class:drop-hover={dropHover}
+  data-drop-slot={disabled ? undefined : slot}
   aria-label={label}
   {disabled}
   onclick={() => onactivate(slot)}
@@ -79,6 +85,11 @@
 
   .statue.marked {
     box-shadow: 0 0 0 var(--stroke-focus) var(--color-active);
+  }
+
+  .statue.drop-hover {
+    outline: var(--stroke-focus) dashed var(--color-active);
+    outline-offset: var(--stroke-focus);
   }
 
   .name {

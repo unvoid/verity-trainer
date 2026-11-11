@@ -1,10 +1,12 @@
 <!--
   Símbolos disponibles: el que suelta cada caballero.
   Tocar uno lo coge (resaltado en cobre); tocarlo otra vez lo suelta.
+  También se pueden arrastrar hasta una estatua.
   `available` permite desactivar caballeros sueltos (p. ej. símbolos gastados
   en un futuro modo por rondas); por defecto están todos disponibles.
 -->
 <script lang="ts">
+  import { dragSymbol } from '../actions/dragSymbol'
   import { KNIGHT_DROPS } from '../domain/rules'
   import { SLOTS, type Slot, type Symbol2D as SymbolName } from '../domain/types'
   import { t } from '../i18n'
@@ -20,11 +22,13 @@
     /** Tamaño de cada símbolo en px. */
     size?: number
     ontoggle: (symbol: SymbolName) => void
+    /** Símbolo soltado sobre una estatua al arrastrar. */
+    ondrop: (slot: Slot, symbol: SymbolName) => void
   }
 
   const ALL_AVAILABLE: Readonly<Record<Slot, boolean>> = { left: true, mid: true, right: true }
 
-  let { held, available = ALL_AVAILABLE, disabled = false, size = 48, ontoggle }: Props = $props()
+  let { held, available = ALL_AVAILABLE, disabled = false, size = 48, ontoggle, ondrop }: Props = $props()
 </script>
 
 <section class="toolbox" aria-labelledby="toolbox-title">
@@ -39,6 +43,7 @@
         aria-pressed={held === symbol}
         disabled={disabled || !available[slot]}
         onclick={() => ontoggle(symbol)}
+        use:dragSymbol={{ symbol, disabled: disabled || !available[slot], ondrop }}
       >
         <Symbol2D {symbol} {size} />
         <span>{$t('knight.drop', { symbol: $t(`symbol.${symbol}`), knight: $t(`knight.${slot}`) })}</span>
@@ -78,7 +83,10 @@
     background: var(--color-surface);
     border: var(--stroke-thin) solid var(--color-border);
     border-radius: var(--radius-md);
-    cursor: pointer;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
     transition: border-color var(--duration-fast) var(--easing-standard);
   }
 

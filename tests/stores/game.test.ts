@@ -92,6 +92,42 @@ describe('game store', () => {
     expect(session().held).toBeNull()
   })
 
+  describe('dropAt (drag and drop)', () => {
+    it('deposits the dropped symbol without holding it first', () => {
+      const { store, session } = setup()
+      store.dropAt('left', 'circle')
+      expect(session().feedback).toEqual({ kind: 'marked', deposit: { slot: 'left', symbol: 'circle' } })
+      store.dropAt('mid', 'triangle')
+      expect(session().state.swaps).toBe(1)
+      expect(session().state.statues).toEqual({ left: 'cone', mid: 'cone', right: 'cube' })
+    })
+
+    it('rejects invalid drops like a tap deposit', () => {
+      const { store, session } = setup()
+      store.dropAt('left', 'square')
+      expect(session().feedback).toEqual({
+        kind: 'rejected',
+        error: 'symbol-not-in-shape',
+        deposit: { slot: 'left', symbol: 'square' },
+      })
+    })
+
+    it('empties the hand after a successful drop', () => {
+      const { store, session } = setup()
+      store.toggleHold('square')
+      store.dropAt('left', 'circle')
+      expect(session().held).toBeNull()
+    })
+
+    it('mixes with tap deposits in the same swap', () => {
+      const { store, session } = setup()
+      store.toggleHold('circle')
+      store.depositAt('left')
+      store.dropAt('right', 'square')
+      expect(session().state.swaps).toBe(1)
+    })
+  })
+
   it('restarts from the same starting point', () => {
     const { store, session } = setup()
     store.toggleHold('circle')

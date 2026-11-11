@@ -1,5 +1,6 @@
 <script lang="ts">
   import CalloutPanel from './lib/components/CalloutPanel.svelte'
+  import DragLayer from './lib/components/DragLayer.svelte'
   import GameStatus from './lib/components/GameStatus.svelte'
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
   import Statue from './lib/components/Statue.svelte'
@@ -7,6 +8,7 @@
   import { minimumSwaps } from './lib/domain/solver'
   import { SLOTS } from './lib/domain/types'
   import { t } from './lib/i18n'
+  import { drag } from './lib/stores/drag'
   import { game } from './lib/stores/game'
 
   const finished = $derived($game.finishedAt !== null)
@@ -42,13 +44,14 @@
           shape={$game.state.statues[slot]}
           marked={$game.state.selection?.slot === slot ? $game.state.selection.symbol : null}
           disabled={finished}
+          dropHover={$drag?.over === slot}
           onactivate={game.depositAt}
         />
       {/each}
     </div>
   </section>
 
-  <Toolbox held={$game.held} disabled={finished} ontoggle={game.toggleHold} />
+  <Toolbox held={$game.held} disabled={finished} ontoggle={game.toggleHold} ondrop={game.dropAt} />
 
   <GameStatus
     swaps={$game.state.swaps}
@@ -59,6 +62,8 @@
     onrestart={game.restart}
   />
 </main>
+
+<DragLayer />
 
 <style>
   .app-header {
