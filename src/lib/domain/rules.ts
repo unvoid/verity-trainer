@@ -57,6 +57,11 @@ export type UnsolvedStartRule = 'off' | 'warn' | 'enforce'
 
 export interface ValidationOptions {
   readonly unsolvedStart: UnsolvedStartRule
+  /**
+   * Modo en el que se va a jugar. Si se indica, un punto de partida que ya
+   * cumple la condición de victoria en ese modo es un error: no hay nada que entrenar.
+   */
+  readonly mode?: Mode
 }
 
 export const DEFAULT_VALIDATION_OPTIONS: ValidationOptions = { unsolvedStart: 'warn' }
@@ -74,6 +79,8 @@ export type ScenarioIssue =
     }
   /** Regla 3: estatuas que empiezan sin el símbolo de su callout (ya resueltas). */
   | { readonly code: 'statue-starts-solved'; readonly severity: Severity; readonly slots: readonly Slot[] }
+  /** El punto de partida ya está resuelto en el modo indicado. */
+  | { readonly code: 'already-solved'; readonly severity: 'error'; readonly mode: Mode }
 
 export interface ValidationResult {
   /** Sin errores. Los avisos no invalidan. */
@@ -102,7 +109,14 @@ export function validateScenario(
     issues.push({ code: 'unbalanced-symbols', severity: 'error', counts })
   }
 
-  if (options.unsolvedStart !== 'off') {
+  const balanced = issues.length === 0
+  const alreadySolved = balanced && options.mode !== undefined && isSolved(callouts, statues, options.mode)
+  if (alreadySolved && options.mode) {
+    issues.push({ code: 'already-solved', severity: 'error', mode: options.mode })
+  }
+
+  // El aviso de la regla 3 sobra si el punto de partida ya está resuelto del todo.
+  if (options.unsolvedStart !== 'off' && !alreadySolved) {
     const solvedSlots = SLOTS.filter((slot) => isStatueSolved(callouts, statues, slot))
     if (solvedSlots.length > 0) {
       issues.push({

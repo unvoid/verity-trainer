@@ -90,6 +90,7 @@ export const es: Messages = {
   'setup.group-hint': 'Al cambiar uno, elige otro: el tercero se completa solo.',
   'setup.empty': 'Sin elegir',
   'setup.incomplete': 'Completa los callouts y las estatuas para empezar.',
+  'setup.error.already-solved': 'Este punto de partida ya está resuelto: cambia alguna estatua para poder entrenar.',
   'setup.warning.starts-solved.one':
     'Aviso: {statues} empieza sin el símbolo de su callout, así que ya está resuelta. No sabemos si esto puede pasar en el juego.',
   'setup.warning.starts-solved.other':

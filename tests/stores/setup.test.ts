@@ -31,14 +31,14 @@ describe('setup store', () => {
     expect(status().ready).toBe(true)
   })
 
-  it('warns, without blocking, when a statue starts already solved (rule 3)', () => {
+  it('warns, without blocking, when only some statues start solved (rule 3)', () => {
     const { store, status } = setup()
-    const { callouts } = status().scenario!
-    // Una estatua sin el símbolo de su callout: estatuas puras de los otros símbolos.
-    store.selectStatue('left', callouts.left === 'circle' ? 'cube' : 'sphere')
-    store.selectStatue('mid', callouts.left === 'triangle' ? 'cube' : 'tetrahedron')
+    store.selectCallout('left', 'circle')
+    store.selectCallout('mid', 'triangle') // → right: square
+    store.selectStatue('left', 'cube') // sin círculo: empieza resuelta
+    store.selectStatue('mid', 'tetrahedron') // con triángulo: sin resolver → right: sphere
     const { validation, ready } = status()
-    expect(validation?.issues.some((issue) => issue.code === 'statue-starts-solved' && issue.slots.includes('left'))).toBe(true)
+    expect(validation?.issues).toEqual([{ code: 'statue-starts-solved', severity: 'warning', slots: ['left', 'right'] }])
     expect(ready).toBe(true)
   })
 
@@ -47,5 +47,18 @@ describe('setup store', () => {
     store.selectCallout('left', 'square')
     store.propose()
     expect(status().ready).toBe(true)
+  })
+})
+
+describe('setup store: already solved', () => {
+  it('blocks starting a starting point that is already solved', () => {
+    const store = createSetupStore(() => 0)
+    const status = setupStatus(store)
+    store.selectCallout('left', 'circle')
+    store.selectCallout('mid', 'triangle') // → right: square
+    store.selectStatue('left', 'prism')
+    store.selectStatue('mid', 'cylinder') // → right: cone (ninguna con su callout)
+    expect(get(status).ready).toBe(false)
+    expect(get(status).validation?.issues.map((i) => i.code)).toEqual(['already-solved'])
   })
 })

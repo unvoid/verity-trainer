@@ -27,6 +27,8 @@
     return $tn('setup.warning.starts-solved', names.length, { statues })
   })
 
+  const alreadySolved = $derived($setupState.validation?.issues.some((i) => i.code === 'already-solved') ?? false)
+
   function start() {
     if ($setupState.ready && $setupState.scenario) onstart($setupState.scenario)
   }
@@ -109,7 +111,9 @@
     </Button>
   </div>
   {#if !$setupState.ready}
-    <p id="setup-incomplete" class="muted">{$t('setup.incomplete')}</p>
+    <p id="setup-incomplete" class="muted" role="status">
+      {$t(alreadySolved ? 'setup.error.already-solved' : 'setup.incomplete')}
+    </p>
   {/if}
 </section>
 
