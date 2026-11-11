@@ -95,6 +95,7 @@ export const en = {
   'setup.group-hint': 'After changing one, pick another: the third fills in by itself.',
   'setup.empty': 'Not chosen',
   'setup.incomplete': 'Complete the callouts and statues to start.',
+  'setup.error.already-solved': 'This starting point is already solved: change a statue to train.',
   'setup.warning.starts-solved.one':
     'Note: {statues} starts without its callout symbol, so it is already solved. We are not sure this can happen in the game.',
   'setup.warning.starts-solved.other':

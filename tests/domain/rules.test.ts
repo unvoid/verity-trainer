@@ -96,3 +96,32 @@ describe('validateScenario', () => {
     expect(result.issues.map((issue) => issue.code)).toEqual(['duplicate-callouts', 'unbalanced-symbols'])
   })
 })
+
+describe('validateScenario with a play mode', () => {
+  const callouts: Callouts = { left: 'circle', mid: 'triangle', right: 'square' }
+  // Ninguna estatua contiene su callout: resuelto en modo normal (no en desafío: hay mixtas).
+  const solvedNormal: Statues = { left: 'prism', mid: 'cylinder', right: 'cone' }
+  // Además todas puras: resuelto también en desafío.
+  const solvedChallenge: Statues = { left: 'cube', mid: 'sphere', right: 'tetrahedron' }
+
+  it('rejects a starting point already solved in the given mode', () => {
+    const result = validateScenario({ callouts, statues: solvedNormal }, { unsolvedStart: 'warn', mode: 'normal' })
+    expect(result.valid).toBe(false)
+    expect(result.issues).toEqual([{ code: 'already-solved', severity: 'error', mode: 'normal' }])
+  })
+
+  it('accepts it in challenge mode when shapes are not all pure', () => {
+    const result = validateScenario({ callouts, statues: solvedNormal }, { unsolvedStart: 'warn', mode: 'challenge' })
+    expect(result.valid).toBe(true)
+    expect(result.issues.map((i) => i.code)).toEqual(['statue-starts-solved'])
+  })
+
+  it('rejects in challenge mode when already pure and free of callouts', () => {
+    const result = validateScenario({ callouts, statues: solvedChallenge }, { unsolvedStart: 'warn', mode: 'challenge' })
+    expect(result.issues).toEqual([{ code: 'already-solved', severity: 'error', mode: 'challenge' }])
+  })
+
+  it('does not check solved state without a mode', () => {
+    expect(validateScenario({ callouts, statues: solvedNormal }).valid).toBe(true)
+  })
+})

@@ -2,7 +2,7 @@
  * Store del punto de partida: propone un escenario aleatorio que el jugador
  * puede personalizar antes de iniciar el entreno.
  */
-import { derived, writable, type Readable } from 'svelte/store'
+import { derived, readable, writable, type Readable } from 'svelte/store'
 import {
   completeDraft,
   selectCallout,
@@ -10,9 +10,10 @@ import {
   type CalloutsDraft,
   type StatuesDraft,
 } from '../domain/editor'
-import { validateScenario, type ValidationResult } from '../domain/rules'
+import { DEFAULT_VALIDATION_OPTIONS, validateScenario, type ValidationResult } from '../domain/rules'
 import { randomScenario, type Random } from '../domain/scenarios'
-import type { Scenario, Shape3D, Slot, Symbol2D } from '../domain/types'
+import type { Mode, Scenario, Shape3D, Slot, Symbol2D } from '../domain/types'
+import { activeSettings, modeOf } from './settings'
 
 export interface SetupDraft {
   readonly callouts: CalloutsDraft
@@ -52,14 +53,26 @@ export interface SetupStatus {
   readonly ready: boolean
 }
 
-export function setupStatus(store: Readable<SetupDraft>): Readable<SetupStatus> {
-  return derived(store, (draft) => {
+/**
+ * Estado del borrador. Se valida con el modo en que se va a jugar: un punto de
+ * partida ya resuelto en ese modo no se puede iniciar.
+ */
+export function setupStatus(
+  store: Readable<SetupDraft>,
+  mode: Readable<Mode> = readable<Mode>('normal'),
+): Readable<SetupStatus> {
+  return derived([store, mode], ([draft, currentMode]) => {
     const scenario = draftScenario(draft)
-    const validation = scenario ? validateScenario(scenario) : null
+    const validation = scenario
+      ? validateScenario(scenario, { ...DEFAULT_VALIDATION_OPTIONS, mode: currentMode })
+      : null
     return { scenario, validation, ready: validation?.valid ?? false }
   })
 }
 
 /** Punto de partida de la aplicación. */
 export const setup = createSetupStore(Math.random)
-export const setupState = setupStatus(setup)
+export const setupState = setupStatus(
+  setup,
+  derived(activeSettings, (settings) => modeOf(settings)),
+)
