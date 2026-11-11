@@ -6,35 +6,35 @@ No se usan imágenes ni recursos oficiales de Bungie: el estilo es propio, inspi
 
 ## Referencia visual de la sala
 
-- Dominante muy clara: blanco hueso y lavanda pálido, luz difusa.
-- Sombras frías: lavanda que baja a índigo profundo.
-- Estatuas en granate: el único color cálido intenso y el foco visual.
-- Acento cálido puntual: cobre/ámbar.
-- Símbolos 2D: siluetas negras con un núcleo de brasa naranja en el centro.
-- Formas 3D: sólidos oscuros y mate, con volumen marcado solo por la luz.
+Ambiente frío, brumoso y apagado: grises azulados con un tinte lavanda, luz difusa y sombras de pizarra. Lo único cálido es el granate de las estatuas y el cobre de lo activo, por eso destacan.
+
+- Símbolos 2D: siluetas casi negras con un núcleo de brasa cobre en el centro.
+- Formas 3D: sólidos granate mate, con volumen marcado solo por la luz.
 
 ## Paleta
 
-Aproximada, pendiente de ajustar con capturas propias. Definida en [`src/lib/theme/tokens.css`](../src/lib/theme/tokens.css).
+Extraída de una captura real de la sala de Verity (colores dominantes de la escena). Definida en [`src/lib/theme/tokens.css`](../src/lib/theme/tokens.css).
 
 | Uso | Token base | Color |
 |---|---|---|
-| Fondo (blanco hueso) | `--palette-bone` | `#EFEBE4` |
-| Planos (lavanda muy pálido, mezclado con lavanda) | `--palette-mist` | `#EEF0F6` |
-| Lavanda (bordes, secundarios) | `--palette-lavender` | `#A3A8CC` |
-| Índigo (texto, símbolos) | `--palette-indigo` | `#2A2C55` |
-| Casi negro (siluetas) | `--palette-ink` | `#1E1F3A` |
-| Granate (formas 3D de las estatuas) | `--palette-maroon` | `#863B3B` |
-| Cobre (activo, seleccionado, núcleo) | `--palette-copper` | `#C27A4E` |
+| Luces altas (fondo, arriba) | `--palette-haze-light` | `#DFE2E8` |
+| Luces (fondo, abajo) | `--palette-haze` | `#CDD1DB` |
+| Medios | `--palette-mid` | `#969CB0` |
+| Pista de interruptor apagado | `--palette-mid-deep` | `#5E647B` |
+| Texto secundario | `--palette-slate-soft` | `#3F4353` |
+| Texto | `--palette-slate` | `#262A39` |
+| Siluetas | `--palette-ink` | `#1F2230` |
+| Formas 3D de las estatuas | `--palette-maroon` | `#863B3B` |
+| Brasa de los símbolos | `--palette-copper` | `#C27A4E` |
+| Contornos de estado y foco | `--palette-copper-deep` | `#9A5530` |
 
-Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens semánticos (`--color-bg`, `--color-text`, `--color-statue`, `--color-active`…), que cambian con el tema.
+Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens semánticos (`--color-bg`, `--color-text`, `--color-statue`, `--color-active`…), que cambian con el tema. Todos los textos y elementos de interfaz cumplen WCAG 2.2 AA sobre el fondo y los planos.
 
 ## Tipografía
 
 - **Texto:** fuente del sistema (`-apple-system, system-ui, 'Segoe UI', Roboto, Arial, sans-serif` + emojis del sistema), como bungie.net. Sin descargas.
 - **Títulos:** [Montserrat](https://fonts.google.com/specimen/Montserrat) (SIL Open Font License), también usada en bungie.net. Alojada con el proyecto mediante `@fontsource-variable/montserrat`, sin pedir nada a Google Fonts. Token `--font-family-display`.
 - **Título de la web y de las secciones:** Montserrat en mayúsculas pequeñas con espaciado (`letter-spacing: 0.08em`), centrado. Todos los títulos de sección usan el componente `SectionTitle`.
-- Pendiente: revisión tipográfica general (tamaños, pesos, interlineado).
 
 ## Reglas visuales
 
@@ -86,7 +86,7 @@ Triángulo negro estático (`public/favicon.svg`): el primer símbolo que aparec
 
 Indicador de carga inspirado en cómo cambian las siluetas de la pared en el juego: las formas no se transforman de manera continua, se rompen y se recomponen. Ciclo Cuadrado → Triángulo → Círculo.
 
-- **Estilo:** sombras negras (`--color-silhouette`), sin brasa, como las siluetas de la pared en el juego. Es una excepción del loader: los símbolos 2D del resto de la web mantienen la brasa cobre (decisión del 11/11/2026).
+- **Estilo:** sombras negras (`--color-silhouette`), sin brasa, como las siluetas de la pared en el juego. Es una excepción del loader: los símbolos 2D del resto de la web mantienen la brasa cobre.
 - **Cortes rectos:**
   - Cuadrado y triángulo: dos mitades por un corte horizontal.
   - Círculo: tres quesitos iguales desde el centro.
@@ -110,4 +110,3 @@ Indicador de carga inspirado en cómo cambian las siluetas de la pared en el jue
   4. Fundido de salida del título y el cuadrado (0,4 s, simétrico al de entrada).
   5. Con ambos ya desaparecidos, fundido de la capa: el contenido de la app aparece con un fundido y un escalado de 0,97 a 1 (la cabecera no se escala).
   En total ~4 s con el ciclo de 3,6 s. Tiempos en `visual/loaderTimeline.ts`. Con movimiento reducido: triángulo estático, fundidos breves y sin escalado. El componente sigue teniendo modo bucle por si algún día hay cargas reales.
-- Prototipo validado el 11/11/2026.

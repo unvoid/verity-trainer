@@ -2,7 +2,7 @@
 
 Cómo funciona la parte de **intercambios de símbolos en las estatuas** del encuentro Verity (4º encuentro de *Salvation's Edge*) y cómo la modela el simulador. El código está en [`src/lib/domain/`](../src/lib/domain/).
 
-La mecánica se ha deducido del [simulador original](https://verity.cabotmc.dev/) y de la comunidad. Las dudas sin confirmar están en [hoja-de-ruta.md](hoja-de-ruta.md#dudas-abiertas).
+La mecánica se ha deducido del [simulador original](https://verity.cabotmc.dev/) y de la comunidad. Los detalles no confirmados en el juego se indican como tales.
 
 ## Vocabulario
 
@@ -38,7 +38,7 @@ Los símbolos 2D son las siluetas (proyecciones ortogonales) del sólido. El jue
 - **Callouts interiores:** los tres símbolos distintos, en un orden (6 permutaciones).
 - **Estatuas:** tres, cada una con una forma 3D.
 - **Caballeros:** tres enemigos. Al matarlos sueltan un símbolo: izquierdo → Círculo, central → Triángulo, derecho → Cuadrado (`KNIGHT_DROPS`). El original fija este reparto en su código; no está confirmado que el juego lo haga igual, aunque no afecta a las reglas ni al solucionador.
-- **Rondas de símbolos** (pendiente de confirmar): los símbolos salen por rondas. Al matar a los tres caballeros salen tres símbolos, y no vuelven a salir hasta matar a más caballeros. Un intercambio gasta dos, así que queda uno suelto: puede servir para empezar el siguiente intercambio (si no desaparece antes), pero el segundo símbolo tiene que salir de otra ronda. Para que vuelvan a salir caballeros hay que matar antes a un ogro. El simulador lo modela con el ajuste *Realistic Symbol Drops*.
+- **Rondas de símbolos** (sin confirmar en el juego): los símbolos salen por rondas. Al matar a los tres caballeros salen tres símbolos, y no vuelven a salir hasta matar a más caballeros. Un intercambio gasta dos, así que queda uno suelto: puede servir para empezar el siguiente intercambio (si no desaparece antes), pero el segundo símbolo tiene que salir de otra ronda. Para que vuelvan a salir caballeros hay que matar antes a un ogro. El simulador lo modela con el ajuste *Realistic Symbol Drops*.
 
 ## Intercambio
 
@@ -80,7 +80,7 @@ En el juego, cada compañero de la sala interior sale cuando la estatua de su po
 | 2 | Entre las estatuas hay exactamente dos de cada símbolo (21 combinaciones) | Obligatoria |
 | 3 | Cada estatua empieza conteniendo el símbolo de su callout (nada resuelto al inicio). Deja 6 combinaciones por orden de callouts | Configurable: `off`, `warn` (por defecto en el editor) o `enforce` (en el modo aleatorio, como el original) |
 
-La regla 3 está pendiente de confirmar: puede ser del juego o una decisión del autor original.
+La regla 3 no está confirmada: puede ser del juego o una decisión del autor original.
 
 ### Editor
 
@@ -110,7 +110,7 @@ Los ajustes los activa el jugador y se guardan en `localStorage`. Cada uno depen
   - Sin este ajuste, los símbolos están siempre disponibles.
   - Caballeros y ogros se representan sin imágenes: texto, contornos y el símbolo atenuado.
 
-"Image Callouts" del original no se incluye (ver [hoja-de-ruta.md](hoja-de-ruta.md#dudas-abiertas)).
+"Image Callouts" del original no se incluye.
 
 Al resolver se muestra un resumen: "¡Ya podéis salir!" y una frase con intercambios, tiempo y si era el mínimo ("Lo has resuelto en 4 intercambios y 12 s. Se podía hacer en 2."). Si sobraron intercambios, se muestra la solución más corta paso a paso.
 
