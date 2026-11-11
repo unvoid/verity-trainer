@@ -76,6 +76,13 @@ src/
 tests/            # Tests de Vitest
 ```
 
+## Documentación
+
+- [Mecánica del encuentro](docs/mecanica.md): vocabulario, reglas, ajustes y solucionador.
+- [Arquitectura](docs/arquitectura.md): principios, estructura, interacción e idiomas.
+- [Estética](docs/estetica.md): paleta, tipografía y reglas visuales.
+- [Hoja de ruta](docs/hoja-de-ruta.md): hitos y dudas abiertas.
+
 ## Créditos
 
 - Inspirado en **[Verity Simulator](https://verity.cabotmc.dev/)** de EggAllocationService ([repositorio](https://github.com/EggAllocationService/verity-sim)). Este proyecto reimplementa la mecánica desde cero; no reutiliza su código.
