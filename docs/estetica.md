@@ -69,6 +69,10 @@ Botones, selectores y opciones comparten los tokens `--control-*` de `tokens.css
 
 Los controles nuevos usan el componente `Button` o estos tokens; nunca estilos propios sueltos.
 
+## Favicon
+
+Triángulo negro estático (`public/favicon.svg`): el primer símbolo que aparece en la raid, con la misma silueta que los símbolos y el loader. Con las pestañas del navegador en modo oscuro, pasa a claro. Sin animación: los favicons SVG animados solo se ven en Firefox, y animarlos con JavaScript costaría CPU y daría saltos en pestañas en segundo plano.
+
 ## Loader (fragmentos)
 
 Indicador de carga inspirado en cómo cambian las siluetas de la pared en el juego: las formas no se transforman de manera continua, se rompen y se recomponen. Ciclo Cuadrado → Triángulo → Círculo.
@@ -90,5 +94,11 @@ Indicador de carga inspirado en cómo cambian las siluetas de la pared en el jue
 - **Sin destello:** los trozos entran opacos casi de inmediato y solo se desvanecen al final de la rotura.
 - **Parámetros:** tamaño, duración del ciclo, separación, giro y sesgo de los trozos.
 - Con `prefers-reduced-motion`: una forma estática.
-- **Dónde se ve:** en la pantalla de entrada (`SplashScreen`), al abrir la web, durante un mínimo de 2,6 s aunque no haya nada que cargar: el cuadrado se forma, se rompe y entra el triángulo; después, fundido a la app. Con movimiento reducido, cuadrado estático y 0,8 s. El componente `ShardLoader` es reutilizable si algún día hay cargas reales.
+- **Dónde se ve:** en la pantalla de entrada (`SplashScreen`), al abrir la web, en modo "una vez" (`ShardLoader once`):
+  1. Capa con el color de fondo de la web (sin blanco).
+  2. Fundido de entrada del título y el triángulo, quietos (0,4 s).
+  3. Animación triángulo → círculo → cuadrado, que termina con el cuadrado entero.
+  4. Fundido de salida del título y el cuadrado (0,4 s, simétrico al de entrada).
+  5. Con ambos ya desaparecidos, fundido de la capa: el contenido de la app aparece con un fundido y un escalado de 0,97 a 1 (la cabecera no se escala).
+  En total ~4 s con el ciclo de 3,6 s. Tiempos en `visual/loaderTimeline.ts`. Con movimiento reducido: triángulo estático, fundidos breves y sin escalado. El componente sigue teniendo modo bucle por si algún día hay cargas reales.
 - Prototipo validado el 11/11/2026.

@@ -56,6 +56,7 @@
   }
 
   label {
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
     cursor: pointer;
   }
@@ -70,9 +71,6 @@
     color: var(--color-text-muted);
   }
 
-  .note {
-    font-style: italic;
-  }
 
   /* Pista y mando dibujados sobre el propio checkbox. */
   input {
