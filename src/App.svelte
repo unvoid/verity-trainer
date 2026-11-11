@@ -160,16 +160,19 @@
           />
         {/each}
       </div>
-    </section>
 
-    <Toolbox
-      held={$game.held}
-      drops={$game.drops}
-      disabled={finished}
-      ontoggle={game.toggleHold}
-      ondrop={game.dropAt}
-      ondefeatknight={game.defeatKnight}
-    />
+      <!-- Los símbolos de los caballeros son parte de la sala de disección. -->
+      <div class="knights">
+        <Toolbox
+          held={$game.held}
+          drops={$game.drops}
+          disabled={finished}
+          ontoggle={game.toggleHold}
+          ondrop={game.dropAt}
+          ondefeatknight={game.defeatKnight}
+        />
+      </div>
+    </section>
 
     {#if $game.drops}
       <OgrePanel drops={$game.drops} disabled={finished} ondefeat={game.defeatOgre} />
@@ -233,6 +236,11 @@
     color: var(--color-text-muted);
   }
 
+  /* Subsección de caballeros: separada de las estatuas, dentro de la misma sala. */
+  .knights {
+    margin-top: var(--space-6);
+  }
+
   .header-actions {
     display: flex;
     flex-wrap: wrap;
@@ -252,6 +260,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-8);
+    /* Ancho completo hasta el máximo: igual en preparación y partida (#app es una columna flexible). */
+    width: 100%;
     max-width: var(--content-width);
     margin-inline: auto;
     padding: var(--space-6) var(--space-4);

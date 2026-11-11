@@ -32,7 +32,7 @@
     ondefeatknight?: (slot: Slot) => void
   }
 
-  let { held, drops = null, disabled = false, size = 56, ontoggle, ondrop, ondefeatknight }: Props = $props()
+  let { held, drops = null, disabled = false, size = 44, ontoggle, ondrop, ondefeatknight }: Props = $props()
 
   function statusOf(slot: Slot) {
     return drops ? drops.slots[slot].status : 'dropped'
@@ -40,7 +40,7 @@
 </script>
 
 <section class="toolbox" aria-labelledby="toolbox-title">
-  <SectionTitle id="toolbox-title">{$t('toolbox.title')}</SectionTitle>
+  <SectionTitle id="toolbox-title" level={3} sub>{$t('toolbox.title')}</SectionTitle>
   <p class="hint">{$t(drops ? 'toolbox.hint.rounds' : 'toolbox.hint')}</p>
   <div class="drops">
     {#each SLOTS as slot (slot)}
@@ -93,6 +93,12 @@
     color: var(--color-text-muted);
   }
 
+  /* Subsección de la sala de disección: más estrecha y centrada bajo las estatuas. */
+  .toolbox {
+    width: 75%;
+    margin-inline: auto;
+  }
+
   .drops {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -100,6 +106,7 @@
   }
 
   .drop {
+    padding: var(--space-3) var(--space-2);
     cursor: grab;
     touch-action: none;
     user-select: none;
