@@ -18,6 +18,8 @@ Cómo se escriben los textos de la interfaz, en español y en inglés. Los texto
 |---|---|---|---|
 | Símbolos interiores | callouts | callouts | Jerga de la comunidad en ambos idiomas |
 | Sala de las estatuas | Sala de disección | Dissection room | "Disección": como la comunidad llama al trabajo de fuera |
+| Jugadores | guardianes | Guardians | Término del juego; mejor que "compañeros" |
+| Grupo de juego | escuadra | fireteam | Término del juego |
 | Enemigos que sueltan símbolos | caballeros | knights | |
 | Enemigos entre rondas | ogros | ogres | |
 | Formas 2D | Círculo, Cuadrado, Triángulo | Circle, Square, Triangle | |

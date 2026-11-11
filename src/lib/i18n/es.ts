@@ -138,7 +138,7 @@ export const es: Messages = {
 
   // Resultado
   'result.title': '¡Ya podéis salir!',
-  'result.subtitle': 'Las tres estatuas están listas: tus compañeros pueden salir de la sala interior.',
+  'result.subtitle': 'Las tres estatuas están listas: los guardianes de la sala interior ya pueden salir.',
   'result.summary.optimal.one': 'Lo has resuelto en {count} intercambio y {time}, el mínimo posible.',
   'result.summary.optimal.other': 'Lo has resuelto en {count} intercambios y {time}, el mínimo posible.',
   'result.summary.extra.one': 'Lo has resuelto en {count} intercambio y {time}. Se podía hacer en {minimum}.',
