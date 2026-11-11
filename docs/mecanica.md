@@ -65,6 +65,13 @@ Como siempre hay dos de cada símbolo, en Challenge Mode hay **exactamente dos s
 
 Se aceptan ambas. El original solo muestra la A en las pistas.
 
+### Quién puede salir
+
+En el juego, cada compañero de la sala interior sale cuando la estatua de su posición está lista. El simulador lo refleja:
+
+- La tile del callout de una posición brilla con un halo cálido cuando su estatua ya cumple la condición del modo: sin el símbolo de su callout y, en Challenge Mode, además pura (`canExit`).
+- Al resolver, el resumen lo dice así: "¡Ya podéis salir!".
+
 ## Punto de partida
 
 | Regla | Descripción | Validación |

@@ -45,6 +45,7 @@ export const en = {
   // Game
   'callouts.title': 'Inside room',
   'callouts.item': '{position}: {symbol}',
+  'callouts.ready': 'can get out',
   'statues.title': 'Dissection room',
   'statue.label': '{statue}: {shape}',
   'statue.marked': 'marked with {symbol}',
@@ -141,7 +142,8 @@ export const en = {
     'Symbols drop when you defeat the knights and expire after 10 s if unused. Once they run out, ogres appear; defeating them brings the knights back.',
 
   // Result
-  'result.title': 'Solved!',
+  'result.title': 'Everyone can get out!',
+  'result.subtitle': 'All three statues are ready: your teammates can leave the inside room.',
   'result.swaps': 'Swaps',
   'result.minimum': 'Minimum',
   'result.time': 'Time',

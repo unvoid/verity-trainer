@@ -40,6 +40,7 @@ export const es: Messages = {
   // Partida
   'callouts.title': 'Sala interior',
   'callouts.item': '{position}: {symbol}',
+  'callouts.ready': 'puede salir',
   'statues.title': 'Sala de disección',
   'statue.label': '{statue}: {shape}',
   'statue.marked': 'marcada con {symbol}',
@@ -136,7 +137,8 @@ export const es: Messages = {
     'Los símbolos salen al derrotar a los caballeros y caducan a los 10 s si no los usas. Cuando se agotan aparecen ogros; al derrotarlos vuelven los caballeros.',
 
   // Resultado
-  'result.title': '¡Resuelto!',
+  'result.title': '¡Ya podéis salir!',
+  'result.subtitle': 'Las tres estatuas están listas: tus compañeros pueden salir de la sala interior.',
   'result.swaps': 'Intercambios',
   'result.minimum': 'Mínimo',
   'result.time': 'Tiempo',

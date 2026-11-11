@@ -37,14 +37,21 @@ export function isStatueSolved(callouts: Callouts, statues: Statues, slot: Slot)
 }
 
 /**
+ * El compañero de la sala interior en esta posición ya puede salir: su estatua
+ * cumple la condición de victoria del modo (sin el símbolo de su callout y, en
+ * Challenge Mode, además pura).
+ */
+export function canExit(callouts: Callouts, statues: Statues, slot: Slot, mode: Mode): boolean {
+  return isStatueSolved(callouts, statues, slot) && (mode === 'normal' || isPure(statues[slot]))
+}
+
+/**
  * Condición de victoria.
  * - Normal: ninguna estatua contiene el símbolo de su callout.
  * - Challenge: además, las tres estatuas son formas puras.
  */
 export function isSolved(callouts: Callouts, statues: Statues, mode: Mode): boolean {
-  return SLOTS.every(
-    (slot) => isStatueSolved(callouts, statues, slot) && (mode === 'normal' || isPure(statues[slot])),
-  )
+  return SLOTS.every((slot) => canExit(callouts, statues, slot, mode))
 }
 
 // --- Validación del punto de partida ---------------------------------------
