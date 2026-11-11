@@ -1,24 +1,25 @@
 <!--
-  Estado de la partida: contador, símbolo en mano, último resultado
-  (anunciado a lectores de pantalla) y resumen al resolver.
+  Estado de la partida: contador, símbolo en mano, modo, pista de intercambios
+  pendientes y último resultado (anunciado a lectores de pantalla).
 -->
 <script lang="ts">
-  import type { Symbol2D } from '../domain/types'
-  import { t } from '../i18n'
+  import type { Mode, Symbol2D } from '../domain/types'
+  import { t, tn } from '../i18n'
   import type { Feedback } from '../stores/game'
   import Button from './Button.svelte'
 
   interface Props {
     swaps: number
     held: Symbol2D | null
+    mode: Mode
     feedback: Feedback | null
-    /** Resumen al resolver, o `null` si la partida sigue en curso. */
-    result: { readonly minimum: number; readonly seconds: number } | null
+    /** Intercambios mínimos pendientes (pista), o `null` si no se muestran. */
+    remaining: number | null
     onnewgame: () => void
     onrestart: () => void
   }
 
-  let { swaps, held, feedback, result, onnewgame, onrestart }: Props = $props()
+  let { swaps, held, mode, feedback, remaining, onnewgame, onrestart }: Props = $props()
 
   const feedbackText = $derived.by(() => {
     if (!feedback) return ''
@@ -27,20 +28,20 @@
         return $t('feedback.no-symbol-held')
       case 'rejected':
         return $t(`feedback.${feedback.error}`, {
-          statue: $t(`statue.name.${feedback.deposit.slot}`),
-          symbol: $t(`symbol.${feedback.deposit.symbol}`),
+          statue: $t(`statue.ref.${feedback.deposit.slot}`),
+          symbol: $t(`symbol.ref.${feedback.deposit.symbol}`),
         })
       case 'marked':
         return $t('feedback.marked', {
-          statue: $t(`statue.name.${feedback.deposit.slot}`),
-          symbol: $t(`symbol.${feedback.deposit.symbol}`),
+          statue: $t(`statue.ref.${feedback.deposit.slot}`),
+          symbol: $t(`symbol.ref.${feedback.deposit.symbol}`),
         })
       case 'swapped':
         return $t('feedback.swapped', {
-          firstSymbol: $t(`symbol.${feedback.swap.first.symbol}`),
-          firstStatue: $t(`statue.name.${feedback.swap.first.slot}`),
-          secondSymbol: $t(`symbol.${feedback.swap.second.symbol}`),
-          secondStatue: $t(`statue.name.${feedback.swap.second.slot}`),
+          firstSymbol: $t(`symbol.ref.${feedback.swap.first.symbol}`),
+          firstStatue: $t(`statue.ref.${feedback.swap.first.slot}`),
+          secondSymbol: $t(`symbol.ref.${feedback.swap.second.symbol}`),
+          secondStatue: $t(`statue.ref.${feedback.swap.second.slot}`),
         })
     }
   })
@@ -49,17 +50,17 @@
 <section class="status">
   <p class="counters">
     <span>{$t('status.swaps', { count: swaps })}</span>
+    {#if mode === 'challenge'}
+      <span class="badge">{$t('status.mode.challenge')}</span>
+    {/if}
     <span>{held ? $t('status.holding', { symbol: $t(`symbol.${held}`) }) : $t('status.empty-hands')}</span>
   </p>
 
-  <p class="feedback" role="status">{feedbackText}</p>
-
-  {#if result}
-    <div class="result" role="status">
-      <strong>{$t('status.solved')}</strong>
-      <span>{$t('status.summary', { count: swaps, minimum: result.minimum, seconds: result.seconds })}</span>
-    </div>
+  {#if remaining !== null && remaining > 0}
+    <p class="hint">{$tn('hint.remaining', remaining)}</p>
   {/if}
+
+  <p class="feedback" role="status">{feedbackText}</p>
 
   <div class="actions">
     <Button onclick={onrestart}>{$t('action.restart')}</Button>
@@ -81,8 +82,20 @@
   .counters {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
     gap: var(--space-2);
+    font-size: var(--font-size-sm);
+  }
+
+  .badge {
+    padding: 0 var(--space-2);
+    font-weight: var(--font-weight-bold);
+    border: var(--stroke-thin) solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+
+  .hint {
     font-size: var(--font-size-sm);
   }
 
@@ -90,15 +103,6 @@
     min-height: calc(var(--line-height) * 1em);
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-  }
-
-  .result {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-3) var(--space-4);
-    border: var(--stroke-thin) solid var(--color-active);
-    border-radius: var(--radius-md);
   }
 
   .actions {

@@ -28,17 +28,18 @@ src/
       game.ts          # estado de la partida
       drag.ts          # arrastre en curso (símbolo, posición, estatua debajo)
       setup.ts         # punto de partida en edición (propuesta aleatoria personalizable)
-      settings.ts      # ajustes persistidos en localStorage
+      settings.ts      # ajustes del jugador, persistidos en localStorage
     actions/
       dragSymbol.ts    # arrastrar y soltar con Pointer Events
-    components/        # Button, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox, GameStatus,
-                       # DragLayer, SlotPicker,
+    features.ts        # funcionalidades disponibles en la versión (interruptores de compilación)
+    components/        # Button, Switch, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
+                       # GameStatus, DragLayer, SlotPicker,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShapeMorphLoader, LanguageSelector, UsageGuide
     i18n/
-      core.ts          # tipos y funciones puras (translate, resolveLocale)
-      es.ts            # textos en español (idioma base de las claves)
-      en.ts            # textos en inglés
+      core.ts          # tipos y funciones puras (translate, translatePlural)
+      en.ts            # textos en inglés (idioma base de las claves)
+      es.ts            # textos en español
       index.ts         # store del idioma y función t()
     theme/
       tokens.css       # paleta y variables
@@ -53,6 +54,19 @@ tests/                 # Vitest, misma estructura que src/lib
 - Web estática; despliegue en cualquier hosting estático (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
 - Formas en **SVG**, sin librerías 3D.
 - Astro descartado por ahora: es una única pantalla muy interactiva. Si en el futuro forma parte de una plataforma mayor, los componentes Svelte se integran en Astro como islas.
+
+## Funcionalidades y ajustes
+
+Dos niveles distintos:
+
+| Nivel | Quién decide | Dónde |
+|---|---|---|
+| **Funcionalidad disponible** | Quien publica, al compilar | `features.ts`, variables `VITE_FEATURE_*` (ver `.env.example`) |
+| **Ajuste** | El jugador, en la web | `stores/settings.ts`, guardado en `localStorage` |
+
+- Una funcionalidad desactivada no aparece en la interfaz, y su ajuste se ignora aunque el jugador lo tuviera guardado (`activeSettings`).
+- El código de una funcionalidad desactivada sigue en el build (solo se oculta y se ignora). Es suficiente para no exponerla; si algún día importa el tamaño, se puede hacer que el minificador la elimine.
+- Funcionalidades: `hints` (pistas), `challengeMode` (modo desafío), `symbolRounds` (símbolos por rondas; desactivada por defecto hasta implementarla).
 
 ## Puntos de extensión
 
@@ -83,10 +97,11 @@ Dos formas de interactuar, **completas y equivalentes**:
 ## Idiomas
 
 - Español e inglés. Ningún texto fijo en los componentes: todo pasa por `t(clave, parámetros)`.
-- `es.ts` es el idioma base: el tipo de las claves se deriva de él, y TypeScript da error si a otro idioma le falta o le sobra una clave.
-- Idioma inicial: el guardado en `localStorage` o, si no hay, el del navegador; si no es ninguno de los dos, inglés.
+- `en.ts` es el idioma base: el tipo de las claves se deriva de él, y TypeScript da error si a otro idioma le falta o le sobra una clave.
+- Idioma por defecto: **inglés**. El español solo se usa si el jugador lo elige; la elección se guarda en `localStorage`. No se detecta el idioma del navegador.
 - Al cambiar de idioma se actualiza `<html lang>`.
 - Identificadores del código en inglés; comentarios y documentación en español.
+- Plurales con claves `.one` / `.other` y `tn()`. Tono y vocabulario: [tono.md](tono.md).
 
 ### Manual de uso
 

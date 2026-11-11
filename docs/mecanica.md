@@ -88,18 +88,21 @@ Los escenarios aleatorios se generan enumerando todas las combinaciones y filtra
 
 ## Ajustes
 
-Heredados del original:
+Los ajustes los activa el jugador y se guardan en `localStorage`. Cada uno depende de que su funcionalidad esté disponible en la versión publicada (ver [arquitectura.md](arquitectura.md#funcionalidades-y-ajustes)).
 
-- **Show hints:** bajo cada estatua, sus dos símbolos, marcando el que choca con el callout, y el mínimo de intercambios. El mínimo lo calcula el solucionador en ambos modos (el original usa una regla fija: 3 si todas empiezan puras, 2 si no).
-- **Realistic Symbol Drops:**
+- **Pistas:**
+  - Bajo cada estatua, sus dos símbolos; los que chocan con su callout, con un aro carmesí.
+  - Las estatuas que admiten el símbolo que llevas se resaltan.
+  - Cuántos intercambios faltan como mínimo desde el estado actual (lo calcula el solucionador, en ambos modos).
+- **Modo desafío** (Challenge Mode): ver la condición de victoria. Se elige antes de iniciar el entreno; durante la partida no se puede cambiar.
+- **Símbolos por rondas** (pendiente de implementar):
   - Un símbolo soltado desaparece a los 10 s si no se usa.
-  - Cuando los tres se han usado o han desaparecido, aparecen dos ogros (izquierda y derecha).
-  - Al matar ambos, 3 s después reaparecen los caballeros.
+  - Cuando los tres se han usado o han desaparecido, aparecen ogros; al matarlos vuelven los caballeros.
   - Sin este ajuste, los símbolos están siempre disponibles.
-- **Challenge Mode:** ver arriba.
-- **Image Callouts:** alterna iconos/imágenes en los callouts. Pendiente de decidir si se mantiene.
 
-Los ajustes se guardan en `localStorage`. Al resolver se muestra un resumen con intercambios, tiempo, solución y un aviso si se usaron más intercambios de los necesarios.
+"Image Callouts" del original no se incluye (ver [hoja-de-ruta.md](hoja-de-ruta.md#dudas-abiertas)).
+
+Al resolver se muestra un resumen con intercambios, mínimo y tiempo. Si se usaron más intercambios de los necesarios, se indica cuántos sobraron y se muestra la solución más corta paso a paso.
 
 ## Solucionador
 
