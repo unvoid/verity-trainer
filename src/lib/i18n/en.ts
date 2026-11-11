@@ -101,6 +101,11 @@ export const en = {
   'setup.warning.starts-solved.other':
     'Note: {statues} start without their callout symbol, so they are already solved. We are not sure this can happen in the game.',
 
+  // Footer
+  'footer.inspired': 'Inspired by {link} by EggAllocationService.',
+  'footer.inspired.link': 'Verity Simulator',
+  'footer.fan': 'Fan project, not affiliated with Bungie.',
+
   // Usage guide
   'guide.title': 'How to play',
   'guide.encounter.title': 'The encounter',

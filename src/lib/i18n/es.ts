@@ -96,6 +96,11 @@ export const es: Messages = {
   'setup.warning.starts-solved.other':
     'Aviso: {statues} empiezan sin el símbolo de su callout, así que ya están resueltas. No sabemos si esto puede pasar en el juego.',
 
+  // Pie de página
+  'footer.inspired': 'Inspirado en {link} de EggAllocationService.',
+  'footer.inspired.link': 'Verity Simulator',
+  'footer.fan': 'Proyecto de fans sin relación con Bungie.',
+
   // Manual de uso
   'guide.title': 'Cómo se juega',
   'guide.encounter.title': 'El encuentro',

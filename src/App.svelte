@@ -8,6 +8,7 @@
   import ResultModal from './lib/components/ResultModal.svelte'
   import SectionTitle from './lib/components/SectionTitle.svelte'
   import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
+  import SiteFooter from './lib/components/SiteFooter.svelte'
   import SplashScreen from './lib/components/SplashScreen.svelte'
   import StartPointEditor from './lib/components/StartPointEditor.svelte'
   import Statue from './lib/components/Statue.svelte'
@@ -185,6 +186,10 @@
 
 </main>
 
+<div class="app-footer" class:revealed inert={splash}>
+  <SiteFooter />
+</div>
+
 <DragLayer />
 <ToastMessage />
 
@@ -257,6 +262,15 @@
     transition:
       opacity var(--duration-reveal) var(--easing-standard),
       transform var(--duration-reveal) var(--easing-standard);
+  }
+
+  .app-footer {
+    opacity: 0;
+    transition: opacity var(--duration-reveal) var(--easing-standard);
+  }
+
+  .app-footer.revealed {
+    opacity: 1;
   }
 
   .app-main.revealed {
