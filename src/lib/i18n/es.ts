@@ -45,6 +45,17 @@ export const es: Messages = {
   'statue.accepts': 'admite el símbolo que llevas',
   'toolbox.title': 'Símbolos',
   'toolbox.hint': 'Toca un símbolo y luego una estatua, o arrástralo hasta ella.',
+  'toolbox.hint.rounds': 'Derrota a un caballero para conseguir su símbolo. Los símbolos que no uses caducan.',
+  'knight.defeat': 'Derrotar',
+  'knight.defeat.label': '{knight}: derrótalo para que suelte el {symbol}',
+  'drop.used': 'Usado',
+  'drop.expired': 'Caducado',
+  'ogres.title': 'Ogros',
+  'ogres.hint': 'Derrota a los dos ogros para que vuelvan los caballeros.',
+  'ogre.left': 'Ogro izquierdo',
+  'ogre.right': 'Ogro derecho',
+  'ogre.defeated': 'Derrotado',
+  'rounds.respawn': 'Los caballeros vuelven en {seconds} s.',
   'knight.drop': '{symbol} ({knight})',
   'status.swaps': 'Intercambios: {count}',
   'status.holding': 'Llevas: {symbol}',
@@ -56,6 +67,12 @@ export const es: Messages = {
   'feedback.statue-already-selected': 'Ya has marcado {statue}. Deposita en otra.',
   'feedback.marked': 'Has marcado {statue} con el {symbol}.',
   'feedback.swapped': 'Intercambio hecho: el {firstSymbol} de {firstStatue} por el {secondSymbol} de {secondStatue}.',
+  'feedback.symbol-unavailable': 'El {symbol} no está disponible ahora.',
+  'feedback.knight-defeated': 'El caballero ha soltado el {symbol}.',
+  'feedback.expired.one': 'El {symbols} ha caducado.',
+  'feedback.expired.other': 'Han caducado: {symbols}.',
+  'feedback.ogres-appeared': 'Han aparecido dos ogros.',
+  'feedback.knights-returned': 'Han vuelto los caballeros.',
 
   // Pistas
   'hint.symbols': 'Símbolos de la estatua',
@@ -85,9 +102,10 @@ export const es: Messages = {
   'settings.challenge-mode': 'Modo desafío',
   'settings.challenge-mode.description':
     'Además de no tener el símbolo de su callout, cada estatua tiene que acabar con una forma pura: esfera, cubo o tetraedro.',
-  'settings.challenge-mode.locked': 'Se cambia antes de iniciar el entreno.',
+  'settings.locked': 'Se cambia antes de iniciar el entreno.',
   'settings.symbol-rounds': 'Símbolos por rondas',
-  'settings.symbol-rounds.description': 'Los símbolos salen por rondas y caducan si no los usas a tiempo.',
+  'settings.symbol-rounds.description':
+    'Los símbolos salen al derrotar a los caballeros y caducan a los 10 s si no los usas. Cuando se agotan aparecen ogros; al derrotarlos vuelven los caballeros.',
 
   // Resultado
   'result.title': '¡Resuelto!',

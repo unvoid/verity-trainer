@@ -25,6 +25,5 @@ export function parseFlag(value: string | undefined, fallback: boolean): boolean
 export const FEATURES: Features = {
   hints: parseFlag(import.meta.env.VITE_FEATURE_HINTS, true),
   challengeMode: parseFlag(import.meta.env.VITE_FEATURE_CHALLENGE_MODE, true),
-  // Aún sin implementar: desactivada por defecto.
-  symbolRounds: parseFlag(import.meta.env.VITE_FEATURE_SYMBOL_ROUNDS, false),
+  symbolRounds: parseFlag(import.meta.env.VITE_FEATURE_SYMBOL_ROUNDS, true),
 }

@@ -13,7 +13,7 @@ const scenario: Scenario = {
 function setup(mode: 'normal' | 'challenge' = 'normal') {
   let clock = 1000
   const store = createGameStore({ now: () => clock, random: () => 0 })
-  store.newGame(scenario, mode)
+  store.newGame(scenario, { mode })
   return {
     store,
     advance: (ms: number) => (clock += ms),
@@ -143,5 +143,96 @@ describe('game store', () => {
     const { store, session } = setup('challenge')
     store.newGame()
     expect(session().mode).toBe('challenge')
+  })
+})
+
+describe('game store with symbol rounds', () => {
+  function setupRounds() {
+    let clock = 0
+    const store = createGameStore({ now: () => clock, random: () => 0, timings: { symbolLifetime: 10_000, respawnDelay: 3_000 } })
+    store.newGame(scenario, { mode: 'normal', rounds: true })
+    return { store, at: (ms: number) => (clock = ms), session: () => get(store) }
+  }
+
+  it('starts with knights and no symbols available', () => {
+    const { store, session } = setupRounds()
+    expect(session().drops?.slots.left.status).toBe('knight')
+    store.toggleHold('circle')
+    expect(session().held).toBeNull()
+    expect(session().feedback).toEqual({ kind: 'symbol-unavailable', symbol: 'circle' })
+  })
+
+  it('defeating a knight makes its symbol available', () => {
+    const { store, session } = setupRounds()
+    store.defeatKnight('left')
+    expect(session().feedback).toEqual({ kind: 'knight-defeated', symbol: 'circle' })
+    store.toggleHold('circle')
+    expect(session().held).toBe('circle')
+  })
+
+  it('a deposited symbol is spent', () => {
+    const { store, session } = setupRounds()
+    store.defeatKnight('left')
+    store.dropAt('left', 'circle')
+    expect(session().feedback?.kind).toBe('marked')
+    expect(session().drops?.slots.left.status).toBe('used')
+    store.dropAt('mid', 'circle')
+    expect(session().feedback).toEqual({ kind: 'symbol-unavailable', symbol: 'circle' })
+  })
+
+  it('a rejected deposit does not spend the symbol', () => {
+    const { store, session } = setupRounds()
+    store.defeatKnight('right')
+    store.dropAt('left', 'square') // la esfera no tiene cuadrado
+    expect(session().feedback?.kind).toBe('rejected')
+    expect(session().drops?.slots.right.status).toBe('dropped')
+  })
+
+  it('unused symbols expire on tick, but not while held', () => {
+    const { store, session, at } = setupRounds()
+    store.defeatKnight('left')
+    store.defeatKnight('mid')
+    store.toggleHold('triangle')
+    at(10_000)
+    store.tick()
+    expect(session().feedback).toEqual({ kind: 'expired', symbols: ['circle'] })
+    expect(session().drops?.slots.mid.status).toBe('dropped')
+  })
+
+  it('ticks without changes keep the same session', () => {
+    const { store, session } = setupRounds()
+    const before = session()
+    store.tick()
+    expect(session()).toBe(before)
+  })
+
+  it('full round: ogres appear, are defeated and knights return', () => {
+    const { store, session, at } = setupRounds()
+    store.defeatKnight('left')
+    store.defeatKnight('mid')
+    store.defeatKnight('right')
+    store.dropAt('left', 'circle')
+    store.dropAt('mid', 'triangle')
+    at(10_000)
+    store.tick() // caduca el cuadrado
+    expect(session().feedback).toEqual({ kind: 'ogres-appeared' })
+
+    store.defeatOgre('left')
+    store.defeatOgre('right')
+    at(12_999)
+    store.tick()
+    expect(session().drops?.slots.left.status).toBe('used')
+    at(13_000)
+    store.tick()
+    expect(session().feedback).toEqual({ kind: 'knights-returned' })
+    expect(session().drops?.slots.left.status).toBe('knight')
+  })
+
+  it('restart keeps rounds and resets them', () => {
+    const { store, session } = setupRounds()
+    store.defeatKnight('left')
+    store.restart()
+    expect(session().rounds).toBe(true)
+    expect(session().drops?.slots.left.status).toBe('knight')
   })
 })

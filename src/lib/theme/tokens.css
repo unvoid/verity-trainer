@@ -69,6 +69,7 @@
   --control-primary-bg: var(--color-text);
   --control-primary-text: var(--color-bg);
   --control-disabled-opacity: 0.4;
+  --opacity-faded: 0.3;
 
   /* Tiempos */
   --duration-fast: 120ms;
