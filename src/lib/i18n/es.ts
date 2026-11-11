@@ -99,7 +99,6 @@ export const es: Messages = {
   // Pie de página
   'footer.inspired': 'Inspirado en {link} de EggAllocationService.',
   'footer.inspired.link': 'Verity Simulator',
-  'footer.fan': 'Proyecto de fans sin relación con Bungie.',
 
   // Manual de uso
   'guide.title': 'Cómo se juega',

@@ -104,7 +104,6 @@ export const en = {
   // Footer
   'footer.inspired': 'Inspired by {link} by EggAllocationService.',
   'footer.inspired.link': 'Verity Simulator',
-  'footer.fan': 'Fan project, not affiliated with Bungie.',
 
   // Usage guide
   'guide.title': 'How to play',
