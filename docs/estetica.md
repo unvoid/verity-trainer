@@ -8,6 +8,19 @@ No se usan imágenes ni recursos oficiales de Bungie: el estilo es propio, inspi
 
 Ambiente frío, brumoso y apagado: grises azulados con un tinte lavanda, luz difusa y sombras de pizarra. Lo único cálido es el granate de las estatuas y el cobre de lo activo, por eso destacan.
 
+### Arte del encuentro
+
+Referencia principal para la escena: el trabajo de Christian Chojnacki para la raid (Bungie), publicado en [ArtStation](https://www.artstation.com/artwork/39KJbB) (sobre todo la primera imagen). Solo como inspiración: no se copia su composición ni se usa ninguna imagen suya.
+
+Lo que tomamos de ella:
+
+- **Cintas:** bandas largas y finas que se estrechan en las puntas y se cruzan en arcos amplios; al cruzarse forman ojivas. Nada es recto ni pesado: la estructura parece tejida.
+- **Simetría:** todo se ordena alrededor de un eje central.
+- **Luz:** casi blanca, entra desde arriba y el centro; hacia los bordes se apaga en sombras azul lavanda.
+- **Piedra pálida con relieve:** las columnas tienen un biselado tallado de líneas curvas que sigue sus bordes.
+- **Cuencos tejidos** de cintas cruzadas, como pedestales.
+- **Lo único cálido** es el cobre de la esfera central y de la doble hélice.
+
 - Símbolos 2D: siluetas casi negras con un núcleo de brasa cobre en el centro.
 - Formas 3D: sólidos granate mate, con volumen marcado solo por la luz.
 
@@ -27,6 +40,11 @@ Extraída de una captura real de la sala de Verity (colores dominantes de la esc
 | Formas 3D de las estatuas | `--palette-maroon` | `#863B3B` |
 | Brasa de los símbolos | `--palette-copper` | `#C27A4E` |
 | Contornos de estado y foco | `--palette-copper-deep` | `#9A5530` |
+| Luz central de la escena | `--palette-bloom` | `#F4F4F6` |
+| Sombras de la bruma | `--palette-periwinkle` | `#6C78A1` |
+| Sombras profundas de los bordes | `--palette-dusk` | `#49537C` |
+
+Los tres últimos salen del arte del encuentro: la luz de arriba y las sombras azul lavanda de los bordes. Los tonos claros de la captura del juego ya coincidían con los de ese arte.
 
 Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens semánticos (`--color-bg`, `--color-text`, `--color-statue`, `--color-active`…), que cambian con el tema. Todos los textos y elementos de interfaz cumplen WCAG 2.2 AA sobre el fondo y los planos.
 
@@ -34,23 +52,43 @@ Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens se
 
 - **Texto:** fuente del sistema (`-apple-system, system-ui, 'Segoe UI', Roboto, Arial, sans-serif` + emojis del sistema), como bungie.net. Sin descargas.
 - **Títulos:** [Montserrat](https://fonts.google.com/specimen/Montserrat) (SIL Open Font License), también usada en bungie.net. Alojada con el proyecto mediante `@fontsource-variable/montserrat`, sin pedir nada a Google Fonts. Token `--font-family-display`.
-- **Título de la web y de las secciones:** Montserrat en mayúsculas pequeñas con espaciado (`letter-spacing: 0.08em`), centrado. Todos los títulos de sección usan el componente `SectionTitle`.
+- **Título de la web y de las secciones:** Montserrat en mayúsculas pequeñas con espaciado (`letter-spacing: 0.08em`). Los títulos de sección van centrados entre dos trazos de cinta que se afinan hacia fuera. Todos usan el componente `SectionTitle`.
 
 ## Reglas visuales
 
-- **Fondo blanco hueso con luz difusa:** degradado vertical muy suave (`--gradient-bg`), de hueso arriba a hueso con un toque lavanda abajo, fijo al hacer scroll. Nunca blanco puro.
+- **Escena de fondo** (`SceneBackdrop`), fija al hacer scroll, decorativa y oculta a los lectores de pantalla. De atrás hacia delante:
+  1. Degradado de hueso (`--gradient-bg`). Nunca blanco puro.
+  2. Luz que entra desde arriba y el centro (`--scene-bloom`).
+  3. La sala (`visual/ribbons.ts`), simétrica y con un único punto de fuga:
+     - **Suelo** desde el horizonte, que se aclara hacia el primer plano, y un **camino** que llega hasta el primer tercio del fondo.
+     - **Cuatro grandes columnas por lado:** sus bases se reparten en profundidad por el suelo (las lejanas, más cerca del centro, más finas y más fundidas con la bruma) y arriba se funden todas en un punto, justo encima de la esfera.
+     - **Dos columnas centrales:** nacen juntas al final del camino y rodean la esfera, una por cada lado, sin volver a juntarse.
+     - **Espirales** finas de cobre apagado bajo la esfera, tres por lado.
+     - **La esfera**, flotando: luz casi blanca con un núcleo cálido.
+     - **Volumen de las columnas:** el canto recoge la luz en el centro y cae en sombra hacia los lados (tres capas: entera en sombra, franja iluminada difuminada y brillo fino, con `band`). Cada base tiene una sombra de contacto para apoyarse en el suelo.
+     - Quedan fuera por ahora los altares y las cintas de adorno que cruzan las columnas.
+  4. Bruma en el centro (`--scene-mist`), que aleja las cintas de lo que se lee, y viñeteado lavanda hacia los bordes (`--scene-vignette`).
+
+  Toda la escena (capas 2 a 4) va muy atenuada (`--scene-opacity`, 0,3): se intuye, no se mira.
 - **Tema claro por defecto.** Modo oscuro opcional (`data-theme="dark"`) derivado de las sombras: fondo índigo, símbolos blanco hueso; granate y cobre se mantienen.
 - **Símbolos 2D:** forma rellena casi negra con degradado radial cobre en el centro (brasa).
 - **Formas 3D (estatuas):** granate `#863B3B` (color de referencia de la comunidad) con 2–3 tonos planos derivados para dar volumen. Sin texturas ni librerías 3D.
-- **Estatuas:** solo la forma 3D, sin tarjeta ni nombres visibles (los nombres van en la etiqueta accesible). Estado con contornos cobre: marcada (continuo), admite tu símbolo con pistas (fino) y destino de arrastre (discontinuo).
+- **Estatuas:** la forma 3D reposando en un **cuenco tejido** de cintas (`Cradle`, en dos capas: detrás y delante de la forma), sin nombres visibles (van en la etiqueta accesible). Estado con contornos cobre: marcada (continuo), admite tu símbolo con pistas (fino) y destino de arrastre (discontinuo). La marcada tiene además una **luz cálida** de cobre detrás de la forma (`--glow-warm`), como la esfera de la sala.
 - **Cobre solo para lo activo:** estatua seleccionada, estado en curso, foco. Dos formas: **contorno nítido** para lo seleccionado y **halo cálido difuso** (`--glow-ready`) en la tile del callout cuyo compañero ya puede salir.
-- Trazos finos que recuerden a las cintas de la sala.
+- Las cintas de la sala son el motivo que se repite: fondo, cuencos y trazos de los títulos. Siempre con la misma geometría (`ribbonPath`): eje curvo y grosor variable. Lo que nace del suelo (columnas y arcos) es ancho en su base y se afila al subir; lo que no lo toca (la banda, los cuencos) se afila en las dos puntas.
 - **Simpleza de inspiración japonesa:** espacio vacío, contención, nada de adorno.
-- **Una sola forma de separar zonas: planos de tono, nunca líneas.** Planos en lavanda pálido (`--color-surface`), algo más oscuros y fríos que el fondo hueso, como papel sobre papel. Lo usan la cabecera, las tiles del tablero, los selectores del editor, el panel de ogros, los avisos y los botones secundarios. Los planos son velos translúcidos de pizarra (6 %, 11 % al pasar por encima), así que la diferencia con el fondo es igual de sutil en todo el degradado. Las superficies flotantes (panel de ajustes, resumen) son opacas (`--color-surface-raised`).
-- **Tile** (clase global `.tile` en `base.css`): la pieza común del tablero. Sala interior, sala de disección y símbolos de los caballeros usan la misma tile, con el mismo tamaño de símbolo y una sola etiqueta corta debajo (`.tile-label`): la posición (Izquierda, Centro, Derecha) en las tres zonas, o el estado con rondas ("Usado", "Caducado").
-- **Las únicas líneas son señales, no estructura:** los contornos cobre de los estados activos (símbolo que llevas, estatua marcada, opción elegida) y el foco de teclado. No existe un token de borde estructural.
-- **Textos alineados a la izquierda:** títulos, ayudas y avisos. Las etiquetas bajo un icono en una columna van centradas bajo su icono.
-- **Cabecera a todo el ancho** sobre un plano, con su contenido alineado con el tablero (`--content-width`). Ajustes e idioma como controles sin fondo, en índigo; al pasar por encima aparece un plano suave.
+- **Zonas separadas por material, nunca por líneas.** Dos materiales:
+  - **Piedra** (`--color-stone`): velo claro y esmerilado (`backdrop-filter`) sobre la escena, como la piedra pálida de la sala. Lo usan la cabecera, las tiles del tablero y los selectores del editor.
+  - **Planos de tono** (`--color-surface`): velos translúcidos de pizarra (6 %, 11 % al pasar por encima) para el panel de ogros, el manual y los botones secundarios.
+  - Las superficies flotantes (panel de ajustes, resumen, avisos) son opacas (`--color-surface-raised`).
+- **Tile** (clase global `.tile` en `base.css`): la pieza común del tablero. Sala interior, sala de disección, símbolos de los caballeros y selectores del editor usan la misma tile, con el mismo tamaño de símbolo y una sola etiqueta corta debajo (`.tile-label`): la posición (Izquierda, Centro, Derecha) en las tres zonas, o el estado con rondas ("Usado", "Caducado"). Es de piedra y no es una caja cuadrada:
+  - **Arco** arriba (`--tile-arch`): un único arco elíptico de lado a lado, como los arcos de la sala; abajo, esquinas pequeñas.
+  - **Biselado en relieve:** luz en el canto de arriba (`--bevel-light`) y sombra en el de abajo (`--bevel-shade`), más una sombra suave bajo la piedra (`--shadow-stone`).
+  - **Surco interior** paralelo al borde (sombra arriba, luz abajo), como el relieve curvo de las columnas.
+  - Un componente que añade sombras conserva las de la piedra con `var(--tile-shadow)`.
+- **Las únicas líneas que separan o marcan son señales:** los contornos cobre de los estados activos (símbolo que llevas, estatua marcada, opción elegida) y el foco de teclado. El relieve de la piedra y las cintas son luz y materia, no estructura. No existe un token de borde estructural.
+- **Composición simétrica:** títulos de sección y sus ayudas, centrados. El resto de textos (estado, avisos, manual) a la izquierda. Las etiquetas bajo un icono van centradas bajo su icono.
+- **Cabecera a todo el ancho**, de piedra, con su contenido alineado con el tablero (`--content-width`). Ajustes e idioma como controles sin fondo, en índigo; al pasar por encima aparece un plano suave.
 
 ## Controles
 
@@ -77,6 +115,11 @@ La interfaz no se desplaza al jugar. Se separan dos tipos de información:
 - **Eventos** (marcar, intercambiar, rechazos, avisos del editor): como **toast**, abajo y centrado en el ancho del contenido. Uno a la vez (el siguiente sustituye al anterior), sin botón de cerrar, con fundido suave. Desaparecen solos: 2,5 s los informativos y 4 s los errores, que llevan una franja granate a la izquierda. Se anuncian a lectores de pantalla.
 - En el editor, el motivo de que "Iniciar entreno" esté desactivado queda además en la descripción accesible del botón.
 - Con símbolos por rondas, el panel de ogros es un hueco fijo y las tiles de los caballeros reservan el sitio de la barra de caducidad.
+
+## Pendiente
+
+- **Partículas de la esfera:** dentro de la esfera central del arte hay una nube de partículas finas, entre bruma y polvo de nieve, con algún destello cálido. Candidata a capa de ambiente en lo alto de la escena, una vez asentado el diseño. Respetando `prefers-reduced-motion` y sin coste de CPU apreciable.
+- **Modo oscuro:** los tokens están definidos, pero aún no hay un control para activarlo.
 
 ## Favicon
 

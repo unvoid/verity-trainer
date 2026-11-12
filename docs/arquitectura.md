@@ -38,11 +38,13 @@ src/
     visual/
       silhouettes.ts   # siluetas de los símbolos 2D (compartidas)
       shards.ts        # geometría del loader de fragmentos
+      ribbons.ts       # geometría de las cintas (fondo de escena y cuencos de las estatuas)
     components/        # Button, Switch, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
                        # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel, SectionTitle, GearIcon,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShardLoader, SplashScreen, Drawer, SettingsDrawer, HelpDrawer,
-                       # HelpIcon, ToastMessage, LanguageSelector, UsageGuide
+                       # HelpIcon, ToastMessage, LanguageSelector, UsageGuide,
+                       # SceneBackdrop, Cradle
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       feedback.ts      # redacción de los avisos de la partida (para el toast)
