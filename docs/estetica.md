@@ -90,7 +90,7 @@ Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens se
   - Un componente que añade sombras conserva las de la piedra con `var(--tile-shadow)`.
 - **Las únicas líneas que separan o marcan son señales:** los contornos cobre de los estados activos (símbolo que llevas, estatua marcada, opción elegida) y el foco de teclado. El relieve de la piedra y las cintas son luz y materia, no estructura. No existe un token de borde estructural.
 - **Composición simétrica:** títulos de sección y sus ayudas, centrados. El resto de textos (estado, avisos, manual) a la izquierda. Las etiquetas bajo un icono van centradas bajo su icono.
-- **Cabecera a todo el ancho**, de piedra, con su contenido alineado con el tablero (`--content-width`). Ajustes e idioma como controles sin fondo, en índigo; al pasar por encima aparece un plano suave.
+- **Cabecera a todo el ancho**, de piedra, con su contenido también a todo el ancho (título a la izquierda, controles a la derecha), sin alinearse con el tablero. Su borde inferior es un canto fino: línea de sombra y, debajo, una de luz. Ajustes e idioma como controles sin fondo, en índigo; al pasar por encima aparece un plano suave.
 
 ## Controles
 
