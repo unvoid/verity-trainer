@@ -141,7 +141,12 @@ Capa irregular sobre la escena, en todo el viewport, por debajo del contenido (`
   - **Parámetros para ajustar a ojo**, como la bruma: cantidad, tamaño, densidad junto a la esfera frente al resto, velocidad, parpadeo y frecuencia de destellos.
   - **Ajuste para el jugador:** un interruptor en el panel de ajustes para desactivarlas (activadas por defecto), guardado con el resto en `stores/settings.ts`. Es una preferencia visual, no una funcionalidad de la versión: no necesita interruptor en `features.ts`. Textos en `en.ts` y `es.ts`; añadirlo también a la lista `SETTINGS` del manual (`UsageGuide.svelte`), que no se genera sola.
 - **Canto en los botones y sus estados.** Al usuario le ha gustado el canto de la cabecera (una línea fina de sombra y, pegada debajo, una de luz, sin sombra difusa: el mismo lenguaje que los cantos de las columnas de la escena). Idea por explorar: llevarlo a los botones y jugar con él en sus estados, por ejemplo que al pasar por encima el canto cambie (se invierta la luz y la sombra, como un relieve que se hunde, o se intensifique) en lugar de solo oscurecerse el plano. Respetar las reglas de los controles: sin desplazamiento al pulsar, foco con contorno cobre y cobre solo para lo activo.
-- **Modo oscuro:** los tokens están definidos, pero aún no hay un control para activarlo.
+- **Modo oscuro.** Los tokens están definidos, pero aún no hay un control para activarlo. Se rediseñará a partir de su propia referencia: la misma sala en penumbra, también de Christian Chojnacki para la raid, en [ArtStation](https://cdna.artstation.com/p/assets/images/images/076/967/522/large/christian-chojnacki-cchojnacki-finalshape-raid-22-a.jpg?1718233217). Solo como inspiración, igual que la de la escena clara.
+  - **Ambiente:** casi negro con tinte granate y ciruela (`#13060A` en las sombras, `#230E1E` en los medios, fondo vino `#311123`), más morado arriba en el centro (`#2F1834`).
+  - **Estructura:** las mismas columnas, la ojiva central, la espiral y los cuencos, ahora en siluetas oscuras con un filo de luz azul.
+  - **Luz:** una única fuente azul eléctrica. En lugar de la esfera blanca hay un cuerpo oscuro y opaco del que sale, por abajo, un haz de luz azul (`#BAD2F2` en lo más brillante, `#4364C6` en los medios) que baja por dentro de la espiral y la ilumina.
+  - **Suelo:** reflejos azules, como cáusticas de agua, sobre todo en el camino y alrededor de la base (`#303C80`).
+  - **Detalles:** destellos horizontales de lente a la altura media y unas pocas brasas cálidas flotando (`#F3BEA6`), que serían el equivalente oscuro del polvo de nieve.
 
 ## Favicon
 
