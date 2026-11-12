@@ -118,6 +118,18 @@ La interfaz no se desplaza al jugar. Se separan dos tipos de información:
 - En el editor, el motivo de que "Iniciar entreno" esté desactivado queda además en la descripción accesible del botón.
 - Con símbolos por rondas, el panel de ogros es un hueco fijo y las tiles de los caballeros reservan el sitio de la barra de caducidad.
 
+## Bruma
+
+Capa irregular sobre la escena, en todo el viewport, por debajo del contenido (`SceneMist`). Da a la escena vectorial una sensación orgánica, como de aire.
+
+- **Ruido fractal** (`feTurbulence`, en `visual/mist.ts`) convertido en jirones: el ruido medio queda casi transparente y solo las zonas densas forman nubes. Blanco hueso (`--color-mist`).
+- **Varias capas** con nubes de distinto tamaño que se mueven en direcciones distintas: al cruzarse, la forma cambia sin parar y nunca parece un dibujo que se desliza en bloque.
+- **Viento muy suave:** cada capa recorre un camino irregular con aceleraciones y frenadas (ciclos de 40 a 140 s según el ajuste) y "respira" como en ráfagas.
+- **Reparto:** en todo el viewport, también sobre el tablero (animada, ahí también suma); solo algo más densa en los bordes y abajo (`--mist-density`). Intensidad general: `--mist-opacity`.
+- **Rendimiento:** el ruido se pinta una sola vez como máscara y solo se mueven las capas (`transform` y `opacity`), que lo hace la tarjeta gráfica. Nunca se anima el ruido en sí, que obligaría a recalcularlo en cada fotograma.
+- Con `prefers-reduced-motion`, quieta.
+- **Ajustes** en `visual/mist.ts`: dos ajustes completos para comparar, `calm` (casi quieta) y `breeze` (viento suave que se percibe), elegidos con `MIST_PRESET`. Cada uno define sus capas (tamaño, frecuencia, intensidad, duración, recorrido, ráfagas), la forma de los jirones (`contrast`, `threshold`) y su intensidad (`strength`).
+
 ## Pendiente
 
 - **Partículas de la esfera:** dentro de la esfera central del arte hay una nube de partículas finas, entre bruma y polvo de nieve, con algún destello cálido. Candidata a capa de ambiente en lo alto de la escena, una vez asentado el diseño. Respetando `prefers-reduced-motion` y sin coste de CPU apreciable.
