@@ -72,8 +72,6 @@
   --color-column-shade: color-mix(in srgb, var(--palette-haze), var(--palette-periwinkle) 55%);
   --color-column-lit: var(--palette-haze-light);
   --color-column-highlight: var(--palette-bloom);
-  /* Espirales bajo la esfera: el cobre apagado de la sala. */
-  --color-helix: color-mix(in srgb, var(--palette-haze-light), var(--palette-copper) 45%);
   /* Trazos de cinta de los títulos. */
   --color-ribbon-shade: color-mix(in srgb, var(--palette-periwinkle) 45%, transparent);
   /* Bruma delante de las cintas en el centro: las aleja de lo que se lee. */
@@ -185,7 +183,6 @@
   --color-column-shade: var(--palette-ink);
   --color-column-lit: var(--palette-slate-soft);
   --color-column-highlight: var(--palette-mid-deep);
-  --color-helix: color-mix(in srgb, var(--palette-slate-soft), var(--palette-copper) 40%);
   --color-ribbon-shade: color-mix(in srgb, black 35%, transparent);
   --scene-mist: radial-gradient(
     ellipse 38% 55% at 50% 40%,
