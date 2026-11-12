@@ -235,7 +235,6 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    max-width: var(--content-width);
     margin-inline: auto;
     padding: var(--space-4);
   }
