@@ -44,7 +44,7 @@
   }
 
   .tile.ready {
-    box-shadow: var(--glow-ready);
+    box-shadow: var(--tile-shadow), var(--glow-ready);
   }
 
   ul {

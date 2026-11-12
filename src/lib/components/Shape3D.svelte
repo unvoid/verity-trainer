@@ -1,5 +1,5 @@
 <!--
-  Forma 3D: sólido oscuro y mate, con volumen marcado por 3 tonos planos.
+  Forma 3D: sólido granate y mate, con volumen marcado por 3 tonos planos.
   Decorativo por defecto; con `label` se anuncia como imagen.
 -->
 <script lang="ts">

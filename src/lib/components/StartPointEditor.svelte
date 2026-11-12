@@ -137,8 +137,10 @@
     margin: 0;
   }
 
+  /* Ayudas bajo títulos centrados: también centradas, como la sala. */
   .muted {
     font-size: var(--font-size-sm);
+    text-align: center;
     color: var(--color-text-muted);
   }
 
