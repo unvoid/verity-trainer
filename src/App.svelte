@@ -7,6 +7,7 @@
   import OgrePanel from './lib/components/OgrePanel.svelte'
   import RepoLink from './lib/components/RepoLink.svelte'
   import SceneBackdrop from './lib/components/SceneBackdrop.svelte'
+  import SceneMist from './lib/components/SceneMist.svelte'
   import ResultModal from './lib/components/ResultModal.svelte'
   import SectionTitle from './lib/components/SectionTitle.svelte'
   import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
@@ -120,6 +121,7 @@
 </svelte:head>
 
 <SceneBackdrop />
+<SceneMist />
 
 {#if splash}
   <SplashScreen onreveal={() => (revealed = true)} onfinish={() => (splash = false)} />
