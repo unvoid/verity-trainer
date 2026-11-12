@@ -90,6 +90,7 @@
   .hint {
     margin: calc(-1 * var(--space-2)) 0 var(--space-3);
     font-size: var(--font-size-sm);
+    text-align: center;
     color: var(--color-text-muted);
   }
 
@@ -118,7 +119,7 @@
 
   /* Al pasar por encima, el plano se oscurece un poco; nada se mueve. */
   .drop:hover:not(:disabled) {
-    background: var(--color-surface-hover);
+    background: var(--color-stone-hover);
   }
 
   .drop:disabled {

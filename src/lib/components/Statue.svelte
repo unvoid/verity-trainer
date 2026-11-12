@@ -10,6 +10,7 @@
   import { decompose } from '../domain/shapes'
   import type { Shape3D as Shape, Slot, Symbol2D as SymbolName } from '../domain/types'
   import { t } from '../i18n'
+  import Cradle from './Cradle.svelte'
   import Shape3D from './Shape3D.svelte'
   import Symbol2D from './Symbol2D.svelte'
 
@@ -71,12 +72,17 @@
   onclick={() => onactivate(slot)}
 >
   <span class="figure">
-    <Shape3D {shape} {size} />
-    {#if marked}
-      <span class="mark">
-        <Symbol2D symbol={marked} size={size / 3} />
-      </span>
-    {/if}
+    <!-- La forma reposa dentro de un cuenco tejido: capa trasera, forma, capa delantera. -->
+    <span class="pedestal" style:width="{size}px">
+      <span class="cradle-layer back"><Cradle layer="back" /></span>
+      <span class="solid"><Shape3D {shape} {size} /></span>
+      <span class="cradle-layer front"><Cradle layer="front" /></span>
+      {#if marked}
+        <span class="mark">
+          <Symbol2D symbol={marked} size={size / 3} />
+        </span>
+      {/if}
+    </span>
   </span>
   {#if hints}
     <span class="hint" title={$t('hint.symbols')}>
@@ -101,7 +107,7 @@
 
   /* Al pasar por encima, el plano se oscurece un poco; nada se mueve. */
   .statue:hover:not(:disabled) {
-    background: var(--color-surface-hover);
+    background: var(--color-stone-hover);
   }
 
   .statue:disabled {
@@ -122,10 +128,53 @@
   }
 
   .figure {
-    position: relative;
     display: flex;
     justify-content: center;
     width: 100%;
+  }
+
+  /*
+   * Forma + cuenco. El cuenco (lienzo 100×50) es un 15 % más ancho que la forma y
+   * va abajo del todo; el centro de su borde delantero (y=19,5) queda a ~86 % de la
+   * altura de la forma, donde están sus bases. Alto total: 0,636 + 0,575 = 1,21 la forma.
+   */
+  .pedestal {
+    position: relative;
+    isolation: isolate;
+    max-width: 100%;
+    aspect-ratio: 100 / 121;
+  }
+
+  .solid {
+    position: relative;
+    z-index: 1;
+    display: block;
+  }
+
+  .cradle-layer {
+    position: absolute;
+    bottom: 0;
+    left: -7.5%;
+    width: 115%;
+  }
+
+  .cradle-layer.front {
+    z-index: 2;
+  }
+
+  /* Estatua marcada: luz cálida detrás de la forma, como el cobre de la esfera de la sala. */
+  .pedestal::before {
+    content: '';
+    position: absolute;
+    inset: -15% -25%;
+    z-index: -1;
+    background: radial-gradient(closest-side, var(--glow-warm), transparent);
+    opacity: 0;
+    transition: opacity var(--duration-reveal) var(--easing-standard);
+  }
+
+  .statue.marked .pedestal::before {
+    opacity: 1;
   }
 
   /* Símbolo marcado: proporcional a la estatua, en la esquina, para no tapar la forma. */
@@ -133,6 +182,7 @@
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 3;
     width: 26%;
     transform: translate(25%, -25%);
   }

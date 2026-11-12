@@ -33,7 +33,7 @@
   const selectedLabel = $derived(options.find((option) => option.value === value)?.label ?? emptyLabel)
 </script>
 
-<fieldset class="slot-picker">
+<fieldset class="slot-picker tile">
   <legend>{legend}</legend>
 
   <div class="current" class:empty={value === null}>
@@ -67,17 +67,10 @@
 </fieldset>
 
 <style>
+  /* Piedra y arco de la tile común (base.css); aquí solo el relleno propio. */
   .slot-picker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-2);
-    min-width: 0;
     margin: 0;
-    padding: var(--space-3) var(--space-2);
-    background: var(--color-surface);
-    border: 0;
-    border-radius: var(--radius-md);
+    padding: calc(var(--space-3) + var(--tile-arch) / 2) var(--space-2) var(--space-3);
   }
 
   /* Flotante y a todo el ancho: se comporta como un título normal dentro del grupo. */
