@@ -20,6 +20,11 @@
   --palette-maroon: #863b3b; /* formas 3D de las estatuas (referencia de la comunidad) */
   --palette-copper: #c27a4e; /* brasa de los símbolos */
   --palette-copper-deep: #9a5530; /* contornos de estado y foco (≥ 3:1 sobre fondo y planos) */
+  /* Luz y sombra de la escena (arte del encuentro, ver docs/estetica.md):
+     la luz casi blanca que entra desde arriba y las sombras azul lavanda de los bordes. */
+  --palette-bloom: #f4f4f6; /* luz central */
+  --palette-periwinkle: #6c78a1; /* sombras de la bruma */
+  --palette-dusk: #49537c; /* sombras profundas de los bordes */
 
   /* Colores semánticos (tema claro, por defecto) */
   --color-bg: var(--palette-haze);
@@ -48,6 +53,53 @@
     0 0 14px 1px color-mix(in srgb, var(--palette-copper) 22%, transparent);
   /* Sombra suave de lo que flota sobre la página (avisos). */
   --shadow-floating: 0 4px 16px color-mix(in srgb, var(--palette-ink) 12%, transparent);
+
+  /* Intensidad de toda la escena de fondo (luz, cintas, bruma y viñeteado): sutil, solo ambiente. */
+  --scene-opacity: 0.3;
+  /* Escena: luz que entra desde arriba y el centro, y viñeteado lavanda hacia los bordes. */
+  --scene-bloom: radial-gradient(
+    ellipse 75% 60% at 50% 0%,
+    var(--palette-bloom) 0%,
+    color-mix(in srgb, var(--palette-bloom) 0%, transparent) 100%
+  );
+  --scene-vignette: radial-gradient(
+    ellipse 110% 95% at 50% 30%,
+    transparent 50%,
+    color-mix(in srgb, var(--palette-periwinkle) 26%, transparent) 85%,
+    color-mix(in srgb, var(--palette-dusk) 40%, transparent) 100%
+  );
+  /* Columnas de la escena: bordes en sombra, canto iluminado en el centro y un brillo fino. */
+  --color-column-shade: color-mix(in srgb, var(--palette-haze), var(--palette-periwinkle) 55%);
+  --color-column-lit: var(--palette-haze-light);
+  --color-column-highlight: var(--palette-bloom);
+  /* Espirales bajo la esfera: el cobre apagado de la sala. */
+  --color-helix: color-mix(in srgb, var(--palette-haze-light), var(--palette-copper) 45%);
+  /* Trazos de cinta de los títulos. */
+  --color-ribbon-shade: color-mix(in srgb, var(--palette-periwinkle) 45%, transparent);
+  /* Bruma delante de las cintas en el centro: las aleja de lo que se lee. */
+  --scene-mist: radial-gradient(
+    ellipse 38% 55% at 50% 40%,
+    color-mix(in srgb, var(--palette-haze-light) 70%, transparent) 0%,
+    color-mix(in srgb, var(--palette-haze-light) 0%, transparent) 100%
+  );
+  /* Cuencos de las estatuas: piedra algo más oscura que la tile, para despegarse de ella. */
+  --color-cradle: color-mix(in srgb, var(--palette-haze-light), var(--palette-periwinkle) 14%);
+  --color-cradle-back: color-mix(in srgb, var(--palette-haze-light), var(--palette-periwinkle) 34%);
+  --color-cradle-shade: color-mix(in srgb, var(--palette-periwinkle) 65%, transparent);
+
+  /* Piedra: el material de las tiles. Velo claro y esmerilado sobre la escena,
+     con biselado en relieve (luz arriba, sombra abajo) y un surco interior. */
+  --color-stone: color-mix(in srgb, var(--palette-bloom) 42%, transparent);
+  --color-stone-hover: color-mix(in srgb, var(--palette-bloom) 66%, transparent);
+  --stone-blur: 6px;
+  --bevel-light: color-mix(in srgb, white 90%, transparent);
+  --bevel-shade: color-mix(in srgb, var(--palette-dusk) 22%, transparent);
+  --shadow-stone: 0 1px 2px color-mix(in srgb, var(--palette-dusk) 10%, transparent),
+    0 10px 24px -14px color-mix(in srgb, var(--palette-dusk) 40%, transparent);
+  /* Altura del arco de la parte de arriba de las tiles (como los arcos de la sala). */
+  --tile-arch: 1.25rem;
+  /* Luz cálida tras la estatua marcada (el cobre de la esfera de la sala). */
+  --glow-warm: color-mix(in srgb, var(--palette-copper) 38%, transparent);
 
   /* Sólidos 3D (estatuas): granate mate, volumen con 3 tonos planos */
   --color-solid-mid: var(--palette-maroon);
@@ -119,6 +171,35 @@
   --color-text: var(--palette-haze-light);
   --color-text-muted: var(--palette-mid);
   --color-silhouette: var(--palette-haze-light);
+
+  --scene-bloom: radial-gradient(
+    ellipse 75% 60% at 50% 0%,
+    color-mix(in srgb, var(--palette-periwinkle) 30%, transparent) 0%,
+    transparent 100%
+  );
+  --scene-vignette: radial-gradient(
+    ellipse 110% 95% at 50% 30%,
+    transparent 55%,
+    color-mix(in srgb, black 35%, transparent) 100%
+  );
+  --color-column-shade: var(--palette-ink);
+  --color-column-lit: var(--palette-slate-soft);
+  --color-column-highlight: var(--palette-mid-deep);
+  --color-helix: color-mix(in srgb, var(--palette-slate-soft), var(--palette-copper) 40%);
+  --color-ribbon-shade: color-mix(in srgb, black 35%, transparent);
+  --scene-mist: radial-gradient(
+    ellipse 38% 55% at 50% 40%,
+    color-mix(in srgb, var(--palette-ink) 60%, transparent) 0%,
+    transparent 100%
+  );
+  --color-cradle: var(--palette-slate-soft);
+  --color-cradle-back: color-mix(in srgb, var(--palette-slate-soft), var(--palette-ink) 45%);
+  --color-cradle-shade: color-mix(in srgb, black 45%, transparent);
+  --color-stone: color-mix(in srgb, var(--palette-haze-light) 6%, transparent);
+  --color-stone-hover: color-mix(in srgb, var(--palette-haze-light) 11%, transparent);
+  --bevel-light: color-mix(in srgb, var(--palette-haze-light) 14%, transparent);
+  --bevel-shade: color-mix(in srgb, black 35%, transparent);
+  --shadow-stone: 0 10px 24px -14px color-mix(in srgb, black 50%, transparent);
 
   color-scheme: dark;
 }

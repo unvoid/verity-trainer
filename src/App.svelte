@@ -6,6 +6,7 @@
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
   import OgrePanel from './lib/components/OgrePanel.svelte'
   import RepoLink from './lib/components/RepoLink.svelte'
+  import SceneBackdrop from './lib/components/SceneBackdrop.svelte'
   import ResultModal from './lib/components/ResultModal.svelte'
   import SectionTitle from './lib/components/SectionTitle.svelte'
   import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
@@ -118,6 +119,8 @@
   <title>{$t('app.title')}</title>
 </svelte:head>
 
+<SceneBackdrop />
+
 {#if splash}
   <SplashScreen onreveal={() => (revealed = true)} onfinish={() => (splash = false)} />
 {/if}
@@ -213,9 +216,14 @@
 {/if}
 
 <style>
-  /* Cabecera a todo el ancho sobre un plano de tono; su contenido, alineado con el tablero. */
+  /* Cabecera a todo el ancho, de la misma piedra que las tiles; su contenido, alineado con el tablero. */
   .app-header {
-    background: var(--color-surface);
+    background: var(--color-stone);
+    -webkit-backdrop-filter: blur(var(--stone-blur));
+    backdrop-filter: blur(var(--stone-blur));
+    box-shadow:
+      inset 0 -1px 0 var(--bevel-shade),
+      var(--shadow-stone);
   }
 
   .header-inner {
@@ -224,6 +232,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
+    max-width: var(--content-width);
     margin-inline: auto;
     padding: var(--space-4);
   }
