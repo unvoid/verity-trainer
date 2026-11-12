@@ -1,6 +1,7 @@
 # Configuración de Claude (local, fuera del repo)
 CLAUDE.md
 .claude/settings.local.json
+.claude/settings.json
 
 # Dependencias y build
 node_modules
