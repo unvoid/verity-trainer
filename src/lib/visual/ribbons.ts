@@ -246,29 +246,30 @@ export const SCENE_COLUMNS: readonly SceneColumn[] = [...LEFT_COLUMNS]
   .flatMap(({ ribbon, depth }) => pair(ribbon, SCENE_AXIS).map((r) => ({ ribbon: r, depth })))
 
 /**
- * Columnas centrales: simétricas respecto al ecuador de la esfera. Nacen juntas
- * al final del camino, se abren hasta tocar la esfera por sus lados justo en el
- * ecuador (su borde interior, el eje, es tangente a ella ahí, sin entrar) y
- * vuelven a acercarse arriba en espejo, una junto a la otra sin fundirse, igual
- * que en la base. El grosor crece hacia fuera y se afina al subir.
+ * Columnas centrales: de forma casi simétrica respecto al ecuador de la esfera
+ * (arriba y abajo se parecen, sin ser un espejo exacto). Nacen juntas un poco
+ * por delante del final del camino (así su base, que se funde con el suelo,
+ * queda en un tramo corto) llegando al suelo casi en vertical (~13°), se abren hasta tocar la
+ * esfera por sus lados a la altura del ecuador (su borde interior, el eje, es
+ * tangente a ella, sin entrar) y vuelven a acercarse arriba, ya fuera del
+ * encuadre, sin juntarse. El grosor crece hacia fuera y se afina al subir.
+ * Controles buscados numéricamente con esas condiciones (ver tests).
  */
-export const CENTER_COLUMN_HUG = 220
+/** Base de las columnas centrales: un poco por delante del final del camino. */
+export const CENTER_COLUMN_BASE_Y = SCENE_PATH_END[1] + 60
+
 export const SCENE_CENTER_COLUMNS: readonly Ribbon[] = (() => {
-  const { cx, cy, r } = SCENE_SPHERE
+  const { cy } = SCENE_SPHERE
   const x0 = SCENE_AXIS - 4
-  const reach = SCENE_PATH_END[1] - cy
-  // Con controles simétricos, el punto medio de la curva (el del ecuador) queda en
-  // 1/4·x0 + 3/4·xc: se despeja xc para que toque el lado de la esfera.
-  const xc = (cx - r - x0 / 4) / 0.75
+  const reach = CENTER_COLUMN_BASE_Y - cy
   return pair(
     {
       spine: [
         [x0, cy + reach],
-        [xc, cy + CENTER_COLUMN_HUG],
-        [xc, cy - CENTER_COLUMN_HUG],
+        [x0 - 12, cy + reach - 50],
+        [496, cy + 20],
         [x0, cy - reach],
       ],
-      // La forma es simétrica, pero el grosor no: anchas junto al suelo y muy finas arriba.
       width: [-52, -30, -14, -5],
     },
     SCENE_AXIS,
