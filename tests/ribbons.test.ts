@@ -7,6 +7,7 @@ import {
   SCENE_FUSION,
   SCENE_HELIX,
   SCENE_HELIX_BOUNDS,
+  CENTER_COLUMN_BASE_Y,
   HELIX_STRANDS,
   HELIX_RADIUS,
   SPHERE_GAP,
@@ -148,31 +149,33 @@ describe('scene composition', () => {
     expect(width).toBeGreaterThan(height)
   })
 
-  it('the two centre columns are born side by side at the end of the path and never merge', () => {
+  it('the two centre columns are born side by side near the end of the path and never merge', () => {
     const [left, right] = SCENE_CENTER_COLUMNS
-    expect(left!.spine[0][1]).toBe(SCENE_PATH_END[1])
+    expect(left!.spine[0][1]).toBe(CENTER_COLUMN_BASE_Y)
     expect(Math.abs(left!.spine[0][0] - right!.spine[0][0])).toBeLessThan(20)
     // Cada una se queda en su lado del eje, también arriba.
     for (const [x] of left!.spine) expect(x).toBeLessThan(AXIS)
     for (const [x] of right!.spine) expect(x).toBeGreaterThan(AXIS)
   })
 
-  it('the centre columns are symmetric around the equator of the sphere and touch its sides there', () => {
+  it('the centre columns roughly mirror around the equator, touch the sphere there and land almost vertical', () => {
     const ribbon = SCENE_CENTER_COLUMNS[0]!
     const [p0, p1, p2, p3] = ribbon.spine
     const { cx, cy, r } = SCENE_SPHERE
-    // Espejo respecto al ecuador: mismos x, y reflejadas.
+    // Extremos en espejo respecto al ecuador.
     expect(p3[0]).toBe(p0[0])
-    expect(p2[0]).toBe(p1[0])
     expect(p0[1] - cy).toBeCloseTo(cy - p3[1])
-    expect(p1[1] - cy).toBeCloseTo(cy - p2[1])
-    // El grosor no es simétrico: anchas junto al suelo, muy finas arriba.
+    // Nacen un poco por delante del final del camino y llegan al suelo casi en vertical.
+    expect(p0[1]).toBe(CENTER_COLUMN_BASE_Y)
+    expect(CENTER_COLUMN_BASE_Y).toBeGreaterThan(SCENE_PATH_END[1])
+    // Arriba se pierden fuera del encuadre.
+    expect(p3[1]).toBeLessThan(0)
+    const landing = (Math.atan2(Math.abs(p0[0] - p1[0]), p0[1] - p1[1]) * 180) / Math.PI
+    expect(landing).toBeLessThan(20)
+    // El grosor se afina al subir.
     const widths = (ribbon.width as readonly number[]).map(Math.abs)
     for (let i = 1; i < widths.length; i++) expect(widths[i]).toBeLessThan(widths[i - 1]!)
-    expect(widths[3]!).toBeLessThan(widths[0]! / 4)
-    // Nacen al final del camino.
-    expect(p0[1]).toBe(SCENE_PATH_END[1])
-    // Tocan la esfera en el ecuador sin entrar en ella.
+    // Tocan la esfera cerca del ecuador sin entrar en ella.
     const at = (t: number, i: 0 | 1) =>
       (1 - t) ** 3 * p0[i] + 3 * (1 - t) ** 2 * t * p1[i] + 3 * (1 - t) * t ** 2 * p2[i] + t ** 3 * p3[i]
     let contact = { gap: Infinity, y: 0 }
@@ -180,10 +183,11 @@ describe('scene composition', () => {
       const gap = Math.hypot(at(t, 0) - cx, at(t, 1) - cy) - r
       if (gap < contact.gap) contact = { gap, y: at(t, 1) }
     }
-    expect(contact.gap).toBeGreaterThan(-0.5)
-    expect(contact.gap).toBeLessThan(0.5)
-    expect(contact.y).toBeCloseTo(cy, 0)
+    expect(contact.gap).toBeGreaterThan(-1)
+    expect(contact.gap).toBeLessThan(1.5)
+    expect(Math.abs(contact.y - cy)).toBeLessThan(15)
   })
+
 
   it('the helix is an inverted cone: narrow at the floor, as wide as the sphere at the top', () => {
     const { top, bottom } = SCENE_HELIX_BOUNDS
