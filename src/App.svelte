@@ -223,9 +223,10 @@
     background: var(--color-stone);
     -webkit-backdrop-filter: blur(var(--stone-blur));
     backdrop-filter: blur(var(--stone-blur));
+    /* Canto como los de la escena: una línea fina de sombra y, pegada debajo, una de luz; sin sombra difusa. */
     box-shadow:
       inset 0 -1px 0 var(--bevel-shade),
-      var(--shadow-stone);
+      0 1px 0 var(--bevel-light);
   }
 
   .header-inner {
