@@ -132,7 +132,14 @@ Capa irregular sobre la escena, en todo el viewport, por debajo del contenido (`
 
 ## Pendiente
 
-- **Partículas de la esfera:** dentro de la esfera central del arte hay una nube de partículas finas, entre bruma y polvo de nieve, con algún destello cálido. Candidata a capa de ambiente en lo alto de la escena, una vez asentado el diseño. Respetando `prefers-reduced-motion` y sin coste de CPU apreciable.
+- **Polvo de nieve (partículas).** Propuesta acordada, sin implementar.
+  - **Cómo es en el arte:** miles de motas diminutas (casi de un píxel), blancas con un toque cálido en algunas zonas, agrupadas en jirones como una nebulosa: bandas densas y huecos casi vacíos, no una lluvia uniforme. Unas pocas motas más grandes y brillantes, algunas con un pequeño destello en cruz. Máxima concentración alrededor y dentro de la esfera; en el juego hay un polvo más disperso por toda la escena.
+  - **Técnica:** un `<canvas>` 2D a pantalla completa, entre la escena y la bruma, con su propia intensidad (no la atenuación de la escena). Canvas porque son miles de puntos independientes: con SVG o HTML serían miles de elementos.
+  - **Reparto:** posiciones sacadas de un ruido como el de la bruma, para que salgan jirones. Muy concentrado alrededor de la esfera y disperso por el resto. El canvas usa el mismo encuadre que el SVG de la sala (lienzo 1600×1000, `slice`), así que la nube queda sobre la esfera con cualquier tamaño de ventana.
+  - **Movimiento:** deriva lenta en la dirección del viento de la bruma, un leve giro alrededor de la esfera, parpadeo de cada mota a su ritmo y algún destello ocasional.
+  - **Rendimiento:** limitar a ~30 fotogramas por segundo (basta para algo tan lento), menos partículas en pantallas pequeñas y resolución limitada; se pausa solo con la pestaña oculta. Con `prefers-reduced-motion`, una imagen quieta. Vigilar la batería en móvil.
+  - **Parámetros para ajustar a ojo**, como la bruma: cantidad, tamaño, densidad junto a la esfera frente al resto, velocidad, parpadeo y frecuencia de destellos.
+  - **Ajuste para el jugador:** un interruptor en el panel de ajustes para desactivarlas (activadas por defecto), guardado con el resto en `stores/settings.ts`. Es una preferencia visual, no una funcionalidad de la versión: no necesita interruptor en `features.ts`. Textos en `en.ts` y `es.ts`; añadirlo también a la lista `SETTINGS` del manual (`UsageGuide.svelte`), que no se genera sola.
 - **Modo oscuro:** los tokens están definidos, pero aún no hay un control para activarlo.
 
 ## Favicon
