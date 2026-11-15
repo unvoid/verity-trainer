@@ -123,3 +123,10 @@ Breve y en ambos idiomas, en un panel lateral abierto con el icono de ayuda de l
 
 - El encuentro, las formas (cada forma 3D con sus dos símbolos, con los iconos de la web), cómo hacer un intercambio (tocando, arrastrando o con teclado), el objetivo y el punto de partida.
 - Los ajustes reutilizan las descripciones del panel de ajustes. Los que no están disponibles en la versión publicada (`features.ts`) se muestran con **"Próximamente"**; al activar uno, la nota desaparece sola.
+
+## Git
+
+- **Autoría única:** todos los commits van firmados por `unvoid <unvoid.thinks@gmail.com>`, que GitHub enlaza con la cuenta `unvoid`: el repositorio tiene un solo contribuidor. La identidad se configura **solo para este repositorio** (`git config user.name` / `user.email`), nunca la global: el ordenador puede tener otra (p. ej. la del trabajo).
+- **Comprobación antes de cada commit:** el hook `.githooks/pre-commit` compara autor y committer con esa identidad y, si no coinciden, cancela el commit y explica cómo arreglarlo. Se activa solo en cualquier ordenador al hacer `npm install` (script `prepare`, que apunta `core.hooksPath` a `.githooks`). En un clon nuevo, `npm install` antes del primer commit.
+- Si alguna vez entra un commit con otra identidad, se reescribe su autor antes de subirlo; si ya estaba subido, se reescribe y se hace force push, avisando antes.
+- Mensajes de commit en inglés con Conventional Commits.
