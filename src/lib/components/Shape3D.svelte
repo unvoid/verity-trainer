@@ -46,10 +46,12 @@
       { tone: 'mid', d: 'M50 10 L20 78 A30 9 0 0 0 80 78 Z' },
       { tone: 'dark', d: 'M50 10 L62 86.2 A30 9 0 0 0 80 78 Z' },
     ],
+    // Cuña: cara triangular de frente con la punta arriba (lado vertical a la izquierda,
+    // más corto que el del suelo) y la cara inclinada de la hipotenusa hacia el fondo,
+    // que recibe la luz de arriba.
     prism: [
-      { tone: 'dark', d: 'M12 76 L30 42 L74 28 L56 62 Z' },
-      { tone: 'mid', d: 'M30 42 L74 28 L92 62 L48 76 Z' },
-      { tone: 'light', d: 'M12 76 L30 42 L48 76 Z' },
+      { tone: 'light', d: 'M14 26 L30 16 L94 74 L78 84 Z' },
+      { tone: 'mid', d: 'M14 26 L14 76 L78 84 Z' },
     ],
   }
 </script>

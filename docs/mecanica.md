@@ -58,6 +58,8 @@ Los intercambios mueven símbolos, no los crean: entre las tres estatuas siempre
 - **Modo normal:** ninguna estatua contiene el símbolo de su callout.
 - **Challenge Mode:** además, las tres estatuas son formas puras.
 
+En modo normal, terminar con formas puras es válido (confirmado en el juego). La "Shape Reference Guide" de Nec marca las formas puras con una ✗ y las mixtas con un ✓ porque el final habitual es el mixto (cada estatua con los dos símbolos que no son de su callout), no porque las puras no completen el encuentro. En Challenge Mode solo valen las puras.
+
 Como siempre hay dos de cada símbolo, en Challenge Mode hay **exactamente dos soluciones** por punto de partida:
 
 - **A:** izquierda = pura del callout derecho, centro = pura del callout izquierdo, derecha = pura del callout central.
