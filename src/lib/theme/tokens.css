@@ -63,10 +63,13 @@
   /* Bruma irregular sobre la escena (SceneMist): color, intensidad y reparto
      (en todo el viewport, también sobre el tablero; algo más densa en los bordes y abajo). */
   --color-mist: var(--palette-bloom);
-  /* Polvo de nieve: motas del azul lavanda de las sombras de la sala y, algunas, cobre
-     (el de la esfera). Blancas no se veían sobre la escena clara. */
+  /* Polvo de nieve: motas del azul lavanda de las sombras de la sala y, algunas, de un
+     tono claro y cálido (la luz de la esfera, no su cobre: el cobre puro se veía rojizo).
+     Blancas no se veían sobre la escena clara. */
   --color-dust: var(--palette-periwinkle);
-  --color-dust-warm: var(--palette-copper);
+  --color-dust-warm: color-mix(in srgb, white, var(--palette-copper) 30%);
+  /* Brillo de cada mota: un píxel blanco arriba, donde le da la luz. */
+  --color-dust-glint: white;
   /* Factor del tema; la intensidad de cada ajuste de bruma va en visual/mist.ts. */
   --mist-opacity: 1;
   --mist-density: radial-gradient(ellipse 60% 55% at 50% 42%, rgb(0 0 0 / 0.85) 0%, black 100%);
@@ -241,6 +244,7 @@
   --color-mist: var(--palette-slate-soft);
   --color-dust: var(--palette-haze-light);
   --color-dust-warm: color-mix(in srgb, var(--palette-haze-light), var(--palette-copper) 45%);
+  --color-dust-glint: white;
   --mist-opacity: 0.8;
   --color-cradle: var(--palette-slate-soft);
   --color-cradle-back: color-mix(in srgb, var(--palette-slate-soft), var(--palette-ink) 45%);

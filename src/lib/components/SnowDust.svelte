@@ -3,13 +3,15 @@
   vele) y por debajo del viñeteado y del contenido, con miles de motas
   (`visual/dust.ts`) que flotan y parpadean.
   - Las motas son del azul lavanda de las sombras de la sala (algunas, cobre): en la
-    escena clara, el blanco no se veía.
+    escena clara, el blanco no se veía. Cada una lleva un píxel blanco arriba, donde
+    le da la luz: el color hace de sombra y el blanco de brillo, como un grano de nieve.
   - Canvas porque son miles de puntos independientes (con SVG o HTML serían miles
     de elementos).
   - Rendimiento: como mucho ~30 fotogramas por segundo, resolución limitada, menos
     motas en pantallas estrechas y parado con la pestaña oculta.
   - Con movimiento reducido, una imagen quieta.
-  - Colores e intensidad del tema (`--color-dust`, `--color-dust-warm`, `--dust-opacity`).
+  - Colores e intensidad del tema (`--color-dust`, `--color-dust-warm`,
+    `--color-dust-glint`, `--dust-opacity`).
   Decorativo y oculto a los lectores de pantalla.
 -->
 <script lang="ts">
@@ -53,6 +55,7 @@
       return {
         cold: style.getPropertyValue('--color-dust').trim(),
         warm: style.getPropertyValue('--color-dust-warm').trim(),
+        glint: style.getPropertyValue('--color-dust-glint').trim(),
       }
     }
 
@@ -79,6 +82,9 @@
         ctx.globalAlpha = alpha
         ctx.fillStyle = mote.warm ? colors.warm : colors.cold
         ctx.fillRect(x - half, y - half, mote.size, mote.size)
+        // Brillo: un píxel blanco arriba, donde le da la luz de la sala.
+        ctx.fillStyle = colors.glint
+        ctx.fillRect(x - half, y - half, Math.min(1, mote.size), Math.min(1, mote.size))
       }
       ctx.globalAlpha = 1
     }

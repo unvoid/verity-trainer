@@ -135,7 +135,7 @@ Capa irregular sobre la escena, en todo el viewport, por debajo del contenido (`
 
 ## Polvo de nieve
 
-Miles de motas diminutas que flotan en la sala, como en el arte del encuentro: del azul lavanda de las sombras de la sala (en el arte son blancas, pero sobre la escena clara no se veían) y algunas cobre, agrupadas en jirones como una nebulosa y muy concentradas alrededor de la esfera, con un polvo más disperso por el resto. Unas pocas motas son más grandes.
+Miles de motas diminutas que flotan en la sala, como en el arte del encuentro: del azul lavanda de las sombras de la sala (en el arte son blancas, pero sobre la escena clara no se veían) y algunas de un tono claro y cálido (el cobre puro se veía rojizo), cada una con un píxel blanco arriba, donde le da la luz (`--color-dust-glint`): el color hace de sombra y el blanco de brillo, como un grano de nieve, agrupadas en jirones como una nebulosa y muy concentradas alrededor de la esfera, con un polvo más disperso por el resto. Unas pocas motas son más grandes.
 
 - **Técnica:** un `<canvas>` 2D a pantalla completa (`SnowDust`), por encima de la bruma (que no lo vele) y por debajo del viñeteado y del contenido, con su propia intensidad (`--dust-opacity`) y sus colores (`--color-dust`, `--color-dust-warm`). Canvas porque son miles de puntos independientes.
 - **Geometría** en `visual/dust.ts` (funciones puras, con tests): las motas viven en las coordenadas de la sala (1600×1000) y se encuadran como el SVG (`xMidYMid slice`), así que la nube queda sobre la esfera con cualquier ventana. El reparto sale de una densidad (nube gaussiana en la esfera + jirones de ruido fractal + polvo disperso) con una semilla fija: el mismo dibujo en cada carga.
