@@ -116,7 +116,7 @@ Los controles nuevos usan el componente `Button` o estos tokens; nunca estilos p
 
 La interfaz no se desplaza al jugar. Se separan dos tipos de información:
 
-- **Estado** (intercambios, símbolo que llevas, intercambios mínimos pendientes con pistas): en una zona fija bajo los símbolos de los caballeros. Las líneas reservan su hueco aunque estén vacías.
+- **Estado** (intercambios y símbolo que llevas —solo cuando llevas uno, tocando o arrastrando—, intercambios mínimos pendientes con pistas): en una zona fija bajo los símbolos de los caballeros, con la etiqueta en normal y tono secundario y el valor en negrita: lo que se consulta de reojo es el valor. Las líneas reservan su hueco aunque estén vacías.
 - **Eventos** (marcar, intercambiar, rechazos, avisos del editor): como **toast**, abajo y centrado en el ancho del contenido. Uno a la vez (el siguiente sustituye al anterior), sin botón de cerrar, con fundido suave. Desaparecen solos: 2,5 s los informativos y 4 s los errores, que llevan una franja granate a la izquierda. Se anuncian a lectores de pantalla.
 - En el editor, el motivo de que "Iniciar entreno" esté desactivado queda además en la descripción accesible del botón.
 - Con símbolos por rondas, los ogros ocupan el sitio de los caballeros mientras están (y durante la cuenta atrás hasta que vuelven), con la misma maquetación: nada se desplaza. Las tiles de caballeros y ogros reservan el sitio de la barra de caducidad.

@@ -70,9 +70,8 @@ export const en = {
   'ogre.label': '{ogre}: {status}',
   'rounds.respawn': 'The knights return in {seconds} s.',
   'knight.drop': '{symbol} ({knight})',
-  'status.swaps': 'Swaps: {count}',
-  'status.holding': 'Holding: {symbol}',
-  'status.empty-hands': 'Not holding a symbol',
+  'status.swaps.label': 'Swaps:',
+  'status.holding.label': 'Holding:',
   'status.mode.challenge': 'Challenge Mode',
 
   'feedback.no-symbol-held': 'Pick up a symbol first.',

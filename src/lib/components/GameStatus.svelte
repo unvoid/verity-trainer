@@ -22,8 +22,12 @@
 
 <section class="status">
   <p class="counters">
-    <span>{$t('status.swaps', { count: swaps })}</span>
-    <span>{held ? $t('status.holding', { symbol: $t(`symbol.${held}`) }) : $t('status.empty-hands')}</span>
+    <!-- Etiqueta discreta y valor en negrita: lo que se consulta de reojo es el valor. -->
+    <span><span class="label">{$t('status.swaps.label')}</span> <strong>{swaps}</strong></span>
+    <!-- Solo cuando llevas un símbolo (tocando o arrastrando); vacía, reserva su hueco: nada se desplaza. -->
+    <span class:empty={held === null}>
+      {#if held}<span class="label">{$t('status.holding.label')}</span> <strong>{$t(`symbol.${held}`)}</strong>{:else}&nbsp;{/if}
+    </span>
   </p>
 
   <!-- Con pistas, la línea reserva su hueco aunque no haya nada que mostrar: nada se desplaza. -->
@@ -64,8 +68,16 @@
     font-size: var(--font-size-sm);
   }
 
-  .hint.empty {
+  .empty {
     visibility: hidden;
+  }
+
+  .label {
+    color: var(--color-text-muted);
+  }
+
+  strong {
+    font-weight: var(--font-weight-bold);
   }
 
   .actions {

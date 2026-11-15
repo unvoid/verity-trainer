@@ -80,10 +80,15 @@
     toast.show(message.text, message.tone)
   })
 
+  /**
+   * Símbolo que lleva el jugador: el que ha cogido tocando o el que va arrastrando.
+   * Las dos formas de jugar son equivalentes: estado y pistas lo muestran igual.
+   */
+  const carried = $derived($game.held ?? $drag?.symbol ?? null)
+
   /** Pista: estatuas que admiten el símbolo que lleva el jugador. */
   function accepts(slot: Slot): boolean {
-    const symbol = $game.held
-    return symbol !== null && depositError($game.state, { slot, symbol }) === null
+    return carried !== null && depositError($game.state, { slot, symbol: carried }) === null
   }
 
   /** Resumen al resolver. Se calcula una vez por partida resuelta. */
@@ -201,7 +206,7 @@
 
     <GameStatus
       swaps={$game.state.swaps}
-      held={$game.held}
+      held={carried}
       {remaining}
       onnewgame={backToSetup}
       onrestart={game.restart}

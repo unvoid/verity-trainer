@@ -64,9 +64,8 @@ export const es: Messages = {
   'ogre.label': '{ogre}: {status}',
   'rounds.respawn': 'Los caballeros vuelven en {seconds} s.',
   'knight.drop': '{symbol} ({knight})',
-  'status.swaps': 'Intercambios: {count}',
-  'status.holding': 'Llevas: {symbol}',
-  'status.empty-hands': 'No llevas ningún símbolo',
+  'status.swaps.label': 'Intercambios:',
+  'status.holding.label': 'Llevas:',
   'status.mode.challenge': 'Modo desafío',
 
   'feedback.no-symbol-held': 'Primero coge un símbolo.',

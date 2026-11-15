@@ -37,20 +37,20 @@ describe('DEFAULT_LOCALE', () => {
 })
 
 describe('translate', () => {
-  const messages: Messages = { ...es, 'status.swaps': 'Hola {name}, llevas {count} intercambios' }
+  const messages: Messages = { ...es, 'status.swaps.label': 'Hola {name}, llevas {count} intercambios' }
 
   it('returns the plain text without params', () => {
     expect(translate(messages, 'app.title')).toBe(es['app.title'])
   })
 
   it('interpolates params', () => {
-    expect(translate(messages, 'status.swaps', { name: 'Ana', count: 3 })).toBe(
+    expect(translate(messages, 'status.swaps.label', { name: 'Ana', count: 3 })).toBe(
       'Hola Ana, llevas 3 intercambios',
     )
   })
 
   it('keeps unknown placeholders visible', () => {
-    expect(translate(messages, 'status.swaps', { name: 'Ana' })).toBe('Hola Ana, llevas {count} intercambios')
+    expect(translate(messages, 'status.swaps.label', { name: 'Ana' })).toBe('Hola Ana, llevas {count} intercambios')
   })
 })
 
