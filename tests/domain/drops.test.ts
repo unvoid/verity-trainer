@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  DEFAULT_TIMINGS,
   createDrops,
   defeatKnight,
   defeatOgre,
@@ -121,5 +122,11 @@ describe('rounds', () => {
     const state = use(allDropped(), 'circle')
     expect(pickUp(state, 'circle')).toBe(state)
     expect(use(state, 'circle')).toBe(state)
+  })
+})
+
+describe('default timings', () => {
+  it('keeps a dropped symbol for 15 s and brings the knights back after 3 s', () => {
+    expect(DEFAULT_TIMINGS).toEqual({ symbolLifetime: 15_000, respawnDelay: 3_000 })
   })
 })

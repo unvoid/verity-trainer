@@ -47,7 +47,7 @@ src/
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShardLoader, SplashScreen, Drawer, SettingsDrawer, HelpDrawer,
                        # HelpIcon, ToastMessage, LanguageSelector, UsageGuide,
-                       # SceneBackdrop, SceneMist, SceneVignette, Cradle, TileFrame
+                       # SceneBackdrop, SceneMist, SceneVignette, Cradle, TileFrame, KnightIcon, OgreIcon
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       feedback.ts      # redacción de los avisos de la partida (para el toast)
@@ -88,7 +88,7 @@ Implementado en `domain/drops.ts` (funciones puras con la hora inyectada) y en e
 - El store guarda el estado de las rondas (`drops`) solo si la partida se inicia con el ajuste activo.
 - `tick()` avanza el tiempo; la app lo llama cada 200 ms mientras hay una partida con rondas en curso. Si no pasa nada, el store no cambia.
 - Las cuentas atrás visibles usan `stores/clock.ts`, que solo corre mientras hay componentes que lo usan.
-- Los tiempos (10 s de caducidad, 3 s de vuelta) son `DEFAULT_TIMINGS` y se pueden inyectar.
+- Los tiempos (15 s de caducidad, 3 s de vuelta) son `DEFAULT_TIMINGS` y se pueden inyectar.
 
 ## Interacción
 

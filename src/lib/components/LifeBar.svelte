@@ -22,7 +22,7 @@
 <style>
   .life {
     display: block;
-    width: 100%;
+    width: 70%;
     height: var(--stroke-focus);
     overflow: hidden;
     background: var(--color-surface-hover);
@@ -31,7 +31,7 @@
 
   .fill {
     display: block;
-    height: 100%;
+    height: 70%;
     background: var(--color-active);
     transform-origin: left;
   }

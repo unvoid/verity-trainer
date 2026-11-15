@@ -119,7 +119,7 @@ La interfaz no se desplaza al jugar. Se separan dos tipos de información:
 - **Estado** (intercambios, símbolo que llevas, intercambios mínimos pendientes con pistas): en una zona fija bajo los símbolos de los caballeros. Las líneas reservan su hueco aunque estén vacías.
 - **Eventos** (marcar, intercambiar, rechazos, avisos del editor): como **toast**, abajo y centrado en el ancho del contenido. Uno a la vez (el siguiente sustituye al anterior), sin botón de cerrar, con fundido suave. Desaparecen solos: 2,5 s los informativos y 4 s los errores, que llevan una franja granate a la izquierda. Se anuncian a lectores de pantalla.
 - En el editor, el motivo de que "Iniciar entreno" esté desactivado queda además en la descripción accesible del botón.
-- Con símbolos por rondas, el panel de ogros es un hueco fijo y las tiles de los caballeros reservan el sitio de la barra de caducidad.
+- Con símbolos por rondas, los ogros ocupan el sitio de los caballeros mientras están (y durante la cuenta atrás hasta que vuelven), con la misma maquetación: nada se desplaza. Las tiles de caballeros y ogros reservan el sitio de la barra de caducidad.
 
 ## Bruma
 
@@ -149,6 +149,15 @@ Capa irregular sobre la escena, en todo el viewport, por debajo del contenido (`
   - **Luz:** una única fuente azul eléctrica. En lugar de la esfera blanca hay un cuerpo oscuro y opaco del que sale, por abajo, un haz de luz azul (`#BAD2F2` en lo más brillante, `#4364C6` en los medios) que baja por dentro de la espiral y la ilumina.
   - **Suelo:** reflejos azules, como cáusticas de agua, sobre todo en el camino y alrededor de la base (`#303C80`).
   - **Detalles:** destellos horizontales de lente a la altura media y unas pocas brasas cálidas flotando (`#F3BEA6`), que serían el equivalente oscuro del polvo de nieve.
+
+## Pictogramas de caballero y ogro
+
+Dibujos propios (`KnightIcon`, `OgreIcon`), inspirados en las proporciones y los rasgos de los enemigos del juego, sin calcar ningún arte. En tinta de silueta (`--color-silhouette`) con ojos de brasa (`--color-ember`), como los símbolos 2D; solo curvas.
+
+- **Caballero:** yelmo en punta de flecha que se abre en dos cuernos, tres ojos en triángulo, hombreras que se alzan en punta y piernas firmes y abiertas.
+- **Ogro:** masa encorvada sin cabeza, brazos larguísimos con garras, piernas cortas y la cara en el pecho, separada por un surco, con un racimo de ojos.
+- **Dónde:** en las tiles de los caballeros por derrotar (sin indicar qué símbolo soltarán: en el juego no se sabe) y en las de los ogros, al mismo tamaño que los símbolos. Derrotados, el pictograma atenuado sobre el hueco vacío.
+- Deben leerse a 28 px.
 
 ## Favicon
 

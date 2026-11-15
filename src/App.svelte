@@ -177,23 +177,27 @@
         {/each}
       </div>
 
-      <!-- Los símbolos de los caballeros son parte de la sala de disección. -->
+      <!--
+        Los símbolos de los caballeros son parte de la sala de disección. Con símbolos
+        por rondas, mientras hay ogros (o cuenta atrás hasta que vuelven los caballeros)
+        los ogros ocupan su sitio: los caballeros ya no tienen nada que dar.
+      -->
       <div class="knights">
-        <Toolbox
-          held={$game.held}
-          drops={$game.drops}
-          disabled={finished}
-          ontoggle={game.toggleHold}
-          ondrop={game.dropAt}
-          ondefeatknight={game.defeatKnight}
-          size={$pieceSizes.knight}
-        />
+        {#if $game.drops && ($game.drops.ogres !== null || $game.drops.respawnAt !== null)}
+          <OgrePanel drops={$game.drops} disabled={finished} size={$pieceSizes.knight} ondefeat={game.defeatOgre} />
+        {:else}
+          <Toolbox
+            held={$game.held}
+            drops={$game.drops}
+            disabled={finished}
+            ontoggle={game.toggleHold}
+            ondrop={game.dropAt}
+            ondefeatknight={game.defeatKnight}
+            size={$pieceSizes.knight}
+          />
+        {/if}
       </div>
     </section>
-
-    {#if $game.drops}
-      <OgrePanel drops={$game.drops} disabled={finished} ondefeat={game.defeatOgre} />
-    {/if}
 
     <GameStatus
       swaps={$game.state.swaps}

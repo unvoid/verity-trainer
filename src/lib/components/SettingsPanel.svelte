@@ -3,6 +3,7 @@
   esta versión (ver `features.ts`).
 -->
 <script lang="ts">
+  import { DEFAULT_TIMINGS } from '../domain/drops'
   import { FEATURES } from '../features'
   import { t } from '../i18n'
   import { settings } from '../stores/settings'
@@ -49,7 +50,7 @@
       <Switch
         id="setting-symbol-rounds"
         label={$t('settings.symbol-rounds')}
-        description={$t('settings.symbol-rounds.description')}
+        description={$t('settings.symbol-rounds.description', { seconds: DEFAULT_TIMINGS.symbolLifetime / 1000 })}
         note={playing ? $t('settings.locked') : undefined}
         checked={$settings.symbolRounds}
         disabled={playing}

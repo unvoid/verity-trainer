@@ -53,7 +53,7 @@ export const es: Messages = {
   'toolbox.hint': 'Toca un símbolo y luego una estatua, o arrástralo hasta ella.',
   'toolbox.hint.rounds': 'Derrota a un caballero para conseguir su símbolo. Los símbolos que no uses caducan.',
   'knight.defeat': 'Derrotar',
-  'knight.defeat.label': '{knight}: derrótalo para que suelte el {symbol}',
+  'knight.defeat.label': '{knight}: derrótalo para que suelte su símbolo',
   'drop.used': 'Usado',
   'drop.expired': 'Caducado',
   'ogres.title': 'Ogros',
@@ -61,6 +61,7 @@ export const es: Messages = {
   'ogre.left': 'Ogro izquierdo',
   'ogre.right': 'Ogro derecho',
   'ogre.defeated': 'Derrotado',
+  'ogre.label': '{ogre}: {status}',
   'rounds.respawn': 'Los caballeros vuelven en {seconds} s.',
   'knight.drop': '{symbol} ({knight})',
   'status.swaps': 'Intercambios: {count}',
@@ -138,7 +139,7 @@ export const es: Messages = {
   'settings.locked': 'Se cambia antes de iniciar el entreno.',
   'settings.symbol-rounds': 'Símbolos por rondas',
   'settings.symbol-rounds.description':
-    'Los símbolos salen al derrotar a los caballeros y caducan a los 10 s si no los usas. Cuando se agotan aparecen ogros; al derrotarlos vuelven los caballeros.',
+    'Los símbolos salen al derrotar a los caballeros y caducan a los {seconds} s si no los usas. Cuando se agotan aparecen ogros; al derrotarlos vuelven los caballeros.',
 
   // Resultado
   'result.title': '¡Ya podéis salir!',

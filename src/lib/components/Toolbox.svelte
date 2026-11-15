@@ -4,7 +4,8 @@
     También se puede arrastrar hasta una estatua.
   - Con símbolos por rondas (`drops`), cada posición muestra su estado: caballero
     por derrotar, símbolo disponible (con barra de caducidad), usado o caducado.
-    Sin imágenes de enemigos: el símbolo atenuado y texto.
+    El caballero por derrotar se ve con su pictograma, sin decir qué símbolo soltará:
+    en el juego no se sabe hasta derrotarlo.
 -->
 <script lang="ts">
   import { dragSymbol } from '../actions/dragSymbol'
@@ -12,6 +13,7 @@
   import { KNIGHT_DROPS } from '../domain/rules'
   import { SLOTS, type Slot, type Symbol2D as SymbolName } from '../domain/types'
   import { t } from '../i18n'
+  import KnightIcon from './KnightIcon.svelte'
   import LifeBar from './LifeBar.svelte'
   import SectionTitle from './SectionTitle.svelte'
   import Symbol2D from './Symbol2D.svelte'
@@ -70,11 +72,11 @@
           type="button"
           class="drop tile knight"
           {disabled}
-          aria-label={$t('knight.defeat.label', { knight: $t(`knight.${slot}`), symbol: $t(`symbol.ref.${symbol}`) })}
+          aria-label={$t('knight.defeat.label', { knight: $t(`knight.${slot}`) })}
           onclick={() => ondefeatknight?.(slot)}
         >
           <TileFrame />
-          <span class="faded"><Symbol2D {symbol} {size} /></span>
+          <KnightIcon {size} />
           <span class="tile-label action">{$t('knight.defeat')}</span>
           <span class="life-slot" aria-hidden="true"></span>
         </button>
@@ -133,7 +135,7 @@
     --tile-outline-width: var(--stroke-focus);
   }
 
-  /* Caballero por derrotar: símbolo atenuado y acción; se toca (no se arrastra). */
+  /* Caballero por derrotar: pictograma y acción; se toca (no se arrastra). */
   .knight {
     cursor: pointer;
     touch-action: auto;

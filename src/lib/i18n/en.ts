@@ -59,7 +59,7 @@ export const en = {
   'toolbox.hint': 'Tap a symbol and then a statue, or drag it there.',
   'toolbox.hint.rounds': 'Defeat a knight to get its symbol. Symbols you don’t use expire.',
   'knight.defeat': 'Defeat',
-  'knight.defeat.label': '{knight}: defeat it to drop the {symbol}',
+  'knight.defeat.label': '{knight}: defeat it to drop its symbol',
   'drop.used': 'Used',
   'drop.expired': 'Expired',
   'ogres.title': 'Ogres',
@@ -67,6 +67,7 @@ export const en = {
   'ogre.left': 'Left ogre',
   'ogre.right': 'Right ogre',
   'ogre.defeated': 'Defeated',
+  'ogre.label': '{ogre}: {status}',
   'rounds.respawn': 'The knights return in {seconds} s.',
   'knight.drop': '{symbol} ({knight})',
   'status.swaps': 'Swaps: {count}',
@@ -144,7 +145,7 @@ export const en = {
   'settings.locked': 'Change it before starting a training.',
   'settings.symbol-rounds': 'Symbol rounds',
   'settings.symbol-rounds.description':
-    'Symbols drop when you defeat the knights and expire after 10 s if unused. Once they run out, ogres appear; defeating them brings the knights back.',
+    'Symbols drop when you defeat the knights and expire after {seconds} s if unused. Once they run out, ogres appear; defeating them brings the knights back.',
 
   // Result
   'result.title': 'Everyone can get out!',
