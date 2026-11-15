@@ -1,6 +1,7 @@
 # Configuración de Claude (local, fuera del repo)
 CLAUDE.md
 .claude/settings.local.json
+.claude/settings.json
 
 # Dependencias y build
 node_modules
@@ -19,6 +20,7 @@ npm-debug.log*
 .idea
 .DS_Store
 *.sw?
+.env
 
 # Notas de trabajo locales (no se publican)
 docs/hoja-de-ruta.md

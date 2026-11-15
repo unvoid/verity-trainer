@@ -21,7 +21,7 @@ describe('parseSettings', () => {
   })
 
   it('reads stored settings', () => {
-    const stored = { hints: true, challengeMode: true, symbolRounds: false }
+    const stored = { hints: true, challengeMode: true, symbolRounds: false, particles: false }
     expect(parseSettings(JSON.stringify(stored))).toEqual(stored)
   })
 
@@ -34,13 +34,18 @@ describe('parseSettings', () => {
     })
   })
 
+  it('turns snow dust on by default, also for settings saved before it existed', () => {
+    expect(DEFAULT_SETTINGS.particles).toBe(true)
+    expect(parseSettings('{"hints":true}').particles).toBe(true)
+  })
+
   it('ignores unknown keys from other versions', () => {
     expect(parseSettings('{"hints":true,"imageCallouts":true}')).toEqual({ ...DEFAULT_SETTINGS, hints: true })
   })
 })
 
 describe('applyFeatures', () => {
-  const all = { hints: true, challengeMode: true, symbolRounds: true }
+  const all = { hints: true, challengeMode: true, symbolRounds: true, particles: true }
 
   it('keeps settings whose feature is available', () => {
     expect(applyFeatures(all, all)).toEqual(all)
@@ -51,7 +56,14 @@ describe('applyFeatures', () => {
       hints: true,
       challengeMode: false,
       symbolRounds: false,
+      particles: true,
     })
+  })
+
+  it('always applies visual preferences, which depend on no feature', () => {
+    const none = { hints: false, challengeMode: false, symbolRounds: false }
+    expect(applyFeatures({ ...DEFAULT_SETTINGS, particles: false }, none).particles).toBe(false)
+    expect(applyFeatures(DEFAULT_SETTINGS, none).particles).toBe(true)
   })
 
   it('never turns on a setting the player left off', () => {

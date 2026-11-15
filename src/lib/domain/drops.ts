@@ -23,7 +23,8 @@ export interface DropTimings {
   readonly respawnDelay: number
 }
 
-export const DEFAULT_TIMINGS: DropTimings = { symbolLifetime: 10_000, respawnDelay: 3_000 }
+/** El original usa 10 s de caducidad; en el juego los símbolos duran más, así que usamos 15 s. */
+export const DEFAULT_TIMINGS: DropTimings = { symbolLifetime: 15_000, respawnDelay: 3_000 }
 
 export type DropSlot =
   /** El caballero sigue vivo: el símbolo aún no ha salido. */

@@ -3,7 +3,8 @@
  *
  * `settings` guarda lo que eligió el jugador; `activeSettings` es lo que se
  * aplica: un ajuste solo cuenta si su funcionalidad está disponible en esta
- * versión (ver `features.ts`).
+ * versión (ver `features.ts`). Las preferencias visuales (`particles`) no
+ * dependen de ninguna funcionalidad: siempre se aplican.
  */
 import { derived, writable } from 'svelte/store'
 import type { Mode } from '../domain/types'
@@ -13,11 +14,13 @@ export interface Settings {
   readonly hints: boolean
   readonly challengeMode: boolean
   readonly symbolRounds: boolean
+  /** Polvo de nieve en la escena (preferencia visual; activado por defecto). */
+  readonly particles: boolean
 }
 
 export type SettingKey = keyof Settings
 
-export const DEFAULT_SETTINGS: Settings = { hints: false, challengeMode: false, symbolRounds: false }
+export const DEFAULT_SETTINGS: Settings = { hints: false, challengeMode: false, symbolRounds: false, particles: true }
 
 const STORAGE_KEY = 'verity-trainer:settings'
 
@@ -29,7 +32,12 @@ export function parseSettings(raw: string | null): Settings {
     if (typeof data !== 'object' || data === null) return DEFAULT_SETTINGS
     const record = data as Record<string, unknown>
     const pick = (key: SettingKey) => (typeof record[key] === 'boolean' ? record[key] : DEFAULT_SETTINGS[key])
-    return { hints: pick('hints'), challengeMode: pick('challengeMode'), symbolRounds: pick('symbolRounds') }
+    return {
+      hints: pick('hints'),
+      challengeMode: pick('challengeMode'),
+      symbolRounds: pick('symbolRounds'),
+      particles: pick('particles'),
+    }
   } catch {
     return DEFAULT_SETTINGS
   }
@@ -41,6 +49,7 @@ export function applyFeatures(settings: Settings, features: Features): Settings 
     hints: settings.hints && features.hints,
     challengeMode: settings.challengeMode && features.challengeMode,
     symbolRounds: settings.symbolRounds && features.symbolRounds,
+    particles: settings.particles,
   }
 }
 

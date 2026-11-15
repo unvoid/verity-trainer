@@ -4,6 +4,7 @@
 -->
 <script lang="ts" generics="T extends string">
   import type { Snippet } from 'svelte'
+  import TileFrame from './TileFrame.svelte'
 
   interface Option {
     readonly value: T
@@ -33,8 +34,9 @@
   const selectedLabel = $derived(options.find((option) => option.value === value)?.label ?? emptyLabel)
 </script>
 
-<fieldset class="slot-picker">
+<fieldset class="slot-picker tile">
   <legend>{legend}</legend>
+  <TileFrame />
 
   <div class="current" class:empty={value === null}>
     <!-- Hueco de tamaño fijo: elegido o vacío ocupan lo mismo (nada se desplaza). -->
@@ -67,24 +69,17 @@
 </fieldset>
 
 <style>
+  /* Piedra y contorno de la tile común (`TileFrame`); aquí solo el relleno propio. */
   .slot-picker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-2);
-    min-width: 0;
     margin: 0;
-    padding: var(--space-3) var(--space-2);
-    background: var(--color-surface);
-    border: 0;
-    border-radius: var(--radius-md);
+    padding: calc(var(--space-3) + var(--tile-arch) / 2) var(--space-2);
   }
 
   /* Flotante y a todo el ancho: se comporta como un título normal dentro del grupo. */
   legend {
     float: left;
     width: 100%;
-    padding: 0;
+    padding: 0 0.4rem;
     font-size: var(--font-size-sm);
     text-align: center;
     color: var(--color-text-muted);
@@ -137,13 +132,13 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-1);
+    margin-inline: 0.4rem;
   }
 
   .option {
     position: relative;
     display: grid;
     place-items: center;
-    padding: var(--space-1);
     border: var(--stroke-thin) solid transparent;
     border-radius: var(--radius-sm);
     cursor: pointer;

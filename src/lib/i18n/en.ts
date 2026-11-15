@@ -11,9 +11,14 @@ export const en = {
   'loader.label': 'Loading…',
 
   'language.label': 'Language',
-  'header.repo': 'Source code on GitHub',
+  'theme.to-dark': 'Switch to dark theme',
+  'theme.to-light': 'Switch to light theme',
   'language.name.es': 'Español',
   'language.name.en': 'English',
+  // Short codes shown in the header selector; the full name goes in its accessible label.
+  'language.code.es': 'ES',
+  'language.code.en': 'EN',
+  'language.current': '{label}: {name}',
 
   // Names (titles, labels and lists)
   'symbol.circle': 'Circle',
@@ -55,7 +60,7 @@ export const en = {
   'toolbox.hint': 'Tap a symbol and then a statue, or drag it there.',
   'toolbox.hint.rounds': 'Defeat a knight to get its symbol. Symbols you don’t use expire.',
   'knight.defeat': 'Defeat',
-  'knight.defeat.label': '{knight}: defeat it to drop the {symbol}',
+  'knight.defeat.label': '{knight}: defeat it to drop its symbol',
   'drop.used': 'Used',
   'drop.expired': 'Expired',
   'ogres.title': 'Ogres',
@@ -63,11 +68,11 @@ export const en = {
   'ogre.left': 'Left ogre',
   'ogre.right': 'Right ogre',
   'ogre.defeated': 'Defeated',
+  'ogre.label': '{ogre}: {status}',
   'rounds.respawn': 'The knights return in {seconds} s.',
   'knight.drop': '{symbol} ({knight})',
-  'status.swaps': 'Swaps: {count}',
-  'status.holding': 'Holding: {symbol}',
-  'status.empty-hands': 'Not holding a symbol',
+  'status.swaps.label': 'Swaps:',
+  'status.holding.label': 'Holding:',
   'status.mode.challenge': 'Challenge Mode',
 
   'feedback.no-symbol-held': 'Pick up a symbol first.',
@@ -104,7 +109,11 @@ export const en = {
     'Note: {statues} start without their callout symbol, so they are already solved. We are not sure this can happen in the game.',
 
   // Footer
-  'footer.inspired': 'Inspired by {link} by EggAllocationService.',
+  // One sentence; {heart}, {repo} and {link} are drawn as icon and links.
+  'footer.credits': 'With {heart}, {author} {repo} · Inspired by {link}',
+  'footer.heart': 'love',
+  'footer.repo': 'Code on GitHub',
+  'footer.inspired.title': '{name} by EggAllocationService',
   'footer.inspired.link': 'Verity Simulator',
 
   // Usage guide
@@ -125,7 +134,7 @@ export const en = {
     'No statue may hold the symbol of its callout. When you solve it you will see the minimum number of swaps and, if you used more, the shortest solution.',
   'guide.start.title': 'Starting point',
   'guide.start.body':
-    'Each training starts from a random proposal. To recreate your run, change the callouts and the statue shapes: after changing one, pick another and the third fills in by itself.',
+    'Each training session starts from a random proposal. To recreate your run, change the callouts and the statue shapes: after changing one, pick another and the third fills in by itself.',
   'guide.settings.title': 'Settings',
   'guide.coming-soon': 'Coming soon',
 
@@ -133,22 +142,25 @@ export const en = {
   'settings.title': 'Settings',
   'settings.hints': 'Hints',
   'settings.hints.description':
-    'Shows the symbols of each statue, marks the ones that clash with its callout, highlights where you can deposit, and how many swaps are left at minimum.',
+    'Shows the symbols of each statue, marks the ones that clash with its callout, highlights where you can deposit, and shows the minimum number of swaps left.',
   'settings.challenge-mode': 'Challenge Mode',
   'settings.challenge-mode.description':
-    'Besides avoiding its callout symbol, each statue must end as a pure shape: sphere, cube or pyramid.',
-  'settings.locked': 'Change it before starting a training.',
+    'Besides avoiding its callout symbol, each statue must end up as a pure shape: sphere, cube or pyramid.',
+  'settings.locked': 'Change it before you start training.',
   'settings.symbol-rounds': 'Symbol rounds',
   'settings.symbol-rounds.description':
-    'Symbols drop when you defeat the knights and expire after 10 s if unused. Once they run out, ogres appear; defeating them brings the knights back.',
+    'Symbols drop when you defeat the knights and expire after {seconds} s if unused. Once they run out, ogres appear; defeating them brings the knights back.',
+  'settings.particles': 'Snow dust',
+  'settings.particles.description':
+    'Tiny motes floating in the room, gathered around the sphere. Turn it off for a still scene or to save battery.',
 
   // Result
   'result.title': 'Everyone can get out!',
   'result.subtitle': 'All three statues are ready: the Guardians in the inside room can get out.',
   'result.summary.optimal.one': 'You solved it in {count} swap and {time}, the minimum possible.',
   'result.summary.optimal.other': 'You solved it in {count} swaps and {time}, the minimum possible.',
-  'result.summary.extra.one': 'You solved it in {count} swap and {time}. It could be done in {minimum}.',
-  'result.summary.extra.other': 'You solved it in {count} swaps and {time}. It could be done in {minimum}.',
+  'result.summary.extra.one': 'You solved it in {count} swap and {time}. It could have been done in {minimum}.',
+  'result.summary.extra.other': 'You solved it in {count} swaps and {time}. It could have been done in {minimum}.',
   'time.seconds': '{seconds} s',
   'time.minutes': '{minutes} min {seconds} s',
   'result.solution': 'Shortest solution',

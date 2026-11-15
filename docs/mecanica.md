@@ -58,6 +58,8 @@ Los intercambios mueven símbolos, no los crean: entre las tres estatuas siempre
 - **Modo normal:** ninguna estatua contiene el símbolo de su callout.
 - **Challenge Mode:** además, las tres estatuas son formas puras.
 
+En modo normal, terminar con formas puras es válido (confirmado en el juego). La "Shape Reference Guide" de Nec marca las formas puras con una ✗ y las mixtas con un ✓ porque el final habitual es el mixto (cada estatua con los dos símbolos que no son de su callout), no porque las puras no completen el encuentro. En Challenge Mode solo valen las puras.
+
 Como siempre hay dos de cada símbolo, en Challenge Mode hay **exactamente dos soluciones** por punto de partida:
 
 - **A:** izquierda = pura del callout derecho, centro = pura del callout izquierdo, derecha = pura del callout central.
@@ -104,11 +106,11 @@ Los ajustes los activa el jugador y se guardan en `localStorage`. Cada uno depen
 - **Modo desafío** (Challenge Mode): ver la condición de victoria. Se elige antes de iniciar el entreno; durante la partida no se puede cambiar.
 - **Símbolos por rondas** (nuestro nombre para el *Realistic Symbol Drops* del original). Se elige antes de iniciar el entreno:
   - Al empezar hay un caballero en cada posición. Al derrotarlo suelta su símbolo.
-  - Un símbolo soltado caduca a los 10 s si no se usa. Mientras lo llevas no caduca; si lo sueltas sin usarlo, vuelve a contar desde cero.
+  - Un símbolo soltado caduca a los 15 s si no se usa (el original usa 10 s; en el juego duran más). Mientras lo llevas no caduca; si lo sueltas sin usarlo, vuelve a contar desde cero.
   - Depositar un símbolo lo gasta (un depósito rechazado no lo gasta).
   - Cuando los tres se han usado o han caducado, aparecen dos ogros. Al derrotar a ambos, los caballeros vuelven a los 3 s.
   - Sin este ajuste, los símbolos están siempre disponibles.
-  - Caballeros y ogros se representan sin imágenes: texto, contornos y el símbolo atenuado.
+  - Caballeros y ogros se representan con pictogramas propios (`KnightIcon`, `OgreIcon`) en tiles. El caballero no muestra qué símbolo soltará: en el juego no se sabe hasta derrotarlo.
 
 "Image Callouts" del original no se incluye.
 

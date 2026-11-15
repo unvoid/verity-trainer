@@ -6,9 +6,13 @@ export const es: Messages = {
   'loader.label': 'Cargando…',
 
   'language.label': 'Idioma',
-  'header.repo': 'Código en GitHub',
+  'theme.to-dark': 'Cambiar a tema oscuro',
+  'theme.to-light': 'Cambiar a tema claro',
   'language.name.es': 'Español',
   'language.name.en': 'English',
+  'language.code.es': 'ES',
+  'language.code.en': 'EN',
+  'language.current': '{label}: {name}',
 
   // Nombres (para títulos, etiquetas y listas)
   'symbol.circle': 'Círculo',
@@ -50,7 +54,7 @@ export const es: Messages = {
   'toolbox.hint': 'Toca un símbolo y luego una estatua, o arrástralo hasta ella.',
   'toolbox.hint.rounds': 'Derrota a un caballero para conseguir su símbolo. Los símbolos que no uses caducan.',
   'knight.defeat': 'Derrotar',
-  'knight.defeat.label': '{knight}: derrótalo para que suelte el {symbol}',
+  'knight.defeat.label': '{knight}: derrótalo para que suelte su símbolo',
   'drop.used': 'Usado',
   'drop.expired': 'Caducado',
   'ogres.title': 'Ogros',
@@ -58,11 +62,11 @@ export const es: Messages = {
   'ogre.left': 'Ogro izquierdo',
   'ogre.right': 'Ogro derecho',
   'ogre.defeated': 'Derrotado',
+  'ogre.label': '{ogre}: {status}',
   'rounds.respawn': 'Los caballeros vuelven en {seconds} s.',
   'knight.drop': '{symbol} ({knight})',
-  'status.swaps': 'Intercambios: {count}',
-  'status.holding': 'Llevas: {symbol}',
-  'status.empty-hands': 'No llevas ningún símbolo',
+  'status.swaps.label': 'Intercambios:',
+  'status.holding.label': 'Llevas:',
   'status.mode.challenge': 'Modo desafío',
 
   'feedback.no-symbol-held': 'Primero coge un símbolo.',
@@ -99,14 +103,17 @@ export const es: Messages = {
     'Aviso: {statues} empiezan sin el símbolo de su callout, así que ya están resueltas. No sabemos si esto puede pasar en el juego.',
 
   // Pie de página
-  'footer.inspired': 'Inspirado en {link} de EggAllocationService.',
+  'footer.credits': 'Con {heart}, {author} {repo} · Inspirado en {link}',
+  'footer.heart': 'cariño',
+  'footer.repo': 'Código en GitHub',
+  'footer.inspired.title': '{name} de EggAllocationService',
   'footer.inspired.link': 'Verity Simulator',
 
   // Manual de uso
   'guide.title': 'Cómo se juega',
   'guide.encounter.title': 'El encuentro',
   'guide.encounter.body':
-    'En Verity, el equipo de fuera intercambia símbolos entre las estatuas hasta que ninguna contiene el símbolo de su callout de la sala interior. Aquí puedes practicarlo con puntos de partida aleatorios o recreando tu propia partida.',
+    'En Verity, el equipo de fuera intercambia símbolos entre las estatuas hasta que ninguna contenga el símbolo de su callout de la sala interior. Aquí puedes practicarlo con puntos de partida aleatorios o recreando tu propia partida.',
   'guide.shapes.title': 'Formas',
   'guide.shapes.body': 'Cada estatua tiene una forma 3D hecha de dos símbolos.',
   'guide.shapes.item': '{shape}: {first} + {second}',
@@ -135,7 +142,10 @@ export const es: Messages = {
   'settings.locked': 'Se cambia antes de iniciar el entreno.',
   'settings.symbol-rounds': 'Símbolos por rondas',
   'settings.symbol-rounds.description':
-    'Los símbolos salen al derrotar a los caballeros y caducan a los 10 s si no los usas. Cuando se agotan aparecen ogros; al derrotarlos vuelven los caballeros.',
+    'Los símbolos salen al derrotar a los caballeros y caducan a los {seconds} s si no los usas. Cuando se agotan, aparecen ogros; al derrotarlos vuelven los caballeros.',
+  'settings.particles': 'Polvo de nieve',
+  'settings.particles.description':
+    'Motas diminutas que flotan en la sala, reunidas alrededor de la esfera. Desactívalo si prefieres una escena quieta o ahorrar batería.',
 
   // Resultado
   'result.title': '¡Ya podéis salir!',

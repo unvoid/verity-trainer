@@ -17,7 +17,7 @@
 | 5 | **Arrastrar y soltar** con Pointer Events | Hecho |
 | 6 | **Editor de punto de partida** con validación | Hecho |
 | 7a | **Ajustes:** pistas, modo desafío, persistencia, resumen al resolver, interruptores de funcionalidades | Hecho |
-| 7b | **Símbolos por rondas** (nuestro nombre para el *Realistic Symbol Drops* del original): como en el original, con caducidad a los 10 s, ogros y caballeros que reaparecen | Hecho |
+| 7b | **Símbolos por rondas** (nuestro nombre para el *Realistic Symbol Drops* del original): como en el original, con caducidad (15 s; el original usa 10 s), ogros y caballeros que reaparecen | Hecho |
 | 8 | **Estética:** formas SVG, paleta definitiva, loader de fragmentos, modo oscuro, pictogramas propios de caballero y ogro (dibujados desde cero, sin calcar arte del juego) | |
 | 9 | **Manual de uso** ES/EN | Hecho |
 | 10 | **Pulido y despliegue:** accesibilidad, créditos en la web, publicación | |

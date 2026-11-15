@@ -38,23 +38,32 @@ body {
 }
 
 /*
- * Tile: pieza común del tablero (callouts, estatuas, símbolos de los caballeros).
- * Plano translúcido con el mismo relleno y esquinas en las tres zonas, para que
- * se lean como un único sistema. Los estados activos se marcan con contornos cobre
- * en cada componente.
+ * Tile: pieza común del tablero (callouts, estatuas, símbolos de los caballeros,
+ * selectores del editor). Aquí solo la maquetación: la piedra, su contorno curvo
+ * sin rectas, el canto, el surco y los contornos de estado los dibuja `TileFrame`,
+ * que va como primer hijo de cada tile (detrás del contenido).
+ * Cada componente ajusta su aspecto con variables CSS (ver `TileFrame.svelte`):
+ * `--tile-fill`, `--tile-outline-width`, `--tile-outline-dash`, `--tile-glow`.
  */
 .tile {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
   min-width: 0;
-  padding: var(--space-4) var(--space-3);
+  padding: calc(var(--space-4) + var(--tile-arch) / 2) var(--space-3) var(--space-4);
   font: inherit;
   color: var(--color-text);
-  background: var(--color-surface);
+  background: none;
   border: 0;
-  border-radius: var(--radius-md);
+}
+
+/* Foco: anillo cobre que sigue el contorno de la piedra (lo dibuja `TileFrame`). */
+.tile:focus-visible {
+  outline: none;
+  --tile-focus: 1;
 }
 
 /* Etiqueta bajo el contenido de una tile (posición, estado). */
@@ -78,4 +87,10 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  /*
+   * Lo que se dibuja fuera de las piezas (sombra, halo y foco de las tiles) no
+   * puede crear scroll horizontal en móvil. `clip` recorta sin crear un contenedor
+   * de scroll.
+   */
+  overflow-x: clip;
 }

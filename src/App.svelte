@@ -3,12 +3,17 @@
   import DragLayer from './lib/components/DragLayer.svelte'
   import HelpDrawer from './lib/components/HelpDrawer.svelte'
   import GameStatus from './lib/components/GameStatus.svelte'
+  import HeaderEdge from './lib/components/HeaderEdge.svelte'
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
   import OgrePanel from './lib/components/OgrePanel.svelte'
-  import RepoLink from './lib/components/RepoLink.svelte'
+  import SceneBackdrop from './lib/components/SceneBackdrop.svelte'
+  import SceneMist from './lib/components/SceneMist.svelte'
+  import SceneVignette from './lib/components/SceneVignette.svelte'
+  import SnowDust from './lib/components/SnowDust.svelte'
   import ResultModal from './lib/components/ResultModal.svelte'
   import SectionTitle from './lib/components/SectionTitle.svelte'
   import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
+  import ThemeToggle from './lib/components/ThemeToggle.svelte'
   import SiteFooter from './lib/components/SiteFooter.svelte'
   import SplashScreen from './lib/components/SplashScreen.svelte'
   import StartPointEditor from './lib/components/StartPointEditor.svelte'
@@ -24,14 +29,31 @@
   import type { Feedback } from './lib/stores/game'
   import { CLOCK_INTERVAL_MS } from './lib/stores/clock'
   import { drag } from './lib/stores/drag'
+  import { pieceSizes } from './lib/stores/viewport'
   import { game } from './lib/stores/game'
   import { activeSettings, modeOf } from './lib/stores/settings'
   import { setup } from './lib/stores/setup'
+  import { introStagger } from './lib/visual/loaderTimeline'
 
   /** Pantalla de entrada: se ve al menos una vez al abrir la web. */
   let splash = $state(true)
-  /** El contenido aparece (fundido y escala) cuando la pantalla de entrada se retira. */
+  /**
+   * Entrada escalonada al retirarse la pantalla de entrada: la escena (con la
+   * cabecera) se ve primero, luego llega la nieve y por último el contenido
+   * (fundido y escala). Tiempos en `introStagger`.
+   */
+  let mistShown = $state(false)
+  let dustShown = $state(false)
   let revealed = $state(false)
+
+  function stagger() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const times = introStagger($activeSettings.particles, reduced)
+    // La bruma, con la escena: sus capas de ruido tardan en pintarse y saldrían de golpe.
+    mistShown = true
+    setTimeout(() => (dustShown = true), times.dust)
+    setTimeout(() => (revealed = true), times.content)
+  }
 
   /** Preparación del punto de partida o partida en curso. */
   let phase = $state<'setup' | 'playing'>('setup')
@@ -76,10 +98,15 @@
     toast.show(message.text, message.tone)
   })
 
+  /**
+   * Símbolo que lleva el jugador: el que ha cogido tocando o el que va arrastrando.
+   * Las dos formas de jugar son equivalentes: estado y pistas lo muestran igual.
+   */
+  const carried = $derived($game.held ?? $drag?.symbol ?? null)
+
   /** Pista: estatuas que admiten el símbolo que lleva el jugador. */
   function accepts(slot: Slot): boolean {
-    const symbol = $game.held
-    return symbol !== null && depositError($game.state, { slot, symbol }) === null
+    return carried !== null && depositError($game.state, { slot, symbol: carried }) === null
   }
 
   /** Resumen al resolver. Se calcula una vez por partida resuelta. */
@@ -118,8 +145,17 @@
   <title>{$t('app.title')}</title>
 </svelte:head>
 
+<SceneBackdrop />
+{#if mistShown}
+  <SceneMist />
+{/if}
+{#if $activeSettings.particles && dustShown}
+  <SnowDust />
+{/if}
+<SceneVignette />
+
 {#if splash}
-  <SplashScreen onreveal={() => (revealed = true)} onfinish={() => (splash = false)} />
+  <SplashScreen onreveal={stagger} onfinish={() => (splash = false)} />
 {/if}
 
 <header class="app-header" inert={splash}>
@@ -128,17 +164,23 @@
     <div class="header-actions">
       <HelpDrawer />
       <SettingsDrawer playing={phase === 'playing'} />
-      <RepoLink />
+      <ThemeToggle />
       <LanguageSelector />
     </div>
   </div>
+  <HeaderEdge />
 </header>
 
 <main class="app-main" class:revealed inert={splash}>
   {#if phase === 'setup'}
     <StartPointEditor onstart={startTraining} />
   {:else}
-    <CalloutPanel callouts={$game.state.callouts} statues={$game.state.statues} mode={$game.mode} />
+    <CalloutPanel
+      callouts={$game.state.callouts}
+      statues={$game.state.statues}
+      mode={$game.mode}
+      size={$pieceSizes.callout}
+    />
 
     <section aria-labelledby="statues-title">
       <SectionTitle id="statues-title">
@@ -158,31 +200,37 @@
             dropHover={$drag?.over === slot}
             {hints}
             accepts={accepts(slot)}
+            size={$pieceSizes.statue}
             onactivate={game.depositAt}
           />
         {/each}
       </div>
 
-      <!-- Los símbolos de los caballeros son parte de la sala de disección. -->
+      <!--
+        Los símbolos de los caballeros son parte de la sala de disección. Con símbolos
+        por rondas, mientras hay ogros (o cuenta atrás hasta que vuelven los caballeros)
+        los ogros ocupan su sitio: los caballeros ya no tienen nada que dar.
+      -->
       <div class="knights">
-        <Toolbox
-          held={$game.held}
-          drops={$game.drops}
-          disabled={finished}
-          ontoggle={game.toggleHold}
-          ondrop={game.dropAt}
-          ondefeatknight={game.defeatKnight}
-        />
+        {#if $game.drops && ($game.drops.ogres !== null || $game.drops.respawnAt !== null)}
+          <OgrePanel drops={$game.drops} disabled={finished} size={$pieceSizes.knight} ondefeat={game.defeatOgre} />
+        {:else}
+          <Toolbox
+            held={$game.held}
+            drops={$game.drops}
+            disabled={finished}
+            ontoggle={game.toggleHold}
+            ondrop={game.dropAt}
+            ondefeatknight={game.defeatKnight}
+            size={$pieceSizes.knight}
+          />
+        {/if}
       </div>
     </section>
 
-    {#if $game.drops}
-      <OgrePanel drops={$game.drops} disabled={finished} ondefeat={game.defeatOgre} />
-    {/if}
-
     <GameStatus
       swaps={$game.state.swaps}
-      held={$game.held}
+      held={carried}
       {remaining}
       onnewgame={backToSetup}
       onrestart={game.restart}
@@ -213,9 +261,26 @@
 {/if}
 
 <style>
-  /* Cabecera a todo el ancho sobre un plano de tono; su contenido, alineado con el tablero. */
+  /* Cabecera a todo el ancho, de la misma piedra que las tiles; su contenido, alineado con el tablero. */
+  /*
+   * La piedra va en su propia capa (::before): si la cabecera llevara el desenfoque,
+   * bloquearía el del lóbulo de su borde. El borde inferior, con su canto, lo dibuja
+   * `HeaderEdge`.
+   */
   .app-header {
-    background: var(--color-surface);
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+  }
+
+  .app-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--color-stone);
+    -webkit-backdrop-filter: blur(var(--stone-blur));
+    backdrop-filter: blur(var(--stone-blur));
   }
 
   .header-inner {
@@ -243,7 +308,10 @@
     margin-top: var(--space-6);
   }
 
+  /* Controles de la cabecera más bajos que los del resto, para que quepa en una línea en móvil. */
   .header-actions {
+    --control-icon-size: var(--control-height-xs);
+
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -258,6 +326,13 @@
     text-transform: uppercase;
   }
 
+  /* Pantallas estrechas (= COMPACT_MAX_WIDTH, stores/viewport.ts): título más pequeño para que la cabecera quepa en una línea. */
+  @media (width < 48rem) {
+    h1 {
+      font-size: var(--font-size-xs);
+    }
+  }
+
   /* El título vuelve al inicio recargando la página; se ve igual que un título. */
   .home-link {
     color: inherit;
@@ -267,26 +342,27 @@
   .app-main {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-section);
     /* Ancho completo hasta el máximo: igual en preparación y partida (#app es una columna flexible). */
     width: 100%;
     max-width: var(--content-width);
     margin-inline: auto;
-    padding: var(--space-6) var(--space-4);
+    padding: var(--space-page-top) var(--space-4) var(--space-6);
     /* Oculto y algo más pequeño hasta que se retira la pantalla de entrada. */
     opacity: 0;
     transform: scale(0.97);
     transform-origin: 50% 0;
+    /* Entrada: se ve una sola vez, con la misma calma que la escena y la nieve. */
     transition:
-      opacity var(--duration-reveal) var(--easing-standard),
-      transform var(--duration-reveal) var(--easing-standard);
+      opacity var(--duration-entrance) var(--easing-standard),
+      transform var(--duration-entrance) var(--easing-standard);
   }
 
   /* Pegado al final de la página (ver #app en base.css). */
   .app-footer {
     margin-top: auto;
     opacity: 0;
-    transition: opacity var(--duration-reveal) var(--easing-standard);
+    transition: opacity var(--duration-entrance) var(--easing-standard);
   }
 
   .app-footer.revealed {
@@ -301,7 +377,7 @@
   .statues {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-3);
+    gap: var(--space-6);
   }
 
 </style>

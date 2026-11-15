@@ -1,0 +1,25 @@
+#!/bin/sh
+# Autoría única del repositorio: todos los commits van firmados por la misma
+# identidad, en cualquier ordenador. Si la identidad de git no coincide, el
+# commit se corta y se explica cómo arreglarlo. Ver docs/arquitectura.md ("Git").
+# Se activa con `npm install` (script `prepare`: core.hooksPath = .githooks).
+
+EXPECTED_NAME="unvoid"
+EXPECTED_EMAIL="unvoid.thinks@gmail.com"
+EXPECTED="$EXPECTED_NAME <$EXPECTED_EMAIL>"
+
+# `git var` da la identidad efectiva: config global y del repo, y variables de entorno.
+author=$(git var GIT_AUTHOR_IDENT | sed 's/ [0-9]* [-+][0-9]*$//')
+committer=$(git var GIT_COMMITTER_IDENT | sed 's/ [0-9]* [-+][0-9]*$//')
+
+if [ "$author" != "$EXPECTED" ] || [ "$committer" != "$EXPECTED" ]; then
+  echo "✋ Commit cancelado: la identidad de git no es la del repositorio." >&2
+  echo "   Esperada:  $EXPECTED" >&2
+  echo "   Autor:     $author" >&2
+  echo "   Committer: $committer" >&2
+  echo "" >&2
+  echo "   Arréglalo solo para este repositorio y vuelve a hacer el commit:" >&2
+  echo "     git config user.name \"$EXPECTED_NAME\"" >&2
+  echo "     git config user.email \"$EXPECTED_EMAIL\"" >&2
+  exit 1
+fi

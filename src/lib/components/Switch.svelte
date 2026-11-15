@@ -86,17 +86,20 @@
     margin: 0;
     margin-top: 1px;
     background: var(--color-track);
+    box-shadow: inset 0 0 0 1px var(--color-track-edge);
     border: 0;
     border-radius: var(--track-height);
     cursor: pointer;
-    transition: background-color var(--duration-fast) var(--easing-standard);
+    transition:
+      background-color var(--duration-fast) var(--easing-standard),
+      box-shadow var(--duration-fast) var(--easing-standard);
   }
 
   input::before {
     content: '';
     position: absolute;
-    top: 2px;
-    left: 2px;
+    top: 3px;
+    left: 3px;
     width: var(--knob-size);
     height: var(--knob-size);
     background: var(--color-knob);
@@ -108,11 +111,12 @@
 
   input:checked {
     background: var(--control-primary-bg);
+    box-shadow: none;
   }
 
   input:checked::before {
     background: var(--control-primary-text);
-    transform: translateX(calc(var(--track-width) - var(--knob-size) - 6px));
+    transform: translateX(calc(var(--track-width) - var(--knob-size) - 7px));
   }
 
   input:disabled {
