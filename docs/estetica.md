@@ -133,16 +133,19 @@ Capa irregular sobre la escena, en todo el viewport, por debajo del contenido (`
 - Con `prefers-reduced-motion`, quieta.
 - **Ajustes** en `visual/mist.ts`: dos ajustes completos para comparar, `calm` (casi quieta) y `breeze` (viento suave que se percibe), elegidos con `MIST_PRESET`. Cada uno define sus capas (tamaño, frecuencia, intensidad, duración, recorrido, ráfagas), la forma de los jirones (`contrast`, `threshold`) y su intensidad (`strength`).
 
+## Polvo de nieve
+
+Miles de motas diminutas que flotan en la sala, como en el arte del encuentro: del azul lavanda de las sombras de la sala (en el arte son blancas, pero sobre la escena clara no se veían) y algunas cobre, agrupadas en jirones como una nebulosa y muy concentradas alrededor de la esfera, con un polvo más disperso por el resto. Unas pocas motas son más grandes.
+
+- **Técnica:** un `<canvas>` 2D a pantalla completa (`SnowDust`), por encima de la bruma (que no lo vele) y por debajo del viñeteado y del contenido, con su propia intensidad (`--dust-opacity`) y sus colores (`--color-dust`, `--color-dust-warm`). Canvas porque son miles de puntos independientes.
+- **Geometría** en `visual/dust.ts` (funciones puras, con tests): las motas viven en las coordenadas de la sala (1600×1000) y se encuadran como el SVG (`xMidYMid slice`), así que la nube queda sobre la esfera con cualquier ventana. El reparto sale de una densidad (nube gaussiana en la esfera + jirones de ruido fractal + polvo disperso) con una semilla fija: el mismo dibujo en cada carga.
+- **Movimiento:** un vaivén lento en la dirección del viento y un giro alrededor de la esfera, que conservan el reparto (la nube no se va); cada mota parpadea a su ritmo.
+- **Rendimiento:** como mucho 30 fotogramas por segundo, densidad de píxeles limitada (1,5), menos motas en pantallas estrechas (`compactCount`) y parado con la pestaña oculta. Con `prefers-reduced-motion`, una imagen quieta.
+- **Parámetros para ajustar a ojo** en `DUST`: cantidad, tamaños, motas grandes y cálidas, pesos del reparto, tamaño de los jirones, viento, giro y parpadeo.
+- **Ajuste del jugador:** "Polvo de nieve" en el panel de ajustes (activado por defecto), guardado con el resto. Es una preferencia visual: no depende de ninguna funcionalidad de la versión y siempre aparece, también en el manual.
+
 ## Pendiente
 
-- **Polvo de nieve (partículas).** Propuesta acordada, sin implementar.
-  - **Cómo es en el arte:** miles de motas diminutas (casi de un píxel), blancas con un toque cálido en algunas zonas, agrupadas en jirones como una nebulosa: bandas densas y huecos casi vacíos, no una lluvia uniforme. Unas pocas motas más grandes y brillantes, algunas con un pequeño destello en cruz. Máxima concentración alrededor y dentro de la esfera; en el juego hay un polvo más disperso por toda la escena.
-  - **Técnica:** un `<canvas>` 2D a pantalla completa, entre la escena y la bruma, con su propia intensidad (no la atenuación de la escena). Canvas porque son miles de puntos independientes: con SVG o HTML serían miles de elementos.
-  - **Reparto:** posiciones sacadas de un ruido como el de la bruma, para que salgan jirones. Muy concentrado alrededor de la esfera y disperso por el resto. El canvas usa el mismo encuadre que el SVG de la sala (lienzo 1600×1000, `slice`), así que la nube queda sobre la esfera con cualquier tamaño de ventana.
-  - **Movimiento:** deriva lenta en la dirección del viento de la bruma, un leve giro alrededor de la esfera, parpadeo de cada mota a su ritmo y algún destello ocasional.
-  - **Rendimiento:** limitar a ~30 fotogramas por segundo (basta para algo tan lento), menos partículas en pantallas pequeñas y resolución limitada; se pausa solo con la pestaña oculta. Con `prefers-reduced-motion`, una imagen quieta. Vigilar la batería en móvil.
-  - **Parámetros para ajustar a ojo**, como la bruma: cantidad, tamaño, densidad junto a la esfera frente al resto, velocidad, parpadeo y frecuencia de destellos.
-  - **Ajuste para el jugador:** un interruptor en el panel de ajustes para desactivarlas (activadas por defecto), guardado con el resto en `stores/settings.ts`. Es una preferencia visual, no una funcionalidad de la versión: no necesita interruptor en `features.ts`. Textos en `en.ts` y `es.ts`; añadirlo también a la lista `SETTINGS` del manual (`UsageGuide.svelte`), que no se genera sola.
 - **Modo oscuro.** Los tokens están definidos, pero aún no hay un control para activarlo. Se rediseñará a partir de su propia referencia: la misma sala en penumbra, también de Christian Chojnacki para la raid, en [ArtStation](https://cdna.artstation.com/p/assets/images/images/076/967/522/large/christian-chojnacki-cchojnacki-finalshape-raid-22-a.jpg?1718233217). Solo como inspiración, igual que la de la escena clara.
   - **Ambiente:** casi negro con tinte granate y ciruela (`#13060A` en las sombras, `#230E1E` en los medios, fondo vino `#311123`), más morado arriba en el centro (`#2F1834`).
   - **Estructura:** las mismas columnas, la ojiva central, la espiral y los cuencos, ahora en siluetas oscuras con un filo de luz azul.

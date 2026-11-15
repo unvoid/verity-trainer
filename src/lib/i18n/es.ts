@@ -139,6 +139,9 @@ export const es: Messages = {
   'settings.symbol-rounds': 'Símbolos por rondas',
   'settings.symbol-rounds.description':
     'Los símbolos salen al derrotar a los caballeros y caducan a los {seconds} s si no los usas. Cuando se agotan, aparecen ogros; al derrotarlos vuelven los caballeros.',
+  'settings.particles': 'Polvo de nieve',
+  'settings.particles.description':
+    'Motas diminutas que flotan en la sala, reunidas alrededor de la esfera. Desactívalo si prefieres una escena quieta o ahorrar batería.',
 
   // Resultado
   'result.title': '¡Ya podéis salir!',

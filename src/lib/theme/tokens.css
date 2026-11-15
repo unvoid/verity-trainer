@@ -63,6 +63,10 @@
   /* Bruma irregular sobre la escena (SceneMist): color, intensidad y reparto
      (en todo el viewport, también sobre el tablero; algo más densa en los bordes y abajo). */
   --color-mist: var(--palette-bloom);
+  /* Polvo de nieve: motas del azul lavanda de las sombras de la sala y, algunas, cobre
+     (el de la esfera). Blancas no se veían sobre la escena clara. */
+  --color-dust: var(--palette-periwinkle);
+  --color-dust-warm: var(--palette-copper);
   /* Factor del tema; la intensidad de cada ajuste de bruma va en visual/mist.ts. */
   --mist-opacity: 1;
   --mist-density: radial-gradient(ellipse 60% 55% at 50% 42%, rgb(0 0 0 / 0.85) 0%, black 100%);
@@ -71,6 +75,8 @@
   /* Intensidad del viñeteado azul (SceneVignette), aparte de la escena y por
      encima de la bruma: el color de los bordes se siente aunque la sala apenas se intuya. */
   --scene-vignette-opacity: 0.9;
+  /* Polvo de nieve (SnowDust): intensidad propia, aparte de la de la escena. */
+  --dust-opacity: 0.9;
   /* Escena: luz que entra desde arriba y el centro, y viñeteado lavanda hacia los bordes. */
   --scene-bloom: radial-gradient(
     ellipse 75% 60% at 50% 0%,
@@ -233,6 +239,8 @@
     transparent 100%
   );
   --color-mist: var(--palette-slate-soft);
+  --color-dust: var(--palette-haze-light);
+  --color-dust-warm: color-mix(in srgb, var(--palette-haze-light), var(--palette-copper) 45%);
   --mist-opacity: 0.8;
   --color-cradle: var(--palette-slate-soft);
   --color-cradle-back: color-mix(in srgb, var(--palette-slate-soft), var(--palette-ink) 45%);

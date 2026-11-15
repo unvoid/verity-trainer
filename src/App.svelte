@@ -9,6 +9,7 @@
   import SceneBackdrop from './lib/components/SceneBackdrop.svelte'
   import SceneMist from './lib/components/SceneMist.svelte'
   import SceneVignette from './lib/components/SceneVignette.svelte'
+  import SnowDust from './lib/components/SnowDust.svelte'
   import ResultModal from './lib/components/ResultModal.svelte'
   import SectionTitle from './lib/components/SectionTitle.svelte'
   import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
@@ -129,6 +130,9 @@
 
 <SceneBackdrop />
 <SceneMist />
+{#if $activeSettings.particles}
+  <SnowDust />
+{/if}
 <SceneVignette />
 
 {#if splash}

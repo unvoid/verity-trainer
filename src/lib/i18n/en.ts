@@ -145,6 +145,9 @@ export const en = {
   'settings.symbol-rounds': 'Symbol rounds',
   'settings.symbol-rounds.description':
     'Symbols drop when you defeat the knights and expire after {seconds} s if unused. Once they run out, ogres appear; defeating them brings the knights back.',
+  'settings.particles': 'Snow dust',
+  'settings.particles.description':
+    'Tiny motes floating in the room, gathered around the sphere. Turn it off for a still scene or to save battery.',
 
   // Result
   'result.title': 'Everyone can get out!',

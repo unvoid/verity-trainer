@@ -16,6 +16,8 @@
     { key: 'hints', available: FEATURES.hints },
     { key: 'challenge-mode', available: FEATURES.challengeMode },
     { key: 'symbol-rounds', available: FEATURES.symbolRounds },
+    // Preferencia visual: siempre disponible.
+    { key: 'particles', available: true },
   ] as const
 </script>
 

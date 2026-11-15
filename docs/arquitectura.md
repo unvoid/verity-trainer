@@ -42,12 +42,13 @@ src/
       ribbons.ts       # geometría de las cintas (fondo de escena y cuencos de las estatuas)
       mist.ts          # bruma: mosaicos de ruido y capas que mueve el viento
       tileShape.ts     # contorno curvo de las tiles de piedra (cuartos de superelipse)
+      dust.ts          # polvo de nieve: reparto, movimiento y encuadre de las motas
     components/        # Button, Switch, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
                        # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel, SectionTitle, GearIcon,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShardLoader, SplashScreen, Drawer, SettingsDrawer, HelpDrawer,
                        # HelpIcon, ToastMessage, LanguageSelector, UsageGuide,
-                       # SceneBackdrop, SceneMist, SceneVignette, Cradle, TileFrame, KnightIcon, OgreIcon
+                       # SceneBackdrop, SceneMist, SceneVignette, SnowDust, Cradle, TileFrame, KnightIcon, OgreIcon
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       feedback.ts      # redacción de los avisos de la partida (para el toast)
