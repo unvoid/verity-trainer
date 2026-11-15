@@ -39,18 +39,15 @@ body {
 
 /*
  * Tile: pieza común del tablero (callouts, estatuas, símbolos de los caballeros,
- * selectores del editor). Piedra pálida y esmerilada sobre la escena, como las
- * columnas de la sala:
- * - Arriba, un arco suave en vez de esquinas: un único arco elíptico de lado a lado.
- * - Biselado en relieve: luz en el canto de arriba y sombra en el de abajo.
- * - Surco interior (::before) que sigue el borde, como el relieve curvo de las columnas.
- * Los estados activos se marcan con contornos cobre en cada componente; si un
- * componente añade sombras, conserva las de la piedra con `var(--tile-shadow)`.
+ * selectores del editor). Aquí solo la maquetación: la piedra, su contorno curvo
+ * sin rectas, el canto, el surco y los contornos de estado los dibuja `TileFrame`,
+ * que va como primer hijo de cada tile (detrás del contenido).
+ * Cada componente ajusta su aspecto con variables CSS (ver `TileFrame.svelte`):
+ * `--tile-fill`, `--tile-outline-width`, `--tile-outline-dash`, `--tile-glow`.
  */
 .tile {
-  --tile-shadow: inset 0 1px 0 var(--bevel-light), inset 0 -1px 0 var(--bevel-shade), var(--shadow-stone);
-
   position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,25 +56,14 @@ body {
   padding: calc(var(--space-4) + var(--tile-arch) / 2) var(--space-3) var(--space-4);
   font: inherit;
   color: var(--color-text);
-  background: var(--color-stone);
-  -webkit-backdrop-filter: blur(var(--stone-blur));
-  backdrop-filter: blur(var(--stone-blur));
+  background: none;
   border: 0;
-  border-radius: 50% 50% var(--radius-md) var(--radius-md) / var(--tile-arch) var(--tile-arch) var(--radius-md)
-    var(--radius-md);
-  box-shadow: var(--tile-shadow);
 }
 
-/* Surco: una línea tallada (sombra arriba, luz abajo) paralela al borde. */
-.tile::before {
-  content: '';
-  position: absolute;
-  inset: 5px;
-  border-radius: inherit;
-  box-shadow:
-    inset 0 1px 0 var(--bevel-shade),
-    0 1px 0 var(--bevel-light);
-  pointer-events: none;
+/* Foco: anillo cobre que sigue el contorno de la piedra (lo dibuja `TileFrame`). */
+.tile:focus-visible {
+  outline: none;
+  --tile-focus: 1;
 }
 
 /* Etiqueta bajo el contenido de una tile (posición, estado). */
@@ -101,4 +87,10 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  /*
+   * Lo que se dibuja fuera de las piezas (sombra, halo y foco de las tiles) no
+   * puede crear scroll horizontal en móvil. `clip` recorta sin crear un contenedor
+   * de scroll.
+   */
+  overflow-x: clip;
 }

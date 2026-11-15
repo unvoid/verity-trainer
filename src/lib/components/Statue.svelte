@@ -13,6 +13,7 @@
   import Cradle from './Cradle.svelte'
   import Shape3D from './Shape3D.svelte'
   import Symbol2D from './Symbol2D.svelte'
+  import TileFrame from './TileFrame.svelte'
 
   interface Props {
     slot: Slot
@@ -71,6 +72,7 @@
   {disabled}
   onclick={() => onactivate(slot)}
 >
+  <TileFrame />
   <span class="figure">
     <!-- La forma reposa dentro de un cuenco tejido: capa trasera, forma, capa delantera. -->
     <span class="pedestal" style:width="{size}px">
@@ -100,14 +102,11 @@
   .statue {
     width: 100%;
     cursor: pointer;
-    transition:
-      outline-color var(--duration-fast) var(--easing-standard),
-      background-color var(--duration-fast) var(--easing-standard);
   }
 
-  /* Al pasar por encima, el plano se oscurece un poco; nada se mueve. */
+  /* Al pasar por encima, la piedra se aclara un poco; nada se mueve. */
   .statue:hover:not(:disabled) {
-    background: var(--color-stone-hover);
+    --tile-fill: var(--color-stone-hover);
   }
 
   .statue:disabled {
@@ -116,15 +115,16 @@
 
   /* Estados con contornos cobre (lo activo): marcada, admite tu símbolo, destino de arrastre. */
   .statue.marked {
-    outline: var(--stroke-focus) solid var(--color-active);
+    --tile-outline-width: var(--stroke-focus);
   }
 
   .statue.accepts:not(.marked) {
-    outline: var(--stroke-thin) solid var(--color-active);
+    --tile-outline-width: var(--stroke-thin);
   }
 
   .statue.drop-hover {
-    outline: var(--stroke-focus) dashed var(--color-active);
+    --tile-outline-width: var(--stroke-focus);
+    --tile-outline-dash: var(--stroke-dash);
   }
 
   .figure {
@@ -149,6 +149,7 @@
     position: relative;
     z-index: 1;
     display: block;
+    transform: translateY(8px);
   }
 
   .cradle-layer {

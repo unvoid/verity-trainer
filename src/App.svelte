@@ -8,6 +8,7 @@
   import RepoLink from './lib/components/RepoLink.svelte'
   import SceneBackdrop from './lib/components/SceneBackdrop.svelte'
   import SceneMist from './lib/components/SceneMist.svelte'
+  import SceneVignette from './lib/components/SceneVignette.svelte'
   import ResultModal from './lib/components/ResultModal.svelte'
   import SectionTitle from './lib/components/SectionTitle.svelte'
   import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
@@ -26,6 +27,7 @@
   import type { Feedback } from './lib/stores/game'
   import { CLOCK_INTERVAL_MS } from './lib/stores/clock'
   import { drag } from './lib/stores/drag'
+  import { pieceSizes } from './lib/stores/viewport'
   import { game } from './lib/stores/game'
   import { activeSettings, modeOf } from './lib/stores/settings'
   import { setup } from './lib/stores/setup'
@@ -122,6 +124,7 @@
 
 <SceneBackdrop />
 <SceneMist />
+<SceneVignette />
 
 {#if splash}
   <SplashScreen onreveal={() => (revealed = true)} onfinish={() => (splash = false)} />
@@ -143,7 +146,12 @@
   {#if phase === 'setup'}
     <StartPointEditor onstart={startTraining} />
   {:else}
-    <CalloutPanel callouts={$game.state.callouts} statues={$game.state.statues} mode={$game.mode} />
+    <CalloutPanel
+      callouts={$game.state.callouts}
+      statues={$game.state.statues}
+      mode={$game.mode}
+      size={$pieceSizes.callout}
+    />
 
     <section aria-labelledby="statues-title">
       <SectionTitle id="statues-title">
@@ -163,6 +171,7 @@
             dropHover={$drag?.over === slot}
             {hints}
             accepts={accepts(slot)}
+            size={$pieceSizes.statue}
             onactivate={game.depositAt}
           />
         {/each}
@@ -177,6 +186,7 @@
           ontoggle={game.toggleHold}
           ondrop={game.dropAt}
           ondefeatknight={game.defeatKnight}
+          size={$pieceSizes.knight}
         />
       </div>
     </section>
@@ -254,7 +264,10 @@
     margin-top: var(--space-6);
   }
 
+  /* Controles de la cabecera más bajos que los del resto, para que quepa en una línea en móvil. */
   .header-actions {
+    --control-icon-size: var(--control-height-xs);
+
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -269,6 +282,13 @@
     text-transform: uppercase;
   }
 
+  /* Pantallas estrechas (= COMPACT_MAX_WIDTH, stores/viewport.ts): título más pequeño para que la cabecera quepa en una línea. */
+  @media (width < 48rem) {
+    h1 {
+      font-size: var(--font-size-xs);
+    }
+  }
+
   /* El título vuelve al inicio recargando la página; se ve igual que un título. */
   .home-link {
     color: inherit;
@@ -278,12 +298,12 @@
   .app-main {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-section);
     /* Ancho completo hasta el máximo: igual en preparación y partida (#app es una columna flexible). */
     width: 100%;
     max-width: var(--content-width);
     margin-inline: auto;
-    padding: var(--space-6) var(--space-4);
+    padding: var(--space-page-top) var(--space-4) var(--space-6);
     /* Oculto y algo más pequeño hasta que se retira la pantalla de entrada. */
     opacity: 0;
     transform: scale(0.97);
@@ -312,7 +332,7 @@
   .statues {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-3);
+    gap: var(--space-6);
   }
 
 </style>

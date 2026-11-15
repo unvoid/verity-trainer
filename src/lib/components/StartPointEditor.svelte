@@ -11,6 +11,7 @@
   import { locale, t, tn } from '../i18n'
   import { setup, setupState } from '../stores/setup'
   import { toast } from '../stores/toast'
+  import { pieceSizes } from '../stores/viewport'
   import Button from './Button.svelte'
   import SectionTitle from './SectionTitle.svelte'
   import Shape3D from './Shape3D.svelte'
@@ -79,7 +80,8 @@
             disabled: !allowed.includes(symbol),
           }))}
           icon={symbolIcon}
-          size={48}
+          size={$pieceSizes.pickerSymbol}
+          optionSize={$pieceSizes.pickerOption}
           onselect={(symbol) => setup.selectCallout(slot, symbol)}
         />
       {/each}
@@ -102,6 +104,8 @@
             disabled: !allowed.includes(shape),
           }))}
           icon={shapeIcon}
+          size={$pieceSizes.pickerShape}
+          optionSize={$pieceSizes.pickerOption}
           onselect={(shape) => setup.selectStatue(slot, shape)}
         />
       {/each}
@@ -130,7 +134,7 @@
   .editor {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-section);
   }
 
   p {
@@ -147,13 +151,14 @@
   .slots {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-4);
+    gap: var(--space-6);
   }
 
 
+  /* Centradas, como los títulos y las ayudas: la composición es simétrica. */
   .actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: var(--space-2);
   }
 

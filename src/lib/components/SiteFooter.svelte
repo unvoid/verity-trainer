@@ -23,11 +23,14 @@
   .site-footer {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: var(--space-1);
+    width: 100%;
     max-width: var(--content-width);
     margin-inline: auto;
     padding: var(--space-8) var(--space-4) var(--space-6);
     font-size: var(--font-size-xs);
+    text-align: center;
     color: var(--color-text-muted);
   }
 

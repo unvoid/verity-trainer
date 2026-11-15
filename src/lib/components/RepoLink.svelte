@@ -34,14 +34,18 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--control-height-sm);
-    height: var(--control-height-sm);
+    width: var(--control-icon-size);
+    height: var(--control-icon-size);
     color: var(--color-text);
     border-radius: var(--control-radius);
-    transition: background-color var(--duration-fast) var(--easing-standard);
+    transition:
+      background-color var(--duration-fast) var(--easing-standard),
+      box-shadow var(--duration-fast) var(--easing-standard);
   }
 
+  /* Como el botón fantasma: al pasar por encima, plano con su canto. */
   .repo-link:hover {
-    background: var(--control-bg-hover);
+    background: var(--control-ghost-bg-hover);
+    box-shadow: var(--control-edge);
   }
 </style>

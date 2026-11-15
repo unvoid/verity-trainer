@@ -1,8 +1,8 @@
 <!--
   Botón de la aplicación. Variantes:
   - primary: acción principal de una pantalla (relleno índigo).
-  - secondary: resto de acciones (plano de tono, sin borde).
-  - ghost: sin borde ni fondo; para iconos sueltos (p. ej. ajustes en la cabecera).
+  - secondary: resto de acciones (piedra con canto en relieve).
+  - ghost: sin fondo ni canto; para iconos sueltos (p. ej. ajustes en la cabecera).
   Con `icon`, botón cuadrado solo con icono (altura pequeña): requiere `aria-label`.
 -->
 <script lang="ts">
@@ -38,39 +38,47 @@
     cursor: pointer;
     transition:
       color var(--duration-fast) var(--easing-standard),
-      background-color var(--duration-fast) var(--easing-standard);
+      background-color var(--duration-fast) var(--easing-standard),
+      box-shadow var(--duration-fast) var(--easing-standard);
   }
 
+  /* Canto en los cuatro lados; al pasar por encima cambian sutilmente canto y fondo. Nada se desplaza. */
   .secondary {
     color: var(--control-text);
     background: var(--control-bg);
+    box-shadow: var(--control-edge);
   }
 
   .secondary:hover:not(:disabled) {
     background: var(--control-bg-hover);
+    box-shadow: var(--control-edge-hover);
   }
 
   .primary {
     color: var(--control-primary-text);
     background: var(--control-primary-bg);
+    box-shadow: var(--control-primary-edge);
   }
 
   .primary:hover:not(:disabled) {
-    background: color-mix(in srgb, var(--control-primary-bg), var(--control-primary-text) 12%);
+    background: var(--control-primary-bg-hover);
+    box-shadow: var(--control-primary-edge-hover);
   }
 
+  /* Sin fondo ni canto; al pasar por encima aparece el plano con su canto. */
   .ghost {
     color: var(--color-text);
     background: transparent;
   }
 
   .ghost:hover:not(:disabled) {
-    background: var(--control-bg-hover);
+    background: var(--control-ghost-bg-hover);
+    box-shadow: var(--control-edge);
   }
 
   .icon {
-    width: var(--control-height-sm);
-    min-height: var(--control-height-sm);
+    width: var(--control-icon-size);
+    min-height: var(--control-icon-size);
     padding: 0;
   }
 

@@ -9,6 +9,9 @@ export const es: Messages = {
   'header.repo': 'Código en GitHub',
   'language.name.es': 'Español',
   'language.name.en': 'English',
+  'language.code.es': 'ES',
+  'language.code.en': 'EN',
+  'language.current': '{label}: {name}',
 
   // Nombres (para títulos, etiquetas y listas)
   'symbol.circle': 'Círculo',

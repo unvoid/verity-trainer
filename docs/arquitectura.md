@@ -32,6 +32,7 @@ src/
       settings.ts      # ajustes del jugador, persistidos en localStorage
       clock.ts         # hora actual para cuentas atrás (solo corre con suscriptores)
       toast.ts         # avisos efímeros: uno a la vez, desaparecen solos
+      viewport.ts      # punto de corte y tabla de tamaños de las piezas (normal / compacto)
     actions/
       dragSymbol.ts    # arrastrar y soltar con Pointer Events
     features.ts        # funcionalidades disponibles en la versión (interruptores de compilación)
@@ -40,12 +41,13 @@ src/
       shards.ts        # geometría del loader de fragmentos
       ribbons.ts       # geometría de las cintas (fondo de escena y cuencos de las estatuas)
       mist.ts          # bruma: mosaicos de ruido y capas que mueve el viento
+      tileShape.ts     # contorno curvo de las tiles de piedra (cuartos de superelipse)
     components/        # Button, Switch, Symbol2D, Shape3D, Statue, CalloutPanel, Toolbox,
                        # GameStatus, DragLayer, SlotPicker, LifeBar, OgrePanel, SectionTitle, GearIcon,
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShardLoader, SplashScreen, Drawer, SettingsDrawer, HelpDrawer,
                        # HelpIcon, ToastMessage, LanguageSelector, UsageGuide,
-                       # SceneBackdrop, SceneMist, Cradle
+                       # SceneBackdrop, SceneMist, SceneVignette, Cradle, TileFrame
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       feedback.ts      # redacción de los avisos de la partida (para el toast)

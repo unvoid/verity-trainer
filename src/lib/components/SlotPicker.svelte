@@ -4,6 +4,7 @@
 -->
 <script lang="ts" generics="T extends string">
   import type { Snippet } from 'svelte'
+  import TileFrame from './TileFrame.svelte'
 
   interface Option {
     readonly value: T
@@ -35,6 +36,7 @@
 
 <fieldset class="slot-picker tile">
   <legend>{legend}</legend>
+  <TileFrame />
 
   <div class="current" class:empty={value === null}>
     <!-- Hueco de tamaño fijo: elegido o vacío ocupan lo mismo (nada se desplaza). -->
@@ -67,17 +69,17 @@
 </fieldset>
 
 <style>
-  /* Piedra y arco de la tile común (base.css); aquí solo el relleno propio. */
+  /* Piedra y contorno de la tile común (`TileFrame`); aquí solo el relleno propio. */
   .slot-picker {
     margin: 0;
-    padding: calc(var(--space-3) + var(--tile-arch) / 2) var(--space-2) var(--space-3);
+    padding: calc(var(--space-3) + var(--tile-arch) / 2) var(--space-2);
   }
 
   /* Flotante y a todo el ancho: se comporta como un título normal dentro del grupo. */
   legend {
     float: left;
     width: 100%;
-    padding: 0;
+    padding: 0 0.4rem;
     font-size: var(--font-size-sm);
     text-align: center;
     color: var(--color-text-muted);
@@ -130,13 +132,13 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-1);
+    margin-inline: 0.4rem;
   }
 
   .option {
     position: relative;
     display: grid;
     place-items: center;
-    padding: var(--space-1);
     border: var(--stroke-thin) solid transparent;
     border-radius: var(--radius-sm);
     cursor: pointer;

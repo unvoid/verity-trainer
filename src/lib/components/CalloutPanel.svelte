@@ -8,6 +8,7 @@
   import { t } from '../i18n'
   import SectionTitle from './SectionTitle.svelte'
   import Symbol2D from './Symbol2D.svelte'
+  import TileFrame from './TileFrame.svelte'
 
   interface Props {
     callouts: Callouts
@@ -31,6 +32,7 @@
     {#each SLOTS as slot (slot)}
       {@const item = $t('callouts.item', { position: $t(`position.${slot}`), symbol: $t(`symbol.${callouts[slot]}`) })}
       <li class="tile" class:ready={ready(slot)} aria-label={ready(slot) ? `${item}, ${$t('callouts.ready')}` : item}>
+        <TileFrame />
         <Symbol2D symbol={callouts[slot]} {size} />
         <span class="tile-label" aria-hidden="true">{$t(`position.${slot}`)}</span>
       </li>
@@ -39,18 +41,15 @@
 </section>
 
 <style>
-  .tile {
-    transition: box-shadow var(--duration-reveal) var(--easing-standard);
-  }
-
+  /* Su compañero ya puede salir: halo cálido alrededor de la piedra. */
   .tile.ready {
-    box-shadow: var(--tile-shadow), var(--glow-ready);
+    --tile-glow: 1;
   }
 
   ul {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-3);
+    gap: var(--space-6);
     margin: 0;
     padding: 0;
     list-style: none;

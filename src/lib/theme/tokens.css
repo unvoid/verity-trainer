@@ -35,8 +35,14 @@
   --color-surface-hover: color-mix(in srgb, var(--palette-slate) 11%, transparent);
   /* Superficies flotantes (panel de ajustes, resumen): opacas. */
   --color-surface-raised: var(--palette-haze-light);
-  --color-track: var(--palette-mid-deep);
-  --color-knob: var(--palette-haze-light);
+  /*
+   * Interruptor apagado: pista de piedra clara con canto y mando en un tono medio
+   * (≥ 3:1 sobre fondo y planos). Encendido: índigo relleno y mando blanco, como el
+   * botón principal. Claro frente a oscuro, como el secundario frente al principal.
+   */
+  --color-track: var(--color-stone);
+  --color-track-edge: var(--palette-mid-deep);
+  --color-knob: var(--palette-mid-deep);
 
   /* Fondo de la página: bruma, más luminosa arriba. */
   --gradient-bg: linear-gradient(180deg, var(--palette-haze-light) 0%, var(--palette-haze) 70%);
@@ -49,8 +55,8 @@
   --color-focus: var(--palette-copper-deep);
   --color-backdrop: color-mix(in srgb, var(--palette-ink), transparent 50%);
   /* Brillo cálido y difuso: el compañero de esa posición ya puede salir. */
-  --glow-ready: 0 0 0 1px color-mix(in srgb, var(--palette-copper) 25%, transparent),
-    0 0 14px 1px color-mix(in srgb, var(--palette-copper) 22%, transparent);
+  --color-glow-ready: color-mix(in srgb, var(--palette-copper) 25%, transparent);
+  --color-glow-ready-soft: color-mix(in srgb, var(--palette-copper) 22%, transparent);
   /* Sombra suave de lo que flota sobre la página (avisos). */
   --shadow-floating: 0 4px 16px color-mix(in srgb, var(--palette-ink) 12%, transparent);
 
@@ -61,7 +67,10 @@
   --mist-opacity: 1;
   --mist-density: radial-gradient(ellipse 60% 55% at 50% 42%, rgb(0 0 0 / 0.85) 0%, black 100%);
   /* Intensidad de toda la escena de fondo (luz, cintas, bruma y viñeteado): sutil, solo ambiente. */
-  --scene-opacity: 0.3;
+  --scene-opacity: 0.8;
+  /* Intensidad del viñeteado azul (SceneVignette), aparte de la escena y por
+     encima de la bruma: el color de los bordes se siente aunque la sala apenas se intuya. */
+  --scene-vignette-opacity: 0.9;
   /* Escena: luz que entra desde arriba y el centro, y viñeteado lavanda hacia los bordes. */
   --scene-bloom: radial-gradient(
     ellipse 75% 60% at 50% 0%,
@@ -98,9 +107,12 @@
   --stone-blur: 6px;
   --bevel-light: color-mix(in srgb, white 90%, transparent);
   --bevel-shade: color-mix(in srgb, var(--palette-dusk) 22%, transparent);
-  --shadow-stone: 0 1px 2px color-mix(in srgb, var(--palette-dusk) 10%, transparent),
-    0 10px 24px -14px color-mix(in srgb, var(--palette-dusk) 40%, transparent);
-  /* Altura del arco de la parte de arriba de las tiles (como los arcos de la sala). */
+  --bevel-shade-strong: color-mix(in srgb, var(--palette-dusk) 45%, transparent);
+  /* Sombra de canto contra un fondo claro cuando la pieza es oscura (botón principal). */
+  --bevel-shade-deep: color-mix(in srgb, var(--palette-ink) 75%, transparent);
+  /* Sombra suave bajo la piedra de las tiles. */
+  --color-stone-shadow: color-mix(in srgb, var(--palette-dusk) 40%, transparent);
+  /* Aire extra arriba en las tiles para la curva de su contorno (visual/tileShape.ts). */
   --tile-arch: 1.25rem;
   /* Luz cálida tras la estatua marcada (el cobre de la esfera de la sala). */
   --glow-warm: color-mix(in srgb, var(--palette-copper) 38%, transparent);
@@ -135,23 +147,46 @@
 
   /* Maquetación: ancho del contenido (cabecera y tablero comparten márgenes) */
   --content-width: 40rem;
+  /* Aire que crece con el alto de la ventana: igual en portátil y móvil, más
+     holgado en pantallas altas, para que el tablero no quede apiñado arriba. */
+  --space-page-top: clamp(var(--space-6), 10vh - 3rem, 5rem);
+  --space-section: clamp(var(--space-6), 5vh - 1.5rem, 3rem);
 
   /* Formas y trazos (cintas finas de la sala) */
   --radius-sm: 4px;
   --radius-md: 8px;
   --stroke-thin: 1px;
   --stroke-focus: 2px;
+  /* Trazo discontinuo (destino de arrastre): guion y hueco, en px. */
+  --stroke-dash: 6 4;
 
   /* Controles de formulario (botones, selectores) */
   --control-height: 2.5rem;
   --control-height-sm: 2rem;
+  --control-height-xs: 1.8rem;
+  /* Lado de los controles de icono (botón de icono, enlace de GitHub, idioma). La cabecera lo baja a xs. */
+  --control-icon-size: var(--control-height-sm);
   --control-padding-x: var(--space-4);
   --control-radius: var(--radius-sm);
-  --control-bg: var(--color-surface);
-  --control-bg-hover: var(--color-surface-hover);
+  --control-bg: var(--color-stone);
+  --control-bg-hover: var(--color-stone-hover);
+  /* Piedra que se ilumina al pasar por encima de los controles sin fondo (fantasma). */
+  --control-ghost-bg-hover: var(--color-stone-hover);
   --control-text: var(--color-text);
-  --control-primary-bg: var(--color-text);
-  --control-primary-text: var(--color-bg);
+  --control-primary-bg: var(--palette-dusk); /* índigo de las sombras de la sala, no casi negro */
+  --control-primary-bg-hover: color-mix(in srgb, var(--control-primary-bg), var(--control-primary-text) 12%);
+  --control-primary-text: var(--palette-bloom); /* blanco de la luz de la sala: más contraste sobre el índigo */
+  /*
+   * Canto de los botones en los cuatro lados, como el de la cabecera y los de las
+   * columnas: un par de líneas finas de luz y sombra, sin sombra difusa. La luz va
+   * siempre contra el lado oscuro: en la piedra clara (secundario), sombra dentro y
+   * luz fuera; en el índigo (principal), luz dentro y sombra fuera. Al pasar por
+   * encima solo se marca un poco más; nada se hunde.
+   */
+  --control-edge: inset 0 0 0 1px var(--bevel-shade), 0 0 0 1px var(--bevel-light);
+  --control-edge-hover: inset 0 0 0 1px var(--bevel-shade-strong), 0 0 0 1px var(--bevel-light);
+  --control-primary-edge: inset 0 0 0 1px color-mix(in srgb, white 50%, transparent), 0 0 0 1px var(--bevel-shade-deep);
+  --control-primary-edge-hover: inset 0 0 0 1px color-mix(in srgb, white 65%, transparent), 0 0 0 1px var(--bevel-shade-deep);
   --control-disabled-opacity: 0.4;
   --opacity-faded: 0.3;
 
@@ -171,6 +206,8 @@
   --color-surface-hover: color-mix(in srgb, var(--palette-haze-light) 11%, transparent);
   --color-surface-raised: var(--palette-slate);
   --color-track: var(--palette-slate-soft);
+  --color-track-edge: transparent;
+  --color-knob: var(--palette-haze-light);
   --gradient-bg: linear-gradient(180deg, var(--palette-slate) 0%, var(--palette-ink) 60%);
   --color-text: var(--palette-haze-light);
   --color-text-muted: var(--palette-mid);
@@ -204,7 +241,12 @@
   --color-stone-hover: color-mix(in srgb, var(--palette-haze-light) 11%, transparent);
   --bevel-light: color-mix(in srgb, var(--palette-haze-light) 14%, transparent);
   --bevel-shade: color-mix(in srgb, black 35%, transparent);
-  --shadow-stone: 0 10px 24px -14px color-mix(in srgb, black 50%, transparent);
+  --bevel-shade-strong: color-mix(in srgb, black 60%, transparent);
+  --bevel-shade-deep: color-mix(in srgb, black 75%, transparent);
+  /* En oscuro, el índigo apenas destacaría sobre el fondo: el principal sigue siendo claro. */
+  --control-primary-bg: var(--color-text);
+  --control-primary-text: var(--color-bg);
+  --color-stone-shadow: color-mix(in srgb, black 50%, transparent);
 
   color-scheme: dark;
 }

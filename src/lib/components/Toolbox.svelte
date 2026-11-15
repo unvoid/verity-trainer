@@ -15,6 +15,7 @@
   import LifeBar from './LifeBar.svelte'
   import SectionTitle from './SectionTitle.svelte'
   import Symbol2D from './Symbol2D.svelte'
+  import TileFrame from './TileFrame.svelte'
 
   interface Props {
     /** Símbolo que lleva el jugador, o `null`. */
@@ -57,6 +58,7 @@
           onclick={() => ontoggle(symbol)}
           use:dragSymbol={{ symbol, disabled, ondrop }}
         >
+          <TileFrame />
           <Symbol2D {symbol} {size} />
           <span class="tile-label">{$t(`position.${slot}`)}</span>
           {#if drops}
@@ -71,12 +73,14 @@
           aria-label={$t('knight.defeat.label', { knight: $t(`knight.${slot}`), symbol: $t(`symbol.ref.${symbol}`) })}
           onclick={() => ondefeatknight?.(slot)}
         >
+          <TileFrame />
           <span class="faded"><Symbol2D {symbol} {size} /></span>
           <span class="tile-label action">{$t('knight.defeat')}</span>
           <span class="life-slot" aria-hidden="true"></span>
         </button>
       {:else}
         <div class="drop tile spent" aria-label="{symbolName}: {$t(`drop.${status}`)}" role="img">
+          <TileFrame />
           <span class="faded"><Symbol2D {symbol} {size} /></span>
           <span class="tile-label">{$t(`drop.${status}`)}</span>
           <span class="life-slot" aria-hidden="true"></span>
@@ -107,19 +111,16 @@
   }
 
   .drop {
-    padding: var(--space-3) var(--space-2);
+    padding: var(--space-6) var(--space-2) var(--space-4) var(--space-2);
     cursor: grab;
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
-    transition:
-      outline-color var(--duration-fast) var(--easing-standard),
-      background-color var(--duration-fast) var(--easing-standard);
   }
 
-  /* Al pasar por encima, el plano se oscurece un poco; nada se mueve. */
+  /* Al pasar por encima, la piedra se aclara un poco; nada se mueve. */
   .drop:hover:not(:disabled) {
-    background: var(--color-stone-hover);
+    --tile-fill: var(--color-stone-hover);
   }
 
   .drop:disabled {
@@ -129,7 +130,7 @@
 
   /* Símbolo que llevas: contorno cobre (lo activo). */
   .drop[aria-pressed='true'] {
-    outline: var(--stroke-focus) solid var(--color-active);
+    --tile-outline-width: var(--stroke-focus);
   }
 
   /* Caballero por derrotar: símbolo atenuado y acción; se toca (no se arrastra). */
@@ -147,11 +148,10 @@
     color: var(--color-text);
   }
 
-  /* Símbolo usado o caducado: hueco vacío. */
-  /* Usado o caducado: hueco vacío, sin plano. */
+  /* Usado o caducado: hueco vacío, sin piedra (queda el canto). */
   .spent {
+    --tile-fill: transparent;
     color: var(--color-text-muted);
-    background: transparent;
     cursor: default;
   }
 

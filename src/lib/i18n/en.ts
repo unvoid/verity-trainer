@@ -14,6 +14,10 @@ export const en = {
   'header.repo': 'Source code on GitHub',
   'language.name.es': 'Español',
   'language.name.en': 'English',
+  // Short codes shown in the header selector; the full name goes in its accessible label.
+  'language.code.es': 'ES',
+  'language.code.en': 'EN',
+  'language.current': '{label}: {name}',
 
   // Names (titles, labels and lists)
   'symbol.circle': 'Circle',

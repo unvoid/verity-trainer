@@ -298,6 +298,23 @@
     <!-- Esfera: luz casi blanca con un núcleo cálido, sostenida por la espiral. -->
     <circle class="sphere" cx={SCENE_SPHERE.cx} cy={SCENE_SPHERE.cy} r={SCENE_SPHERE.r} fill="url(#{sphereId})" />
     <circle cx={SCENE_SPHERE.cx} cy={SCENE_SPHERE.cy} r={SCENE_SPHERE.r * 0.45} fill="url(#{coreId})" />
+    <!-- Canto del contorno, como el de las columnas: luz en el borde y sombra pegada por dentro. -->
+    <circle
+      class="sphere-edge-shadow"
+      cx={SCENE_SPHERE.cx}
+      cy={SCENE_SPHERE.cy}
+      r={SCENE_SPHERE.r - EDGE.light - EDGE.shadow / 2}
+      stroke-width={EDGE.shadow}
+      opacity={EDGE.shadowOpacity}
+    />
+    <circle
+      class="sphere-edge-light"
+      cx={SCENE_SPHERE.cx}
+      cy={SCENE_SPHERE.cy}
+      r={SCENE_SPHERE.r - EDGE.light / 2}
+      stroke-width={EDGE.light}
+      opacity={EDGE.lightOpacity}
+    />
 
     <g mask="url(#{helixMaskId})">
       {#each helixFront as item, index (index)}
@@ -332,14 +349,14 @@
   }
 
   /*
-   * Por encima de la sala: la bruma del centro (la aleja de lo que se lee)
-   * y el viñeteado (también se apaga hacia los bordes).
+   * Por encima de la sala: la bruma del centro (la aleja de lo que se lee).
+   * El viñeteado va aparte, sobre la bruma animada (`SceneVignette`).
    */
   .scene::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--scene-vignette), var(--scene-mist);
+    background: var(--scene-mist);
   }
 
   .room {
@@ -407,8 +424,25 @@
     stop-opacity: 0.97;
   }
 
+  /*
+   * Sombra del borde: la de las columnas, bastante aclarada. Da el volumen; el
+   * contorno nítido lo marca el canto, y una banda más oscura se lo comería.
+   */
   .sphere-rim {
-    stop-color: var(--color-column-shade);
+    stop-color: color-mix(in srgb, var(--color-column-shade), var(--color-column-lit) 55%);
+  }
+
+  .sphere-edge-light,
+  .sphere-edge-shadow {
+    fill: none;
+  }
+
+  .sphere-edge-light {
+    stroke: var(--color-column-highlight);
+  }
+
+  .sphere-edge-shadow {
+    stroke: var(--color-column-shade);
   }
 
   .floor-mist-core {
