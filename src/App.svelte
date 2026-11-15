@@ -250,6 +250,9 @@
     box-shadow:
       inset 0 -1px 0 var(--bevel-shade),
       0 1px 0 var(--bevel-light);
+    /* Sin línea recta, como la sala: el borde inferior se curva en un arco largo y
+       suave solo por la derecha (el canto lo sigue). */
+    border-bottom-right-radius: var(--header-curve);
   }
 
   .header-inner {

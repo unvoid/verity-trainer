@@ -132,6 +132,8 @@
   --color-stone-shadow: color-mix(in srgb, var(--palette-dusk) 40%, transparent);
   /* Aire extra arriba en las tiles para la curva de su contorno (visual/tileShape.ts). */
   --tile-arch: 1.25rem;
+  /* Curva del borde inferior de la cabecera, solo por la derecha: ancho y caída del arco. */
+  --header-curve: 55% 10px;
   /* Luz cálida tras la estatua marcada (el cobre de la esfera de la sala). */
   --glow-warm: color-mix(in srgb, var(--palette-copper) 38%, transparent);
 
