@@ -109,7 +109,7 @@ export const es: Messages = {
   'guide.title': 'Cómo se juega',
   'guide.encounter.title': 'El encuentro',
   'guide.encounter.body':
-    'En Verity, el equipo de fuera intercambia símbolos entre las estatuas hasta que ninguna contiene el símbolo de su callout de la sala interior. Aquí puedes practicarlo con puntos de partida aleatorios o recreando tu propia partida.',
+    'En Verity, el equipo de fuera intercambia símbolos entre las estatuas hasta que ninguna contenga el símbolo de su callout de la sala interior. Aquí puedes practicarlo con puntos de partida aleatorios o recreando tu propia partida.',
   'guide.shapes.title': 'Formas',
   'guide.shapes.body': 'Cada estatua tiene una forma 3D hecha de dos símbolos.',
   'guide.shapes.item': '{shape}: {first} + {second}',
@@ -138,7 +138,7 @@ export const es: Messages = {
   'settings.locked': 'Se cambia antes de iniciar el entreno.',
   'settings.symbol-rounds': 'Símbolos por rondas',
   'settings.symbol-rounds.description':
-    'Los símbolos salen al derrotar a los caballeros y caducan a los {seconds} s si no los usas. Cuando se agotan aparecen ogros; al derrotarlos vuelven los caballeros.',
+    'Los símbolos salen al derrotar a los caballeros y caducan a los {seconds} s si no los usas. Cuando se agotan, aparecen ogros; al derrotarlos vuelven los caballeros.',
 
   // Resultado
   'result.title': '¡Ya podéis salir!',

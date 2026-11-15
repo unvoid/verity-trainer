@@ -48,7 +48,7 @@ El `.npmrc` del proyecto fija el registro público de npm y activa `engine-stric
 
 ## Funcionalidades por versión
 
-Se activan o desactivan al compilar con variables de entorno (ver `.env.example`):
+Se activan o desactivan al compilar con variables de entorno. La configuración publicada está en `.env.production`; para desarrollo, copia `.env.example` como `.env` (git lo ignora) y activa lo que quieras probar:
 
 ```sh
 VITE_FEATURE_HINTS=true
@@ -58,7 +58,7 @@ VITE_SITE_URL=https://veritytrainer.vercel.app
 VITE_REPO_URL=https://github.com/unvoid/verity-trainer
 ```
 
-Una funcionalidad desactivada no aparece en la interfaz y se muestra como "Próximamente" en el manual de uso. `VITE_REPO_URL` muestra un enlace a GitHub en la cabecera; déjala vacía para ocultarlo.
+Una funcionalidad desactivada no aparece en la interfaz y se muestra como "Próximamente" en el manual de uso. Una variable sin definir deja la funcionalidad activada. `VITE_REPO_URL` muestra un enlace a GitHub en la cabecera; déjala vacía para ocultarlo.
 
 ## Tecnología
 

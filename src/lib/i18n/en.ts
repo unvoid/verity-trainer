@@ -129,7 +129,7 @@ export const en = {
     'No statue may hold the symbol of its callout. When you solve it you will see the minimum number of swaps and, if you used more, the shortest solution.',
   'guide.start.title': 'Starting point',
   'guide.start.body':
-    'Each training starts from a random proposal. To recreate your run, change the callouts and the statue shapes: after changing one, pick another and the third fills in by itself.',
+    'Each training session starts from a random proposal. To recreate your run, change the callouts and the statue shapes: after changing one, pick another and the third fills in by itself.',
   'guide.settings.title': 'Settings',
   'guide.coming-soon': 'Coming soon',
 
@@ -137,11 +137,11 @@ export const en = {
   'settings.title': 'Settings',
   'settings.hints': 'Hints',
   'settings.hints.description':
-    'Shows the symbols of each statue, marks the ones that clash with its callout, highlights where you can deposit, and how many swaps are left at minimum.',
+    'Shows the symbols of each statue, marks the ones that clash with its callout, highlights where you can deposit, and shows the minimum number of swaps left.',
   'settings.challenge-mode': 'Challenge Mode',
   'settings.challenge-mode.description':
-    'Besides avoiding its callout symbol, each statue must end as a pure shape: sphere, cube or pyramid.',
-  'settings.locked': 'Change it before starting a training.',
+    'Besides avoiding its callout symbol, each statue must end up as a pure shape: sphere, cube or pyramid.',
+  'settings.locked': 'Change it before you start training.',
   'settings.symbol-rounds': 'Symbol rounds',
   'settings.symbol-rounds.description':
     'Symbols drop when you defeat the knights and expire after {seconds} s if unused. Once they run out, ogres appear; defeating them brings the knights back.',
@@ -151,8 +151,8 @@ export const en = {
   'result.subtitle': 'All three statues are ready: the Guardians in the inside room can get out.',
   'result.summary.optimal.one': 'You solved it in {count} swap and {time}, the minimum possible.',
   'result.summary.optimal.other': 'You solved it in {count} swaps and {time}, the minimum possible.',
-  'result.summary.extra.one': 'You solved it in {count} swap and {time}. It could be done in {minimum}.',
-  'result.summary.extra.other': 'You solved it in {count} swaps and {time}. It could be done in {minimum}.',
+  'result.summary.extra.one': 'You solved it in {count} swap and {time}. It could have been done in {minimum}.',
+  'result.summary.extra.other': 'You solved it in {count} swaps and {time}. It could have been done in {minimum}.',
   'time.seconds': '{seconds} s',
   'time.minutes': '{minutes} min {seconds} s',
   'result.solution': 'Shortest solution',

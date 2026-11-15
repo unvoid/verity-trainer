@@ -48,7 +48,7 @@ The project's `.npmrc` pins the public npm registry and enables `engine-strict`,
 
 ## Feature flags
 
-Features can be enabled or disabled at build time through environment variables (see `.env.example`):
+Features can be enabled or disabled at build time through environment variables. The published configuration lives in `.env.production`; for development, copy `.env.example` to `.env` (ignored by git) and turn on whatever you want to try:
 
 ```sh
 VITE_FEATURE_HINTS=true
@@ -58,7 +58,7 @@ VITE_SITE_URL=https://veritytrainer.vercel.app
 VITE_REPO_URL=https://github.com/unvoid/verity-trainer
 ```
 
-A disabled feature is hidden from the interface and listed as "coming soon" in the usage guide. `VITE_REPO_URL` shows a GitHub link in the header; leave it empty to hide it.
+A disabled feature is hidden from the interface and listed as "coming soon" in the usage guide. A variable left undefined enables its feature. `VITE_REPO_URL` shows a GitHub link in the header; leave it empty to hide it.
 
 ## Tech stack
 
@@ -78,7 +78,7 @@ src/
     components/   # Svelte components
     i18n/         # English and Spanish texts
     theme/        # Design tokens and base styles
-    visual/       # Shared SVG geometry (symbols, loader)
+    visual/       # Shared SVG geometry (symbols, loader, scene, tiles, mist)
 tests/            # Vitest suites
 docs/             # Design and mechanics documentation (Spanish)
 ```
