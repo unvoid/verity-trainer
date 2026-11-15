@@ -6,7 +6,8 @@ export const es: Messages = {
   'loader.label': 'Cargando…',
 
   'language.label': 'Idioma',
-  'header.repo': 'Código en GitHub',
+  'theme.to-dark': 'Cambiar a tema oscuro',
+  'theme.to-light': 'Cambiar a tema claro',
   'language.name.es': 'Español',
   'language.name.en': 'English',
   'language.code.es': 'ES',
@@ -102,7 +103,10 @@ export const es: Messages = {
     'Aviso: {statues} empiezan sin el símbolo de su callout, así que ya están resueltas. No sabemos si esto puede pasar en el juego.',
 
   // Pie de página
-  'footer.inspired': 'Inspirado en {link} de EggAllocationService.',
+  'footer.credits': 'Con {heart}, {author} {repo} · Inspirado en {link}',
+  'footer.heart': 'cariño',
+  'footer.repo': 'Código en GitHub',
+  'footer.inspired.title': '{name} de EggAllocationService',
   'footer.inspired.link': 'Verity Simulator',
 
   // Manual de uso

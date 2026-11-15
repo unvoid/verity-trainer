@@ -5,7 +5,6 @@
   import GameStatus from './lib/components/GameStatus.svelte'
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
   import OgrePanel from './lib/components/OgrePanel.svelte'
-  import RepoLink from './lib/components/RepoLink.svelte'
   import SceneBackdrop from './lib/components/SceneBackdrop.svelte'
   import SceneMist from './lib/components/SceneMist.svelte'
   import SceneVignette from './lib/components/SceneVignette.svelte'
@@ -13,6 +12,7 @@
   import ResultModal from './lib/components/ResultModal.svelte'
   import SectionTitle from './lib/components/SectionTitle.svelte'
   import SettingsDrawer from './lib/components/SettingsDrawer.svelte'
+  import ThemeToggle from './lib/components/ThemeToggle.svelte'
   import SiteFooter from './lib/components/SiteFooter.svelte'
   import SplashScreen from './lib/components/SplashScreen.svelte'
   import StartPointEditor from './lib/components/StartPointEditor.svelte'
@@ -145,7 +145,7 @@
     <div class="header-actions">
       <HelpDrawer />
       <SettingsDrawer playing={phase === 'playing'} />
-      <RepoLink />
+      <ThemeToggle />
       <LanguageSelector />
     </div>
   </div>

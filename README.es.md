@@ -58,7 +58,7 @@ VITE_SITE_URL=https://veritytrainer.vercel.app
 VITE_REPO_URL=https://github.com/unvoid/verity-trainer
 ```
 
-Una funcionalidad desactivada no aparece en la interfaz y se muestra como "Próximamente" en el manual de uso. Una variable sin definir deja la funcionalidad activada. `VITE_REPO_URL` muestra un enlace a GitHub en la cabecera; déjala vacía para ocultarlo.
+Una funcionalidad desactivada no aparece en la interfaz y se muestra como "Próximamente" en el manual de uso. Una variable sin definir deja la funcionalidad activada. `VITE_REPO_URL` enlaza el repositorio en el pie de página; déjala vacía para ocultar el enlace.
 
 ## Tecnología
 

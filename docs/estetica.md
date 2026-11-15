@@ -74,7 +74,10 @@ Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens se
   5. Viñeteado lavanda hacia los bordes (`SceneVignette`, `--scene-vignette`), en su propia capa por encima de la bruma animada y con su propia intensidad (`--scene-vignette-opacity`, 0,9): el azul de los bordes se siente aunque la sala apenas se intuya.
 
   La escena (capas 2 a 4) va algo atenuada (`--scene-opacity`, 0,8).
-- **Tema claro por defecto.** Modo oscuro opcional (`data-theme="dark"`) derivado de las sombras: fondo índigo, símbolos blanco hueso; granate y cobre se mantienen.
+- **Tema claro por defecto**, como el juego (`data-theme` en `<html>`; los tokens del oscuro cuelgan de `:root[data-theme='dark']`). No se mira la configuración del sistema: solo cambia si el jugador pulsa el icono de luna / sol de la cabecera (`ThemeToggle`), y la elección se guarda. `index.html` aplica el tema guardado antes de pintar, sin destello claro. Lógica en `stores/theme.ts`.
+- **El oscuro** está pendiente de rediseño (ver "Pendiente"): ahora deriva de las sombras, con fondo índigo y símbolos blanco hueso; granate y cobre se mantienen.
+- **Pie de página:** una sola frase normal, "Con ♥, unvoid [GitHub] · Inspirado en Verity Simulator" (un único texto traducido con marcadores para el corazón, el icono y el enlace). El corazón es de dibujo propio, en el granate de las estatuas (los lectores de pantalla leen "cariño"); el icono de GitHub enlaza al repositorio, y el crédito al original lleva su autor (EggAllocationService) en el tooltip. Sustituye al icono de GitHub de la cabecera, que así tiene sitio para el control de tema en móvil. Sin `VITE_REPO_URL`, sin icono.
+- **Tooltips propios** (`Tooltip`), no el `title` nativo, que tarda y no se puede estilar: placa opaca con su canto sobre el elemento, al instante al pasar el ratón o con el foco de teclado, enlazada con `aria-describedby`. Solo texto, nada interactivo dentro.
 - **Símbolos 2D:** forma rellena casi negra con degradado radial cobre en el centro (brasa).
 - **Formas 3D (estatuas):** granate `#863B3B` (color de referencia de la comunidad) con 2–3 tonos planos derivados para dar volumen. Sin texturas ni librerías 3D.
 - **Estatuas:** la forma 3D reposando en un **cuenco tejido** de cintas (`Cradle`, en dos capas: detrás y delante de la forma), sin nombres visibles (van en la etiqueta accesible). Estado con contornos cobre: marcada (continuo), admite tu símbolo con pistas (fino) y destino de arrastre (discontinuo). La marcada tiene además una **luz cálida** de cobre detrás de la forma (`--glow-warm`), como la esfera de la sala.
@@ -101,7 +104,7 @@ Botones, selectores y opciones comparten los tokens `--control-*` de `tokens.css
 - **Canto en los cuatro lados:** todos los botones con fondo llevan un canto como el de la cabecera y las columnas de la sala: un par de líneas finas (1px) de luz y sombra, sin sombra difusa. **La luz va siempre contra el lado oscuro**, para que las dos líneas se vean: en la piedra clara, sombra dentro y luz fuera; en el índigo, luz dentro y sombra fuera (`--control-edge`, `--control-primary-edge`).
 - **Botón principal** (una acción principal por pantalla): relleno índigo (`--palette-dusk`), texto blanco de la luz de la sala (`--palette-bloom`). Al pasar por encima, la luz del canto se aviva y el índigo se aclara un poco.
 - **Botón de icono** (`Button icon`): cuadrado, solo icono, con `aria-label`, con el lado de `--control-icon-size` (por defecto, la altura pequeña `--control-height-sm`). En la cabecera, variante `ghost`: sin borde ni fondo, icono gris que pasa a índigo al pasar por encima. Iconos de dibujo propio (p. ej. `GearIcon`).
-- **Cabecera:** ayuda, ajustes, GitHub e idioma a una altura aún menor (`--control-height-xs`, que la cabecera asigna a `--control-icon-size`), para que quepa en una línea en móvil.
+- **Cabecera:** ayuda, ajustes, tema e idioma a una altura aún menor (`--control-height-xs`, que la cabecera asigna a `--control-icon-size`), para que quepa en una línea en móvil.
 - **Sin efecto de pulsado:** los botones no se desplazan ni se hunden al pulsarlos; el hover solo cambia un poco el canto y el fondo.
 - **Botón secundario:** de piedra (`--color-stone`) con su canto; al pasar por encima, la sombra del canto se marca un poco más y la piedra se aclara.
 - **Desactivado:** opacidad reducida y cursor `not-allowed`.
@@ -146,7 +149,7 @@ Miles de motas diminutas que flotan en la sala, como en el arte del encuentro: d
 
 ## Pendiente
 
-- **Modo oscuro.** Los tokens están definidos, pero aún no hay un control para activarlo. Se rediseñará a partir de su propia referencia: la misma sala en penumbra, también de Christian Chojnacki para la raid, en [ArtStation](https://cdna.artstation.com/p/assets/images/images/076/967/522/large/christian-chojnacki-cchojnacki-finalshape-raid-22-a.jpg?1718233217). Solo como inspiración, igual que la de la escena clara.
+- **Modo oscuro.** El control y la lógica del tema ya están; falta rediseñar los colores y la escena. Se rediseñará a partir de su propia referencia: la misma sala en penumbra, también de Christian Chojnacki para la raid, en [ArtStation](https://cdna.artstation.com/p/assets/images/images/076/967/522/large/christian-chojnacki-cchojnacki-finalshape-raid-22-a.jpg?1718233217). Solo como inspiración, igual que la de la escena clara.
   - **Ambiente:** casi negro con tinte granate y ciruela (`#13060A` en las sombras, `#230E1E` en los medios, fondo vino `#311123`), más morado arriba en el centro (`#2F1834`).
   - **Estructura:** las mismas columnas, la ojiva central, la espiral y los cuencos, ahora en siluetas oscuras con un filo de luz azul.
   - **Luz:** una única fuente azul eléctrica. En lugar de la esfera blanca hay un cuerpo oscuro y opaco del que sale, por abajo, un haz de luz azul (`#BAD2F2` en lo más brillante, `#4364C6` en los medios) que baja por dentro de la espiral y la ilumina.

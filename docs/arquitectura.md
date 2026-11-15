@@ -33,6 +33,7 @@ src/
       clock.ts         # hora actual para cuentas atrás (solo corre con suscriptores)
       toast.ts         # avisos efímeros: uno a la vez, desaparecen solos
       viewport.ts      # punto de corte y tabla de tamaños de las piezas (normal / compacto)
+      theme.ts         # tema claro / oscuro: claro por defecto, elección guardada y data-theme
     actions/
       dragSymbol.ts    # arrastrar y soltar con Pointer Events
     features.ts        # funcionalidades disponibles en la versión (interruptores de compilación)
@@ -48,7 +49,8 @@ src/
                        # SettingsPanel, StartPointEditor, SolverPanel,
                        # ResultModal, ShardLoader, SplashScreen, Drawer, SettingsDrawer, HelpDrawer,
                        # HelpIcon, ToastMessage, LanguageSelector, UsageGuide,
-                       # SceneBackdrop, SceneMist, SceneVignette, SnowDust, Cradle, TileFrame, KnightIcon, OgreIcon
+                       # SceneBackdrop, SceneMist, SceneVignette, SnowDust, Cradle, TileFrame, KnightIcon, OgreIcon,
+                       # ThemeToggle, ThemeIcon, Tooltip, HeartIcon, GitHubIcon
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       feedback.ts      # redacción de los avisos de la partida (para el toast)

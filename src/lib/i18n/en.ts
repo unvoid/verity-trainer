@@ -11,7 +11,8 @@ export const en = {
   'loader.label': 'Loading…',
 
   'language.label': 'Language',
-  'header.repo': 'Source code on GitHub',
+  'theme.to-dark': 'Switch to dark theme',
+  'theme.to-light': 'Switch to light theme',
   'language.name.es': 'Español',
   'language.name.en': 'English',
   // Short codes shown in the header selector; the full name goes in its accessible label.
@@ -108,7 +109,11 @@ export const en = {
     'Note: {statues} start without their callout symbol, so they are already solved. We are not sure this can happen in the game.',
 
   // Footer
-  'footer.inspired': 'Inspired by {link} by EggAllocationService.',
+  // One sentence; {heart}, {repo} and {link} are drawn as icon and links.
+  'footer.credits': 'With {heart}, {author} {repo} · Inspired by {link}',
+  'footer.heart': 'love',
+  'footer.repo': 'Code on GitHub',
+  'footer.inspired.title': '{name} by EggAllocationService',
   'footer.inspired.link': 'Verity Simulator',
 
   // Usage guide

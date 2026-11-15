@@ -58,7 +58,7 @@ VITE_SITE_URL=https://veritytrainer.vercel.app
 VITE_REPO_URL=https://github.com/unvoid/verity-trainer
 ```
 
-A disabled feature is hidden from the interface and listed as "coming soon" in the usage guide. A variable left undefined enables its feature. `VITE_REPO_URL` shows a GitHub link in the header; leave it empty to hide it.
+A disabled feature is hidden from the interface and listed as "coming soon" in the usage guide. A variable left undefined enables its feature. `VITE_REPO_URL` links the repository in the footer; leave it empty to hide the link.
 
 ## Tech stack
 

@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verity Trainer</title>
     <meta name="theme-color" content="#cdd1db" />
+    <!-- Tema antes de pintar, para no ver un destello claro en oscuro. Misma clave y
+         lógica que src/lib/stores/theme.ts: claro salvo que el jugador eligiera oscuro. -->
+    <script>
+      try {
+        var dark = localStorage.getItem('verity-trainer:theme') === 'dark'
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      } catch (error) {}
+    </script>
 
     <!-- Previsualización al compartir el enlace (Discord, WhatsApp, Telegram, X…), neutra en idioma:
          sin descripción y con una imagen sin texto traducible. URL en .env: VITE_SITE_URL -->
