@@ -75,7 +75,13 @@ Los componentes nunca usan la paleta base ni colores sueltos: solo los tokens se
 
   La escena (capas 2 a 4) va algo atenuada (`--scene-opacity`, 0,8).
 - **Tema claro por defecto**, como el juego (`data-theme` en `<html>`; los tokens del oscuro cuelgan de `:root[data-theme='dark']`). No se mira la configuración del sistema: solo cambia si el jugador pulsa el icono de luna / sol de la cabecera (`ThemeToggle`), y la elección se guarda. `index.html` aplica el tema guardado antes de pintar, sin destello claro. Lógica en `stores/theme.ts`.
-- **El oscuro** está pendiente de rediseño (ver "Pendiente"): ahora deriva de las sombras, con fondo índigo y símbolos blanco hueso; granate y cobre se mantienen.
+- **El oscuro: la misma sala en penumbra** (referencia en "Pendiente"; paleta `--palette-night`, `plum`, `wine`, `violet`, `beam`, `beam-mid`, `ember-light`). Casi negro con tinte granate y ciruela, morado arriba en el centro y una única luz azul eléctrica:
+  - **Fondo:** ciruela, morado arriba y casi negro abajo y en los bordes (viñeteado).
+  - **Escena:** columnas, espiral y cuencos en silueta, con **todos sus cantos de luz en azul** (`--color-column-highlight`); el mismo azul ilumina el suelo, el camino y la bruma de la base. La bruma es morada.
+  - **Piedra** (tiles, botones, cabecera): velo claro muy sutil con el filo de luz en azul. **Botón principal** e interruptor encendido, en el azul de la luz (texto claro, ≥ 4,5:1).
+  - **Texto** hueso claro; símbolos en silueta clara con su brasa. **Cobre** de lo activo y del foco, en su tono claro, que destaca más sobre lo oscuro. El granate de las estatuas se mantiene.
+  - **Polvo de nieve → brasas** cálidas flotando.
+  - La esfera sigue siendo, de momento, un globo de luz (azul): ver "Pendiente".
 - **Pie de página:** una sola frase normal, "Con ♥, unvoid [GitHub] · Inspirado en Verity Simulator" (un único texto traducido con marcadores para el corazón, el icono y el enlace). El corazón es de dibujo propio, en el granate de las estatuas (los lectores de pantalla leen "cariño"); el icono de GitHub enlaza al repositorio, y el crédito al original lleva su autor (EggAllocationService) en el tooltip. Sustituye al icono de GitHub de la cabecera, que así tiene sitio para el control de tema en móvil. Sin `VITE_REPO_URL`, sin icono.
 - **Tooltips propios** (`Tooltip`), no el `title` nativo, que tarda y no se puede estilar: placa opaca con su canto sobre el elemento, al instante al pasar el ratón o con el foco de teclado, enlazada con `aria-describedby`. Solo texto, nada interactivo dentro.
 - **Símbolos 2D:** forma rellena casi negra con degradado radial cobre en el centro (brasa).
@@ -149,12 +155,10 @@ Miles de motas diminutas que flotan en la sala, como en el arte del encuentro: d
 
 ## Pendiente
 
-- **Modo oscuro.** El control y la lógica del tema ya están; falta rediseñar los colores y la escena. Se rediseñará a partir de su propia referencia: la misma sala en penumbra, también de Christian Chojnacki para la raid, en [ArtStation](https://cdna.artstation.com/p/assets/images/images/076/967/522/large/christian-chojnacki-cchojnacki-finalshape-raid-22-a.jpg?1718233217). Solo como inspiración, igual que la de la escena clara.
-  - **Ambiente:** casi negro con tinte granate y ciruela (`#13060A` en las sombras, `#230E1E` en los medios, fondo vino `#311123`), más morado arriba en el centro (`#2F1834`).
-  - **Estructura:** las mismas columnas, la ojiva central, la espiral y los cuencos, ahora en siluetas oscuras con un filo de luz azul.
-  - **Luz:** una única fuente azul eléctrica. En lugar de la esfera blanca hay un cuerpo oscuro y opaco del que sale, por abajo, un haz de luz azul (`#BAD2F2` en lo más brillante, `#4364C6` en los medios) que baja por dentro de la espiral y la ilumina.
+- **Modo oscuro, fase 2: la luz de la sala.** Colores, control y piedra ya están; falta el dibujo propio de la escena en penumbra (misma referencia, de Christian Chojnacki para la raid, en [ArtStation](https://cdna.artstation.com/p/assets/images/images/076/967/522/large/christian-chojnacki-cchojnacki-finalshape-raid-22-a.jpg?1718233217); solo como inspiración):
+  - **La esfera:** en lugar del globo de luz, un cuerpo oscuro y opaco del que sale, por abajo, un haz de luz azul (`#BAD2F2` en lo más brillante, `#4364C6` en los medios) que baja por dentro de la espiral y la ilumina.
   - **Suelo:** reflejos azules, como cáusticas de agua, sobre todo en el camino y alrededor de la base (`#303C80`).
-  - **Detalles:** destellos horizontales de lente a la altura media y unas pocas brasas cálidas flotando (`#F3BEA6`), que serían el equivalente oscuro del polvo de nieve.
+  - **Detalles:** destellos horizontales de lente a la altura media.
 
 ## Pictogramas de caballero y ogro
 

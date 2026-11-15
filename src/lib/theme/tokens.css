@@ -25,6 +25,15 @@
   --palette-bloom: #f4f4f6; /* luz central */
   --palette-periwinkle: #6c78a1; /* sombras de la bruma */
   --palette-dusk: #49537c; /* sombras profundas de los bordes */
+  /* Sala en penumbra (tema oscuro; arte del encuentro, ver docs/estetica.md):
+     casi negro con tinte granate y ciruela, y una única luz azul eléctrica. */
+  --palette-night: #13060a; /* sombras más profundas */
+  --palette-plum: #230e1e; /* medios: fondo */
+  --palette-wine: #311123; /* fondo vino */
+  --palette-violet: #2f1834; /* morado arriba en el centro */
+  --palette-beam: #bad2f2; /* lo más brillante del haz azul */
+  --palette-beam-mid: #4364c6; /* medios del haz azul: filos de luz */
+  --palette-ember-light: #f3bea6; /* brasas cálidas flotando */
 
   /* Colores semánticos (tema claro, por defecto) */
   --color-bg: var(--palette-haze);
@@ -210,55 +219,74 @@
 
 /* Modo oscuro opcional, derivado de las sombras de la sala */
 :root[data-theme='dark'] {
-  --color-bg: var(--palette-ink);
+  /*
+   * La misma sala en penumbra: casi negro con tinte granate y ciruela, morado arriba
+   * en el centro y una única luz azul eléctrica que perfila la piedra. Granate de las
+   * estatuas y cobre de lo activo se mantienen (el cobre, en su tono claro).
+   */
+  --color-bg: var(--palette-plum);
+  --gradient-bg: linear-gradient(180deg, var(--palette-violet) 0%, var(--palette-plum) 45%, var(--palette-night) 100%);
   --color-surface: color-mix(in srgb, var(--palette-haze-light) 6%, transparent);
   --color-surface-hover: color-mix(in srgb, var(--palette-haze-light) 11%, transparent);
-  --color-surface-raised: var(--palette-slate);
-  --color-track: var(--palette-slate-soft);
-  --color-track-edge: transparent;
-  --color-knob: var(--palette-haze-light);
-  --gradient-bg: linear-gradient(180deg, var(--palette-slate) 0%, var(--palette-ink) 60%);
+  --color-surface-raised: var(--palette-violet);
   --color-text: var(--palette-haze-light);
   --color-text-muted: var(--palette-mid);
   --color-silhouette: var(--palette-haze-light);
+  --color-active: var(--palette-copper);
+  --color-focus: var(--palette-copper);
+  --color-backdrop: color-mix(in srgb, var(--palette-night), transparent 35%);
+  --shadow-floating: 0 4px 16px color-mix(in srgb, black 45%, transparent);
+  --glow-warm: color-mix(in srgb, var(--palette-copper) 45%, transparent);
 
+  /* Interruptor: apagado, piedra con canto; encendido, el azul de la luz. */
+  --color-track: var(--color-stone);
+  --color-track-edge: var(--palette-mid);
+  --color-knob: var(--palette-mid);
+
+  /* Botón principal: el azul de la luz, con texto claro (≥ 4.5:1). */
+  --control-primary-bg: var(--palette-beam-mid);
+  --control-primary-text: var(--palette-bloom);
+
+  /* Escena: morado arriba, bordes hundidos en la noche y la piedra en silueta,
+     con todos sus filos de luz en azul (cantos, suelo, camino, bruma de la base). */
   --scene-bloom: radial-gradient(
     ellipse 75% 60% at 50% 0%,
-    color-mix(in srgb, var(--palette-periwinkle) 30%, transparent) 0%,
+    color-mix(in srgb, var(--palette-violet), var(--palette-beam-mid) 12%) 0%,
     transparent 100%
   );
   --scene-vignette: radial-gradient(
     ellipse 110% 95% at 50% 30%,
-    transparent 55%,
-    color-mix(in srgb, black 35%, transparent) 100%
+    transparent 50%,
+    color-mix(in srgb, var(--palette-night) 70%, transparent) 100%
   );
-  --color-column-shade: var(--palette-ink);
-  --color-column-lit: var(--palette-slate-soft);
-  --color-column-highlight: var(--palette-mid-deep);
-  --color-ribbon-shade: color-mix(in srgb, black 35%, transparent);
   --scene-mist: radial-gradient(
     ellipse 38% 55% at 50% 40%,
-    color-mix(in srgb, var(--palette-ink) 60%, transparent) 0%,
+    color-mix(in srgb, var(--palette-plum) 55%, transparent) 0%,
     transparent 100%
   );
-  --color-mist: var(--palette-slate-soft);
-  --color-dust: var(--palette-haze-light);
-  --color-dust-warm: color-mix(in srgb, var(--palette-haze-light), var(--palette-copper) 45%);
+  --color-column-shade: var(--palette-night);
+  --color-column-lit: color-mix(in srgb, var(--palette-wine), var(--palette-violet) 50%);
+  --color-column-highlight: var(--palette-beam-mid);
+  --color-ribbon-shade: color-mix(in srgb, var(--palette-beam-mid) 55%, transparent);
+  --color-cradle: color-mix(in srgb, var(--palette-violet), var(--palette-beam-mid) 12%);
+  --color-cradle-back: color-mix(in srgb, var(--palette-plum), var(--palette-night) 40%);
+  --color-cradle-shade: color-mix(in srgb, black 50%, transparent);
+
+  /* Bruma morada y, en lugar de nieve, brasas cálidas flotando. */
+  --color-mist: var(--palette-violet);
+  --mist-opacity: 0.7;
+  --color-dust: var(--palette-ember-light);
+  --color-dust-warm: var(--palette-copper);
   --color-dust-glint: white;
-  --mist-opacity: 0.8;
-  --color-cradle: var(--palette-slate-soft);
-  --color-cradle-back: color-mix(in srgb, var(--palette-slate-soft), var(--palette-ink) 45%);
-  --color-cradle-shade: color-mix(in srgb, black 45%, transparent);
-  --color-stone: color-mix(in srgb, var(--palette-haze-light) 6%, transparent);
-  --color-stone-hover: color-mix(in srgb, var(--palette-haze-light) 11%, transparent);
-  --bevel-light: color-mix(in srgb, var(--palette-haze-light) 14%, transparent);
-  --bevel-shade: color-mix(in srgb, black 35%, transparent);
-  --bevel-shade-strong: color-mix(in srgb, black 60%, transparent);
-  --bevel-shade-deep: color-mix(in srgb, black 75%, transparent);
-  /* En oscuro, el índigo apenas destacaría sobre el fondo: el principal sigue siendo claro. */
-  --control-primary-bg: var(--color-text);
-  --control-primary-text: var(--color-bg);
-  --color-stone-shadow: color-mix(in srgb, black 50%, transparent);
+
+  /* Piedra: velo claro muy sutil, con el filo de luz en azul. */
+  --color-stone: color-mix(in srgb, var(--palette-haze-light) 7%, transparent);
+  --color-stone-hover: color-mix(in srgb, var(--palette-haze-light) 12%, transparent);
+  --bevel-light: color-mix(in srgb, var(--palette-beam) 28%, transparent);
+  --bevel-shade: color-mix(in srgb, black 45%, transparent);
+  --bevel-shade-strong: color-mix(in srgb, black 65%, transparent);
+  --bevel-shade-deep: color-mix(in srgb, black 80%, transparent);
+  --color-stone-shadow: color-mix(in srgb, black 55%, transparent);
 
   color-scheme: dark;
 }
