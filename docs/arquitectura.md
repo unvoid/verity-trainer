@@ -80,6 +80,8 @@ Dos niveles distintos:
 - Una funcionalidad desactivada no aparece en la interfaz, y su ajuste se ignora aunque el jugador lo tuviera guardado (`activeSettings`).
 - El código de una funcionalidad desactivada sigue en el build (solo se oculta y se ignora). Es suficiente para no exponerla; si algún día importa el tamaño, se puede hacer que el minificador la elimine.
 - Funcionalidades: `hints` (pistas), `challengeMode` (modo desafío), `symbolRounds` (símbolos por rondas; desactivada por defecto hasta implementarla).
+- **Archivos de entorno:** `.env.production` (en el repositorio) es la configuración publicada; la usa `vite build`, también en Vercel. `.env` es la configuración local de desarrollo y git lo ignora: cada uno activa ahí lo que quiera probar. `.env.example` es la plantilla. No contienen secretos; si algún día hiciera falta uno, iría en las variables de Vercel, nunca en un archivo del repositorio.
+- Una variable sin definir deja la funcionalidad **activada**: `.env.production` debe definirlas todas.
 
 ## Símbolos por rondas
 
