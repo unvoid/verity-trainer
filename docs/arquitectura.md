@@ -50,7 +50,7 @@ src/
                        # ResultModal, ShardLoader, SplashScreen, Drawer, SettingsDrawer, HelpDrawer,
                        # HelpIcon, ToastMessage, LanguageSelector, UsageGuide,
                        # SceneBackdrop, SceneMist, SceneVignette, SnowDust, Cradle, TileFrame, KnightIcon, OgreIcon,
-                       # ThemeToggle, ThemeIcon, Tooltip, HeartIcon, GitHubIcon
+                       # ThemeToggle, ThemeIcon, Tooltip, HeartIcon, GitHubIcon, HeaderEdge
     i18n/
       core.ts          # tipos y funciones puras (translate, translatePlural)
       feedback.ts      # redacción de los avisos de la partida (para el toast)

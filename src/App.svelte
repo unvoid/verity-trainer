@@ -3,6 +3,7 @@
   import DragLayer from './lib/components/DragLayer.svelte'
   import HelpDrawer from './lib/components/HelpDrawer.svelte'
   import GameStatus from './lib/components/GameStatus.svelte'
+  import HeaderEdge from './lib/components/HeaderEdge.svelte'
   import LanguageSelector from './lib/components/LanguageSelector.svelte'
   import OgrePanel from './lib/components/OgrePanel.svelte'
   import SceneBackdrop from './lib/components/SceneBackdrop.svelte'
@@ -167,6 +168,7 @@
       <LanguageSelector />
     </div>
   </div>
+  <HeaderEdge />
 </header>
 
 <main class="app-main" class:revealed inert={splash}>
@@ -260,17 +262,25 @@
 
 <style>
   /* Cabecera a todo el ancho, de la misma piedra que las tiles; su contenido, alineado con el tablero. */
+  /*
+   * La piedra va en su propia capa (::before): si la cabecera llevara el desenfoque,
+   * bloquearía el del lóbulo de su borde. El borde inferior, con su canto, lo dibuja
+   * `HeaderEdge`.
+   */
   .app-header {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+  }
+
+  .app-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     background: var(--color-stone);
     -webkit-backdrop-filter: blur(var(--stone-blur));
     backdrop-filter: blur(var(--stone-blur));
-    /* Canto como los de la escena: una línea fina de sombra y, pegada debajo, una de luz; sin sombra difusa. */
-    box-shadow:
-      inset 0 -1px 0 var(--bevel-shade),
-      0 1px 0 var(--bevel-light);
-    /* Sin línea recta, como la sala: el borde inferior se curva en un arco largo y
-       suave solo por la derecha (el canto lo sigue). */
-    border-bottom-right-radius: var(--header-curve);
   }
 
   .header-inner {
