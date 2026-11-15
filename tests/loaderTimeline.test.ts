@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
+  INTRO_STAGGER,
+  INTRO_STAGGER_WITHOUT_DUST,
+  introStagger,
   BREAK_AT,
   BREAK_LEAD,
   DEFAULT_SPLASH_TIMINGS,
@@ -48,5 +51,25 @@ describe('splash schedule', () => {
   it('without animation (cycle 0) only waits for fades and pauses', () => {
     const r = splashSchedule(0, t)
     expect(r.fadeOut).toBe(r.start + t.holdLast)
+  })
+})
+
+describe('intro stagger', () => {
+  it('shows the scene, then the snow, then the content, each starting while the previous one appears', () => {
+    const times = introStagger(true, false)
+    expect(times).toBe(INTRO_STAGGER)
+    expect(times.dust).toBeGreaterThan(0)
+    expect(times.content).toBeGreaterThan(times.dust)
+  })
+
+  it('does not wait for the snow when it is off', () => {
+    const times = introStagger(false, false)
+    expect(times).toBe(INTRO_STAGGER_WITHOUT_DUST)
+    expect(times.content).toBeLessThan(INTRO_STAGGER.content)
+  })
+
+  it('shows everything at once with reduced motion', () => {
+    expect(introStagger(true, true)).toEqual({ dust: 0, content: 0 })
+    expect(introStagger(false, true)).toEqual({ dust: 0, content: 0 })
   })
 })

@@ -32,11 +32,27 @@
   import { game } from './lib/stores/game'
   import { activeSettings, modeOf } from './lib/stores/settings'
   import { setup } from './lib/stores/setup'
+  import { introStagger } from './lib/visual/loaderTimeline'
 
   /** Pantalla de entrada: se ve al menos una vez al abrir la web. */
   let splash = $state(true)
-  /** El contenido aparece (fundido y escala) cuando la pantalla de entrada se retira. */
+  /**
+   * Entrada escalonada al retirarse la pantalla de entrada: la escena (con la
+   * cabecera) se ve primero, luego llega la nieve y por último el contenido
+   * (fundido y escala). Tiempos en `introStagger`.
+   */
+  let mistShown = $state(false)
+  let dustShown = $state(false)
   let revealed = $state(false)
+
+  function stagger() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const times = introStagger($activeSettings.particles, reduced)
+    // La bruma, con la escena: sus capas de ruido tardan en pintarse y saldrían de golpe.
+    mistShown = true
+    setTimeout(() => (dustShown = true), times.dust)
+    setTimeout(() => (revealed = true), times.content)
+  }
 
   /** Preparación del punto de partida o partida en curso. */
   let phase = $state<'setup' | 'playing'>('setup')
@@ -129,14 +145,16 @@
 </svelte:head>
 
 <SceneBackdrop />
-<SceneMist />
-{#if $activeSettings.particles}
+{#if mistShown}
+  <SceneMist />
+{/if}
+{#if $activeSettings.particles && dustShown}
   <SnowDust />
 {/if}
 <SceneVignette />
 
 {#if splash}
-  <SplashScreen onreveal={() => (revealed = true)} onfinish={() => (splash = false)} />
+  <SplashScreen onreveal={stagger} onfinish={() => (splash = false)} />
 {/if}
 
 <header class="app-header" inert={splash}>
@@ -324,16 +342,17 @@
     opacity: 0;
     transform: scale(0.97);
     transform-origin: 50% 0;
+    /* Entrada: se ve una sola vez, con la misma calma que la escena y la nieve. */
     transition:
-      opacity var(--duration-reveal) var(--easing-standard),
-      transform var(--duration-reveal) var(--easing-standard);
+      opacity var(--duration-entrance) var(--easing-standard),
+      transform var(--duration-entrance) var(--easing-standard);
   }
 
   /* Pegado al final de la página (ver #app en base.css). */
   .app-footer {
     margin-top: auto;
     opacity: 0;
-    transition: opacity var(--duration-reveal) var(--easing-standard);
+    transition: opacity var(--duration-entrance) var(--easing-standard);
   }
 
   .app-footer.revealed {

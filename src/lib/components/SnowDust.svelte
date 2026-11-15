@@ -146,5 +146,13 @@
     height: 100%;
     pointer-events: none;
     opacity: var(--dust-opacity);
+    /* Llega con un fundido lento (en la entrada, después de la escena). */
+    animation: dust-in var(--duration-entrance) var(--easing-standard);
+  }
+
+  @keyframes dust-in {
+    from {
+      opacity: 0;
+    }
   }
 </style>

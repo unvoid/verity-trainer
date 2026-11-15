@@ -46,7 +46,8 @@ export const DEFAULT_SPLASH_TIMINGS: SplashTimings = {
   pauseBeforeStart: 200,
   holdLast: 400,
   fadeOut: 400,
-  overlayFade: 400,
+  // Lento: la escena aparece como una entrada, no como una transición más.
+  overlayFade: 1400,
   overlap: 0,
 }
 
@@ -67,4 +68,29 @@ export function splashSchedule(cycle: number, timings: SplashTimings = DEFAULT_S
   const fadeOut = start + onceDuration(cycle) + timings.holdLast
   const reveal = fadeOut + timings.fadeOut - timings.overlap
   return { start, fadeOut, reveal, end: reveal + timings.overlayFade }
+}
+
+/**
+ * Entrada escalonada al retirarse la pantalla de carga: primero la escena (con la
+ * cabecera), que tiene su momento; luego llega la nieve y, por último, el contenido.
+ * Cada fase empieza mientras la anterior aún aparece. Sin nieve, el contenido no la
+ * espera: entra antes, solapado con la escena del mismo modo.
+ * Ms desde que la capa empieza a desvanecerse (`onreveal`).
+ */
+export interface IntroStagger {
+  /** Aparece la nieve. */
+  readonly dust: number
+  /** Aparece el contenido. */
+  readonly content: number
+}
+
+export const INTRO_STAGGER: IntroStagger = { dust: 300, content: 1000 }
+
+/** Sin nieve: el contenido entra cuando entraría ella, algo después. */
+export const INTRO_STAGGER_WITHOUT_DUST: IntroStagger = { dust: 0, content: 500 }
+
+/** Momentos de la entrada según haya nieve y movimiento. Con movimiento reducido, todo a la vez. */
+export function introStagger(dust: boolean, reducedMotion: boolean): IntroStagger {
+  if (reducedMotion) return { dust: 0, content: 0 }
+  return dust ? INTRO_STAGGER : INTRO_STAGGER_WITHOUT_DUST
 }

@@ -214,6 +214,8 @@
   --duration-fast: 120ms;
   --duration-normal: 240ms;
   --duration-reveal: 500ms;
+  /* Entrada al abrir la web (nieve y contenido; la escena, en loaderTimeline.ts): lenta, se ve una sola vez. */
+  --duration-entrance: 1600ms;
   --easing-standard: cubic-bezier(0.2, 0, 0, 1);
 
   color-scheme: light;
@@ -298,5 +300,6 @@
     --duration-fast: 0ms;
     --duration-normal: 0ms;
     --duration-reveal: 0ms;
+    --duration-entrance: 0ms;
   }
 }

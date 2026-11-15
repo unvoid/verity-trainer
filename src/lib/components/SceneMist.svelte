@@ -46,6 +46,15 @@
     /* Reparto: en todo el viewport, algo más densa en los bordes y abajo. */
     mask-image: var(--mist-density);
     -webkit-mask-image: var(--mist-density);
+    /* Llega con la escena y un fundido lento: sus capas tardan en pintarse y, sin
+       fundido, aparecerían de golpe. */
+    animation: mist-in var(--duration-entrance) var(--easing-standard);
+  }
+
+  @keyframes mist-in {
+    from {
+      opacity: 0;
+    }
   }
 
   .layer {
