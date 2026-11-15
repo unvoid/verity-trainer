@@ -58,6 +58,10 @@
   --color-text: var(--palette-slate);
   --color-text-muted: var(--palette-slate-soft);
   --color-silhouette: var(--palette-ink);
+  /* Símbolos 2D y pictogramas: silueta casi negra en los dos temas (como en el juego);
+     en oscuro llevan el mismo filo de luz que la arista de las tiles. */
+  --color-symbol: var(--palette-ink);
+  --color-symbol-edge: transparent;
   --color-statue: var(--palette-maroon);
   --color-active: var(--palette-copper-deep);
   --color-ember: var(--palette-copper);
@@ -236,6 +240,15 @@
   --color-text: var(--palette-haze-light);
   --color-text-muted: var(--palette-mid);
   --color-silhouette: var(--palette-haze-light);
+  --color-symbol: var(--palette-ink);
+  /* El filo de luz de la arista de las tiles, a la mitad: en un símbolo pequeño, una
+     línea clara sobre oscuro parece más gruesa de lo que es (irradiación). */
+  --color-symbol-edge: color-mix(in srgb, var(--bevel-light) 50%, transparent);
+  /* Sólidos 3D: el mismo granate con más luz, como si le diera el haz (sobre el fondo
+     ciruela se apagaba). La cara en sombra sigue oscura para no perder volumen. */
+  --color-solid-mid: color-mix(in srgb, var(--palette-maroon), var(--palette-ember-light) 18%);
+  --color-solid-light: color-mix(in srgb, var(--palette-maroon), var(--palette-ember-light) 45%);
+  --color-solid-dark: color-mix(in srgb, var(--palette-maroon), var(--palette-night) 30%);
   --color-active: var(--palette-copper);
   --color-focus: var(--palette-copper);
   --color-backdrop: color-mix(in srgb, var(--palette-night), transparent 35%);

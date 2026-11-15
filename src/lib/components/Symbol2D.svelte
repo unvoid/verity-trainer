@@ -17,6 +17,9 @@
   let { symbol, size = 48, label }: Props = $props()
 
   const gradientId = $props.id()
+
+  /** Radio de la brasa, en unidades del lienzo (100×100): recogida en el centro de la forma. */
+  const EMBER_RADIUS = 21
 </script>
 
 <svg
@@ -29,7 +32,7 @@
   aria-hidden={label ? undefined : 'true'}
 >
   <defs>
-    <radialGradient id={gradientId} cx="50" cy={VISUAL_CENTER_Y[symbol]} r="26" gradientUnits="userSpaceOnUse">
+    <radialGradient id={gradientId} cx="50" cy={VISUAL_CENTER_Y[symbol]} r={EMBER_RADIUS} gradientUnits="userSpaceOnUse">
       <stop offset="0%" class="ember-core" />
       <stop offset="45%" class="ember-glow" />
       <stop offset="100%" class="ember-edge" />
@@ -47,17 +50,25 @@
     height: auto;
   }
 
+  /* Silueta casi negra; en oscuro, con un filo de luz fino (mismo grosor a cualquier tamaño). */
   .silhouette {
-    fill: var(--color-silhouette);
+    fill: var(--color-symbol);
+    stroke: var(--color-symbol-edge);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    /* Detrás del relleno: solo asoma la mitad exterior, un filo de medio píxel. */
+    paint-order: stroke;
   }
 
+  /* Brasa contenida: se intuye en el centro, no deslumbra. */
   .ember-core {
     stop-color: var(--color-ember);
+    stop-opacity: 0.75;
   }
 
   .ember-glow {
     stop-color: var(--color-ember);
-    stop-opacity: 0.5;
+    stop-opacity: 0.3;
   }
 
   .ember-edge {

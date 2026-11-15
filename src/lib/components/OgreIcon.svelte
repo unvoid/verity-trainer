@@ -39,8 +39,14 @@
     height: auto;
   }
 
+  /* Como los símbolos: silueta casi negra; en oscuro, con un filo de luz fino. */
   .ink {
-    fill: var(--color-silhouette);
+    fill: var(--color-symbol);
+    stroke: var(--color-symbol-edge);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    /* Detrás del relleno: solo asoma la mitad exterior, un filo de medio píxel. */
+    paint-order: stroke;
   }
 
   /* Ojos de brasa, como el núcleo cobre de los símbolos. */
